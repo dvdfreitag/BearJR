@@ -27,7 +27,14 @@
 *.i*86
 *.x86_64
 *.hex
+*.elf
+*.map
+*.lss
+*.d
 
 # Debug files
 *.dSYM/
 *.su
+
+# Utility binaries
+utilities/size_parser
