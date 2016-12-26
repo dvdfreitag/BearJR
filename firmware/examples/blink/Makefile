@@ -1,26 +1,29 @@
-# Include directories
 INCLUDE_DIRS := \
--I./include \
--I./CMSIS/include
+-I../../include \
+-I../../CMSIS/include
 
 SRCS := \
-./hanlders.c \
-./main.c
+../../hanlders.c \
+./blink.c
 
 OBJS := \
 ./handlers.o \
-./main.o
+./blink.o
 
-TARGET := BearJR.elf
-MAP := BearJR.map
-LSS := BearJR.lss
+DEPS := \
+./handlers.d \
+./blink.d
 
-LINKER_SCRIPT := samd20e18.ld
+TARGET := blink.elf
+MAP := blink.map
+LSS := blink.lss
+
+LINKER_SCRIPT := ../../samd20e18.ld
 
 CC := arm-none-eabi-gcc
 OBJDUMP := arm-none-eabi-objdump
 SIZE := arm-none-eabi-size
-PARSER := ../utilities/size_parser
+PARSER := ../../../utilities/size_parser
 
 OPTIMIZE := -Os
 OPTIMIZE_SECTIONS := -ffunction-sections -fdata-sections
@@ -46,6 +49,11 @@ $(TARGET): $(OBJS)
 	@$(OBJDUMP) -h -S $(TARGET) > $(LSS)
 	@$(SIZE) $(TARGET)
 	@$(SIZE) $(TARGET) | $(PARSER) -f $(FLASH) -s $(SRAM)
+
+handlers.o: ../../handlers.c
+	@$(CC) -x c -mthumb $(DEFINES) $(INCLUDE_DIRS) $(OPTIMIZE) $(OPTIMIZE_SECTIONS) -mlong-calls -g3 -Wall -mcpu=$(CPU) -c -std=gnu99 $(DEPFLAGS) -o "$@" "$<"
+	@echo [CC] $@
+	@$(POSTCOMPILE)
 
 disassemble:
 	@$(OBJDUMP) -h -S $(TARGET) > $(LSS)
