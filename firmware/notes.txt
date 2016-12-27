@@ -1,14 +1,8 @@
-It is important to remember that not all resets are the same. A POR (Power-On Reset) is different from a user reset and a watchdog reset. While an AVR or similar has a very 
-  well-defined state after a reset, in some cases the Cortex-M0+ (perhaps only just this specific CM0+) does not; a good example is the GCLK peripheral. Specifically, the
-  GENCTRL register. After a POR, the register is initialized to a specific value for each GCLK, but after a user reset the values are initialized only under certain circumstances.
-  For instance, GCLK 0 is always reset to 0x00010600, but GCLK 1-8 is only reset iff it's unlocked (via WRTLOCK) and not being used by the RTC peripheral.
+It is important to remember that not all resets are the same. A POR (Power-On Reset) is different from a user reset and a watchdog reset. While an AVR or similar has a very well-defined state after a reset, in some cases the Cortex-M0+ (perhaps only just this specific CM0+) does not; a good example is the GCLK peripheral. Specifically, the GENCTRL register. After a POR, the register is initialized to a specific value for each GCLK, but after a user reset the values are initialized only under certain circumstances. For instance, GCLK 0 is always reset to 0x00010600, but GCLK 1-8 is only reset iff it's unlocked (via WRTLOCK) and not being used by the RTC peripheral.
 
 conf_clocks.h:
 	* CONF_CLOCK_FLASH_WAIT_STATES: Default value: 0
-		- Indicates to the clock driver which NVM RWS (Read Wait State) should be used. Depending on the APB (Advanced Peripheral Bus) clock, this value may need to be adjusted
-		  so that the CPU waits either a certain number of cycles or a certain number of predefined wait cycles (from what I can tell it is more likely to be the former, since
-		  the latter is never implied anywhere) so that the NVM peripheral has enough time to fetch the data. Otherwise the CPU may sample the data from the NVM before it has a
-		  chance to actually return any data. This particular CM0+ is configurable up to 15 wait states.
+		- Indicates to the clock driver which NVM RWS (Read Wait State) should be used. Depending on the APB (Advanced Peripheral Bus) clock, this value may need to be adjusted so that the CPU waits either a certain number of cycles or a certain number of predefined wait cycles (from what I can tell it is more likely to be the former, since the latter is never implied anywhere) so that the NVM peripheral has enough time to fetch the data. Otherwise the CPU may sample the data from the NVM before it has a chance to actually return any data. This particular CM0+ is configurable up to 15 wait states.
 
 	* CONF_CLOCK_GCLK_N_ENABLE:
 		- Indicates whether GCLK N is enabled or not. The clock driver uses this value to configure GCLK N accordingly.
@@ -22,86 +16,83 @@ conf_clocks.h:
 	* CONF_CLOCK_OSC32K_ENABLE: Default value: false
 		- The clock driver uses this to determine whether it is necessary to configure the internal RTC clock source.
 
+	* CONF_CLOCK_OSC32K_STARTUP_TIME: Default value: 7
+		- The clock driver uses this value to determine the number of clock cycles for synchronization delay, before PCLKSR.OSC32KRDY is set.
+
+	* CONF_CLOCK_OSC32K_ENABLE_1KHZ_OUTPUT: Default value: 1
+		- 
+
+	* CONF_CLOCK_OSC32K_ENABLE_32KHZ_OUTPUT: Default value: 1
+		- 
+
+	* CONF_CLOCK_OSC32K_ON_DEMAND: Default value: 1
+		- 
+
+	* CONF_CLOCK_OSC32K_RUN_IN_STANDBY: Default value: 0
+		- 
+
 	* CONF_CLOCK_DFLL_ENABLE: Default value: false
 		- The clock driver uses this to determine whether it is necessary to configure the DFLL peripheral.
 
 	* CONF_CLOCK_DFLL_LOOP_MODE: Default value: open-loop mode
-		- The clock driver can configure two DFLL modes, open-loop mode which generates a less accurate clock without a reference oscillator. The only apparent reason why anyone 
-		  would choose to use this mode is if they have run out of GCLK peripherals to use. The second mode is closed-loop mode which uses a low(er)-frequency reference clock to
-		  generate an accurate high(er)-frequency clock rate in a similar way to a PLL. For example, using an 8MHz GCLK peripheral to generate a 48MHz clock.
+		- The clock driver can configure two DFLL modes, open-loop mode which generates a less accurate clock without a reference oscillator. The only apparent reason why anyone  would choose to use this mode is if they have run out of GCLK peripherals to use. The second mode is closed-loop mode which uses a low(er)-frequency reference clock to generate an accurate high(er)-frequency clock rate in a similar way to a PLL. For example, using an 8MHz GCLK peripheral to generate a 48MHz clock.
 
 	* CONF_CLOCK_DFLL_FINE_VALUE: Default value: 512
-		- Used by the clock driver to set the DFLLCTRL.DFLLVAL register. For Open-Loop mode, the DFLLVAL register contains Coarse and Fine calibration values
-		  that are used to adjust the DFLL frequency to make it as accurate as possible. There are calibration values set in NVM at the factory which can be loaded. For
-		  closed-loop mode, these values are set automatically by the DFLL circuit's negative feedback system, and are read only.
+		- Used by the clock driver to set the DFLLCTRL.DFLLVAL register. For Open-Loop mode, the DFLLVAL register contains Coarse and Fine calibration values that are used to adjust the DFLL frequency to make it as accurate as possible. There are calibration values set in NVM at the factory which can be loaded. For closed-loop mode, these values are set automatically by the DFLL circuit's negative feedback system, and are read only.
 
 	* CONF_CLOCK_DFLL_QUICK_LOCK: Default value: true
-		- Utilized by the clock driver to determine which Locking mode the DFLL should use. It should be noted that Quick Locking is only relevant in closed-loop mode. 
-		  If Quick Locking is enabled, the DFLL uses a less strict locking requirement. A problem arises when a small frequency multiplier value is set in DFLLMULL, which
-		  can lead to instability in the DFLL locking mechanism which may prevent the DFLL from achieving locks. I assume that enabling Quick Lock widens the hysteresis window
-		  that the DFLL locking mechanism uses to lock a frequency, resulting in a potentially less-accurate clock. The datasheet seems to agree.
+		- Utilized by the clock driver to determine which Locking mode the DFLL should use. It should be noted that Quick Locking is only relevant in closed-loop mode. If Quick Locking is enabled, the DFLL uses a less strict locking requirement. A problem arises when a small frequency multiplier value is set in DFLLMULL, which can lead to instability in the DFLL locking mechanism which may prevent the DFLL from achieving locks. I assume that enabling Quick Lock widens the hysteresis window that the DFLL locking mechanism uses to lock a frequency, resulting in a potentially less-accurate clock. The datasheet seems to agree.
 
 	* CONF_CLOCK_DFLL_TRACK_AFTER_FINE_LOCK: Default value: true
-		- Utilized by the clock driver to set the STABLE bit in the DFLLCTRL register. The STABLE bit determines whether the Fine calibration value present in DFLLVAL track
-		  changes in output frequency, or whether the value is fixed after a frequency lock. Either configuration appears to have no negative consequences.
+		- Utilized by the clock driver to set the STABLE bit in the DFLLCTRL register. The STABLE bit determines whether the Fine calibration value present in DFLLVAL track changes in output frequency, or whether the value is fixed after a frequency lock. Either configuration appears to have no negative consequences.
 
 	* CONF_CLOCK_DFLL_KEEP_LOCK_ON_WAKEUP: Default value: true
-		- Utilized by the clock driver to configure the LLAW (Lose Lock After Wake) bit in the DFLLCTRL register. This bit determines how the DFLL locking system handles
-		  waking from sleep modes. If LLAW is enabled (cleared), the DFLL will resume normally after waking and continue with the previously set lock values, otherwise
-		  the DFLL will be required to re-acquire locks through the full locking sequence.
+		- Utilized by the clock driver to configure the LLAW (Lose Lock After Wake) bit in the DFLLCTRL register. This bit determines how the DFLL locking system handles waking from sleep modes. If LLAW is enabled (cleared), the DFLL will resume normally after waking and continue with the previously set lock values, otherwise the DFLL will be required to re-acquire locks through the full locking sequence.
 
 	* CONF_CLOCK_DFLL_ENABLE_CHILL_CYCLE: Default value: true
-		- Used by the clock driver to determine the value of the CCDIS (Chill Cycle DISable) bit in the DFLLCTRL register. This bit determines whether the DFLL locking system
-		  will use a "chill cycle" which causes the locking system to skip one clock cycle prior to reading the DFLL frequency. Enabling the chill cycle helps avoid a corner
-		  case where the DFLL multiplier is small causing a potential inability to lock. The only negative impact that enabling chill cycles has is potentially increasing the time 
-		  to lock a frequency, where a standard lock is "several microseconds", and the worst-case is it doubles the time. It's interesting to note that the datasheet doesn't 
-		  elaborate when it says "small" multiplier values. In a very time-critical application some testing will likely be needed to determine safe multiplier values with chill 
-		  cycles disabled. 
+		- Used by the clock driver to determine the value of the CCDIS (Chill Cycle DISable) bit in the DFLLCTRL register. This bit determines whether the DFLL locking system will use a "chill cycle" which causes the locking system to skip one clock cycle prior to reading the DFLL frequency. Enabling the chill cycle helps avoid a corner case where the DFLL multiplier is small causing a potential inability to lock. The only negative impact that enabling chill cycles has is potentially increasing the time to lock a frequency, where a standard lock is "several microseconds", and the worst-case is it doubles the time. It's interesting to note that the datasheet doesn't elaborate when it says "small" multiplier values. In a very time-critical application some testing will likely be needed to determine safe multiplier values with chill cycles disabled. 
 
 	* CONF_CLOCK_DFLL_MULTIPLY_FACTOR: Default value: (48000000 / 32768)
-		- Used by the clock driver to set the DFLLMUL register. The clock multiplier determines the ratio of the DFLL frequency with respect to the input frequency. In other words,
-		  if your reference clock is the on-die 8MHz reference oscillator and you wish to have a 32MHz output from the DFLL, your clock multiplier would be (32000000 / 8000000). The
-		  clock multiplier is a 16-bit value and is configurable from 0 to 65535. Which allows a reference clock from 48MHz all the way down to ~730Hz. Although I don't find it 
-		  difficult to admit that I'm skeptical that the DFLL would produce a stable 48MHz clock from a <1kHz reference.
+		- Used by the clock driver to set the DFLLMUL register. The clock multiplier determines the ratio of the DFLL frequency with respect to the input frequency. In other words, if your reference clock is the on-die 8MHz reference oscillator and you wish to have a 32MHz output from the DFLL, your clock multiplier would be (32000000 / 8000000). The clock multiplier is a 16-bit value and is configurable from 0 to 65535. Which allows a reference clock from 48MHz all the way down to ~730Hz. Although I don't find it difficult to admit that I'm skeptical that the DFLL would produce a stable 48MHz clock from a <1kHz reference.
 
 	* CONF_CLOCK_DFLL_MAX_COARSE_STEP_SIZE: Default value: (0x1f >> 4)
-		- Used by the clock driver to set the CSTEP (Coarse STEP) bits in the DFLLMUL register. This value determines the maximum step size allowed during coarse adjustment during
-		  a lock in closed-loop mode. The expected overshoot is determined by this value. Setting this value too low will result in a very low overshoot, but could cause locking
-		  times to take longer. Likewise if this value is set too large it could cause large overshoots, but may lead to incredibly fast lock times.
+		- Used by the clock driver to set the CSTEP (Coarse STEP) bits in the DFLLMUL register. This value determines the maximum step size allowed during coarse adjustment during a lock in closed-loop mode. The expected overshoot is determined by this value. Setting this value too low will result in a very low overshoot, but could cause locking times to take longer. Likewise if this value is set too large it could cause large overshoots, but may lead to incredibly fast lock times.
 
 	* CONF_CLOCK_DFLL_MAX_FINE_STEP_SIZE: Default value: (0xff >> 4)
-		- Used by the clock driver to set the FSTEP (Fine STEP) bits in the DFLLMUL register. Determines the maximum step value for the fine adjustment during a lock in closed-loop
-		  mode.
+		- Used by the clock driver to set the FSTEP (Fine STEP) bits in the DFLLMUL register. Determines the maximum step value for the fine adjustment during a lock in closed-loop mode.
 
 	* CONF_CLOCK_OSC8M_PRESCALER: Default value: 0
 		- Used by the clock driver to set the PRESC (PRESCaler) bits in SYSCTRL.OSC8M. The prescaler value allows the 8MHz clock to be divided by 1, 2, 4, or 8.
 
 	* CONF_CLOCK_OSC8M_ON_DEMAND: Default value: true
-		- Used by the clock driver to set the ONDEMAND bit in the SYSCTRL.OSC8M register. On demand mode allows the oscillator to be disabled if there is no peripheral that is
-		  requesting a clock even though the oscillator is enabled and configured to be running. 
+		- Used by the clock driver to set the ONDEMAND bit in the SYSCTRL.OSC8M register. On demand mode allows the oscillator to be disabled if there is no peripheral that is requesting a clock even though the oscillator is enabled and configured to be running. 
 
 	* CONF_CLOCK_OSC8M_RUN_IN_STANDBY: Default value: false
-		- Used by the clock driver to set the RUNSTBY (RUN in STandBY) bit in the SYSCTRL.OSC8M register. If run in standby is enabled, the oscillator is not stopped by the
-		  standby sleep mode. The oscillator will still operate according to how the ONDEMAND bit is set.
+		- Used by the clock driver to set the RUNSTBY (RUN in STandBY) bit in the SYSCTRL.OSC8M register. If run in standby is enabled, the oscillator is not stopped by the standby sleep mode. The oscillator will still operate according to how the ONDEMAND bit is set.
 
 	* CONF_CLOCK_GCLK_N_CLOCK_SOURCE:
-		- Used by the clock driver to set the GCLK Generator SRC (SouRCe) bits in the GCLK.GENCTRL register. A GCLK can be configured to generate a clock from an external 
-		  oscillator, a GCLK pin, the global GCLK (GCLK1), the ultra low-power internal RTC oscillator, the internal RTC oscillator, the external RTC oscillator, the internal 
-		  8MHz oscillator, or the DFLL output.
+		- Used by the clock driver to set the GCLK Generator SRC (SouRCe) bits in the GCLK.GENCTRL register. A GCLK can be configured to generate a clock from an external oscillator, a GCLK pin, the global GCLK (GCLK1), the ultra low-power internal RTC oscillator, the internal RTC oscillator, the external RTC oscillator, the internal 8MHz oscillator, or the DFLL output.
 
 	* CONF_CLOCK_GCLK_N_CLOCK_PRESCALER:
-		- Used by the clock driver to set the DIV (DIVision factor) GCLK.GENDIV (GENerator DIVision) register. Different GCLKs have different prescaler capabilities. GCLK1 
-		  has a 16-bit prescaler, GCLK 2 has a 5-bit prescaler, and the rest (GCLKs 1, 3-8) have an 8-bit prescaler.
-				  
+		- Used by the clock driver to set the DIV (DIVision factor) GCLK.GENDIV (GENerator DIVision) register. Different GCLKs have different prescaler capabilities. GCLK1 has a 16-bit prescaler, GCLK 2 has a 5-bit prescaler, and the rest (GCLKs 1, 3-8) have an 8-bit prescaler.
+					
 	* CONF_CLOCK_GCLK_N_CLOCK_RUN_IN_STANDBY:
-		- Used by the clock driver to set the RUNSTBY (RUN in STandBY) bit in the GCLK.GENCTRL (GENeratore ConTRoL) register. If set, the GCLK generator continues outputting
-		  to the defined GCLK_IO pin during the standby sleep state. Otherwise the GCLK_IO pin state is set by the OOV bit in GCLK.GENCTRL.
+		- Used by the clock driver to set the RUNSTBY (RUN in STandBY) bit in the GCLK.GENCTRL (GENeratore ConTRoL) register. If set, the GCLK generator continues outputting to the defined GCLK_IO pin during the standby sleep state. Otherwise the GCLK_IO pin state is set by the OOV bit in GCLK.GENCTRL.
 
 	* CONF_CLOCK_GCLK_N_CLOCK_OUTPUT_ENABLE:
 		- Used by the clock driver to set the OE (Output Enable) but in the GCLK.GENCTRL register. If set, the GCLK is output to the configured GCLK_IO pin.
 
 	* CONF_CLOCK_DFLL_SOURCE_GCLK_GENERATOR: Default value: 1
 		- Used by the clock driver to set the GEN (GCLK GENerator) bits in the GCLK.CLKCTRL register to select the GCLK for the DFLL to use.
+
+	* CONF_CLOCK_DFLL_ON_DEMAND: Default value: 0
+		- Used by the clock driver to set the ONDEMAND bit in the SYSCTRL.DFLLCTRL register
+
+	* CONF_CLOCK_CPU_DIVIDER: Default value: 0
+		- Used by the clock driver to set the CPUDIV (CPU DIVider) bits in the PM.CPUSEL register. The value determines the prescaler value to 2^n.
+
+	* CONF_CLOCK_APBN_DIVIDER: Default value: 0
+		- Used by the clock divider to set the APB clock prescaler registers in the PM.APBASEL, PM.APBBSEL, and PM.APBCSEL registers, respectively.
 
 system_clock_init():
 	* Scans conf_clocks.h for defined values and configures clocks accordingly:
@@ -115,32 +106,33 @@ system_clock_init():
 
 		- Calls _switch_peripheral_gclk()
 			+ Scans the CONF_CLOCK_GCLK_N_ENABLE (where N indicates GCLK 0-8) values present in conf_clocks.h and selects the first one that is set to false
-			+ Calls system_gclk_chan_set_config in a loop starting from GCLK id 0 to 28 with the previously selected disabled GCLK. The result is that every peripheral is
-			  configured with a disabled GCLK generator, effectively disabling every peripheral (and thus saving power).
+			+ Calls system_gclk_chan_set_config in a loop starting from GCLK id 0 to 28 with the previously selected disabled GCLK. The result is that every peripheral is configured with a disabled GCLK generator, effectively disabling every peripheral (and thus saving power).
 
-		- Configures the external oscillator, the external RTC oscillator, and the internal RTC oscillator based on, CONF_CLOCK_XOSC_ENABLE, CONF_CLOCK_XOSC32K_ENABLE, and
-		  CONF_CLOCK_XOSC_ENABLE, respectively. For right now these peripherals are out of scope.
+		- Configures the external oscillator and the external RTC oscillator based on, CONF_CLOCK_XOSC_ENABLE and CONF_CLOCK_XOSC32K_ENABLE, respectively. For right now these peripherals are out of scope.
+
+		- Configures the internal RTC oscillator if CONF_CLOCK_OSC32K_ENABLE is set to true.
+			+ Sets the CALIB (CALIBration) bits in the SYSCTRL.OSC32K register
+			+ Creates and initializes a 32kHz clock config struct and initializes it with default values with system_clock_source_osc32k_get_config_defaults
+			+ Loads CONF_CLOCK_OSC32K_STARTUP_TIME, CONF_CLOCK_OSC32K_ENABLE_1KHZ_OUTPUT, CONF_CLOCK_OSC32K_ENABLE_32KHZ_OUTPUT, CONF_CLOCK_OSC32K_ON_DEMAND, and CONF_CLOCK_OSC32K_RUN_IN_STANDBY from conf_clocks.h
+			+ Calls system_clock_source_osc32k_set_config which configures the SYSCTRL.OSC32K register with the data stored in the config struct.
+			+ Calls system_clock_source_enable which writes the ENABLE bit in the SYSCTRL.OSC32K register.
 
 		- Configures the DFLL (Digital Frequency-Locked Loop) peripheral if CONF_CLOCK_DFLL_ENABLE is set to true.
 			+ Calls system_clock_source_dfll_get_config_defaults to initialize the clock driver's configuration structure with default values
 			+ Pulls the DFLL loop mode from conf_clocks.h, and configures on demand to false.
 			+ Gets the silicon revision number from the DID (Device IDentification) register from the DSU (Device Service Unit) peripheral.
 			+ Based on the silicon revision (rev D and later), the driver loads the DFLL coarse value from NVM storage
-				> As an interesting aside, the driver does not appropriately check to see if the DFLL is configured in open-loop mode prior to loading and configuring
-				  this value. This is a bit odd considering in closed-loop mode the Coarse bits are read-only.
+				> As an interesting aside, the driver does not appropriately check to see if the DFLL is configured in open-loop mode prior to loading and configuring this value. This is a bit odd considering in closed-loop mode the Coarse bits are read-only.
 			+ If open-loop mode is enabled, the driver loads the DFLL fine adjustment from CONF_CLOCK_DFLL_FINE_VALUE in conf_clocks.h
-			+ Sets the DFLLCTRL configuration bits as configured by CONF_CLOCK_DFLL_QUICK_LOCK, CONF_CLOCK_DFLL_TRACK_AFTER_FINE_LOCK, CONF_CLOCK_DFLL_KEEP_LOCK_ON_WAKEUP,
-			  and CONF_CLOCK_DFLL_ENABLE_CHILL_CYCLE in conf_clocks.h.
+			+ Sets the DFLLCTRL configuration bits as configured by CONF_CLOCK_DFLL_QUICK_LOCK, CONF_CLOCK_DFLL_TRACK_AFTER_FINE_LOCK, CONF_CLOCK_DFLL_KEEP_LOCK_ON_WAKEUP, and CONF_CLOCK_DFLL_ENABLE_CHILL_CYCLE in conf_clocks.h.
 			+ If closed-loop mode is enabled, the driver loads the DFLL clock multiplier from conf_clocks.h
 			+ Loads the DFLL Coarse and Fine maximum step values (CONF_CLOCK_DFLL_MAX_COARSE_STEP_SIZE and CONF_CLOCK_DFLL_MAX_FINE_STEP_SIZE respectively) from conf_clocks.h
 				> Interestingly these values are loaded regardless of the loop mode, even though they are only used in closed-loop mode.
-			+ Finally, system_clock_source_dfll_set_config is called which copies values into yet another configuration struct. This time they are masked and shifted into
-			  values that can be directly loaded into DFLLCTRL, DFLLVAL, and DFLLMUL.
+			+ Finally, system_clock_source_dfll_set_config is called which copies values into yet another configuration struct. This time they are masked and shifted into values that can be directly loaded into DFLLCTRL, DFLLVAL, and DFLLMUL.
 
 		- Configures the main 8MHz oscillator
 			+ Calls system_clock_source_osc8m_get_config_defaults to initialize the config struct
-			+ Loads the prescaler, on demand, and standby configurations from CONF_CLOCK_OSC8M_PRESCALER, CONF_CLOCK_OSC8M_ON_DEMAND, and CONF_CLOCK_OSC8M_RUN_IN_STANDBY,
-			  in conf_clocks.h respectively.
+			+ Loads the prescaler, on demand, and standby configurations from CONF_CLOCK_OSC8M_PRESCALER, CONF_CLOCK_OSC8M_ON_DEMAND, and CONF_CLOCK_OSC8M_RUN_IN_STANDBY, in conf_clocks.h respectively.
 			+ Calls system_clock_source_osc8m_set_config which sets the prescaler, on demand, and standby bits in SYSCTRL.OSC8M
 			+ Calls system_clock_source_enable which sets the enable bit in SYSCTRL.OSC8M
 
@@ -150,18 +142,14 @@ system_clock_init():
 				> Generates a GCLK software reset to ensure the GCLK module is properly initialized
 			+ Calls _CONF_CLOCK_GCLK_CONFIG for all but the main oscillator
 				> Creates and initializes a GCLK config struct with system_gclk_gen_get_config_defaults
-				> Loads the GCLK source, prescaler, standby, and enable bits from CONF_CLOCK_GCLK_N_CLOCK_SOURCE, CONF_CLOCK_GCLK_N_CLOCK_PRESCALER, 
-				  CONF_CLOCK_GCLK_N_CLOCK_RUN_IN_STANDBY, and CONF_CLOCK_GCLK_N_CLOCK_OUTPUT_ENABLE in conf_clocks.h, respectively.
+				> Loads the GCLK source, prescaler, standby, and enable bits from CONF_CLOCK_GCLK_N_CLOCK_SOURCE, CONF_CLOCK_GCLK_N_CLOCK_PRESCALER, CONF_CLOCK_GCLK_N_CLOCK_RUN_IN_STANDBY, and CONF_CLOCK_GCLK_N_CLOCK_OUTPUT_ENABLE in conf_clocks.h, respectively.
 				> Calls system_gclk_gen_set_config
 					# Waits for the GCLK to synchronize
 					# Disables system-wide interrupts
 					# Selects the GCLK to configure by setting the ID bits in GCLK.GENDIV, then waits for the GCLK to synchronize
 					# Configures GCLK.GENDIV, then waits for the GCLK to synchronize
 					# Configures GCLK.GENCTRL masking off the GENEN (GENerator ENable) bit, ensuring the GCLK generator isn't enabled
-						< As an interesting aside, this function writes to GCLK.GENCTRL but does not set the ID bits to the specified generator
-						  so it's really undefined as to which generator is being configured. Typically this function would be run at startup which
-						  would result in GCLK0 being configured, but you can't just assume that this function is being run only at startup.
-						  Perhaps you can write the ID bits and the rest of the configuration in the same write.
+						< As an interesting aside, this function writes to GCLK.GENCTRL but does not set the ID bits to the specified generator so it's really undefined as to which generator is being configured. Typically this function would be run at startup which would result in GCLK0 being configured, but you can't just assume that this function is being run only at startup. Perhaps you can write the ID bits and the rest of the configuration in the same write.
 					# Enables system-wide interrupts
 				> Calls system_gclk_gen_enable
 					# Waits for the GCLK to synchronize
@@ -179,8 +167,22 @@ system_clock_init():
 					# Sets the ID bits in GCLK.CLKCTRL
 					# Sets the CLKEN bit in GCLK.CLKCTRL
 					# Enables interrupts
-			+ If CONF_CLOCK_DFLL_ENABLE is true
-				> The driver calls system_clock_source_enable for the DFLL which writes the enable bit in the driver's DFLL config struct, and calls
-				  _system_clock_source_dfll_set_config_errata_9905
-					# 
 
+		- If CONF_CLOCK_DFLL_ENABLE is true
+			+ The driver calls system_clock_source_enable for the DFLL which writes the enable bit in the driver's DFLL config struct, and calls _system_clock_source_dfll_set_config_errata_9905
+				> Clears the ONDEMAND bit in SYSCTRL.DFLLCTRL as per Errata 9905
+				> Waits for the DFLL to synchronize
+				> Configures SYSCTRL.DFLLMUL
+				> Configures SYSCTRL.DFLLVAL
+				> Configures SYSCTRL.DFLLCTRL
+			+ Waits until the DFLL is ready by checking the SYSCTRL.PCLKSR (Power and CLocK Status Register) register
+				> If CONF_CLOCK_DFLL_LOOP_MODE is closed-loop mode, the driver checks DFLLRDY (DFLL ReaDY), DFLLLCKF (DFLL LoCK Fine), and DFLLLCKC (DFLL LoCK Coarse). 
+				> Otherwise, the driver only checks DFLLRDY
+			+ If CONF_CLOCK_DFLL_ON_DEMAND is set, the ONDEMAND bit in the SYSCTRL.DFLLCTRL register is set.
+
+		- Calls system_cpu_clock_set_divider with CONF_CLOCK_CPU_DIVIDER from conf_clocks.h
+			> Sets the CPUDIV bits in the PM.CPUSEL register
+
+		- Calls system_apb_clock_set_divider for ABPA, APBB, and APBC with CONF_CLOCK_APBA_DIVIDER, CONF_CLOCK_APBB_DIVIDER, and CONF_CLOCK_APBC_DIVIDER.
+
+		- Calls _CONF_CLOCK_GCLK_CONFIG for GCLK 0
