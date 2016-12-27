@@ -1,0 +1,78 @@
+It is important to remember that not all resets are the same. A POR (Power-On Reset) is different from a user reset and a watchdog reset. While an AVR or similar has a very 
+  well-defined state after a reset, in some cases the Cortex-M0+ (perhaps only just this specific CM0+) does not; a good example is the GCLK peripheral. Specifically, the
+  GENCTRL register. After a POR, the register is initialized to a specific value for each GCLK, but after a user reset the values are initialized only under certain circumstances.
+  For instance, GCLK 0 is always reset to 0x00010600, but GCLK 1-7 is only reset iff it's unlocked (via WRTLOCK) and not being used by the RTC peripheral.
+
+conf_clocks.h:
+    * CONF_CLOCK_FLASH_WAIT_STATES: Default value: 0
+        - Indicates to the clock driver which NVM RWS (Read Wait State) should be used. Depending on the APB (Advanced Peripheral Bus) clock, this value may need to be adjusted
+          so that the CPU waits either a certain number of cycles or a certain number of predefined wait cycles (from what I can tell it is more likely to be the former, since
+          the latter is never implied anywhere) so that the NVM peripheral has enough time to fetch the data. Otherwise the CPU may sample the data from the NVM before it has a
+          chance to actually return any data. This particular CM0+ is configurable up to 15 wait states.
+
+    * CONF_CLOCK_GCLK_N_ENABLE:
+        - Indicates whether GCLK N is enabled or not. The clock driver uses this value to configure GCLK N accordingly.
+
+    * CONF_CLOCK_XOSC_ENABLE: Default value: false
+        - The clock driver uses this to determine whether it is necessary to configure the external clock source.
+
+    * CONF_CLOCK_XOSC32K_ENABLE: Default value: false
+        - The clock driver uses this to determine whether it is necessary to configure the external RTC clock source.
+
+    * CONF_CLOCK_OSC32K_ENABLE: Default value: false
+        - The clock driver uses this to determine whether it is necessary to configure the internal RTC clock source.
+
+    * CONF_CLOCK_DFLL_ENABLE: Default value: false
+        - The clock driver uses this to determine whether it is necessary to configure the DFLL peripheral.
+
+    * CONF_CLOCK_DFLL_LOOP_MODE: Default value: open-loop mode
+        - The clock driver can configure two DFLL modes, open-loop mode which generates a less accurate clock without a reference oscillator. The only apparent reason why anyone 
+          would choose to use this mode is if they have run out of GCLK peripherals to use. The second mode is closed-loop mode which uses a low(er)-frequency reference clock to
+          generate an accurate high(er)-frequency clock rate in a similar way to a PLL. For example, using an 8MHz GCLK peripheral to generate a 48MHz clock.
+
+    * CONF_CLOCK_DFLL_FINE_VALUE: Default value: 512
+        - Used by the clock driver to set the DFLLCTRL.DFLLVAL register. For Open-Loop mode, the DFLLCTRL.DFLLVAL register contains Coarse and Fine calibration values
+          that are used to adjust the DFLL frequency to make it as accurate as possible. There are calibration values set in NVM at the factory which can be loaded. For
+          closed-loop mode, these values are set automatically by the DFLL circuit's negative feedback system, and are read only.
+
+    * CONF_CLOCK_DFLL_QUICK_LOCK: Default value: true
+        - Utilized by the clock driver to determine which Locking mode the DFLL should use. It should be noted that Quick Locking is only relevant in closed-loop mode. 
+          If Quick Locking is enabled, the DFLL uses a less strict locking requirement. A problem arises when a small frequency multiplier value is set in DFLLMULL, which
+          can lead to instability in the DFLL locking mechanism which may prevent the DFLL from achieving locks. I assume that enabling Quick Lock widens the hysteresis window
+          that the DFLL locking mechanism uses to lock a frequency, resulting in a potentially less-accurate clock. The datasheet seems to agree.
+
+    * CONF_CLOCK_DFLL_TRACK_AFTER_FINE_LOCK: Default value: true
+        - 
+
+    * CONF_CLOCK_DFLL_KEEP_LOCK_ON_WAKEUP: Default value: true
+
+    * CONF_CLOCK_DFLL_ENABLE_CHILL_CYCLE: Default value: true
+
+system_clock_init():
+    * Scans conf_clocks.h for defined values and configures clocks accordingly:
+
+        - Clears BOD33 detect, BOD33 ready and DFLL ready bits from SYSCTRL.INTFLAG
+            + This ensures that further logic does not react to a spurious brown-out detection or DFLL synchronization.
+
+        - Calls system_flash_set_waitstates with CONF_CLOCK_FLASH_WAIT_STATES, defined in conf_clocks.h
+            + Computes the proper RWS value with a bitwise-and and a logical shift to the correct position.
+            + Sets the NVMCTRL.CTRLB bits with the aforementioned value.
+
+        - Calls _switch_peripheral_gclk()
+            + Scans the CONF_CLOCK_GCLK_N_ENABLE (where N indicates GCLK 0-7) values present in conf_clocks.h and selects the first one that is set to false
+            + Calls system_gclk_chan_set_config in a loop starting from GCLK id 0 to 28 with the previously selected disabled GCLK. The result is that every peripheral is
+              configured with a disabled GCLK generator, effectively disabling every peripheral (and thus saving power).
+
+        - Configures the external oscillator, the external RTC oscillator, and the internal RTC oscillator based on, CONF_CLOCK_XOSC_ENABLE, CONF_CLOCK_XOSC32K_ENABLE, and
+          CONF_CLOCK_XOSC_ENABLE, respectively. For right now these peripherals are out of scope.
+
+        - Configures the DFLL (Digital Frequency-Locked Loop) peripheral if CONF_CLOCK_DFLL_ENABLE is set to true.
+            + Calls system_clock_source_dfll_get_config_defaults to initialize the clock driver's configuration structure with default values
+            + Pulls the DFLL loop mode from conf_clocks.h, and configures on demand to false.
+            + Gets the silicon revision number from the DID (Device IDentification) register from the DSU (Device Service Unit) peripheral.
+            + Based on the silicon revision (rev D and later), the driver loads the DFLL coarse value from NVM storage
+                > As an interesting aside, the driver does not appropriately check to see if the DFLL is configured in open-loop mode prior to loading and configuring
+                  this value. This is a bit odd considering in closed-loop mode the Coarse bits are read-only.
+            + If open-loop mode is enabled, the driver loads the DFLL fine adjustment from CONF_CLOCK_DFLL_FINE_VALUE in conf_clocks.h
+            + Sets the DFLLCTRL configuration bits as configured by CONF_CLOCK_DFLL_QUICK_LOCK, CONF_CLOCK_DFLL_TRACK_AFTER_FINE_LOCK, CONF_CLOCK_DFLL_KEEP_LOCK_ON_WAKEUP,
+              and CONF_CLOCK_DFLL_ENABLE_CHILL_CYCLE in conf_clocks.h.
