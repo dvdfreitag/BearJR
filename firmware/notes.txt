@@ -20,16 +20,17 @@ conf_clocks.h:
 		- The clock driver uses this value to determine the number of clock cycles for synchronization delay, before PCLKSR.OSC32KRDY is set.
 
 	* CONF_CLOCK_OSC32K_ENABLE_1KHZ_OUTPUT: Default value: 1
-		- 
+		- Used by the clock driver to set the EN1K bit in the SYSCTRL.OSC32K register.
+			+ As of revision M of the SAMD20 datasheet, the EN1K bit has been changead to reserved.
 
 	* CONF_CLOCK_OSC32K_ENABLE_32KHZ_OUTPUT: Default value: 1
-		- 
+		- Used by the clock driver to set the EN32K bit in the SYSCTRL.OSC32K register. This either enables or disables the internal RTC oscillator.
 
 	* CONF_CLOCK_OSC32K_ON_DEMAND: Default value: 1
-		- 
+		- Used by the clock driver to set the ONDEMAND bit in the SYSCTRL.OSC32K register. Setting this bit enables on demand mode which allows the clock to be powered off if it's not being requested by a GCLK.
 
 	* CONF_CLOCK_OSC32K_RUN_IN_STANDBY: Default value: 0
-		- 
+		- Used by the clock driver to set the RUNSTBY bit in the SYSCTRL.OSC32K register. Setting this bit allows the clock to continue running even in the standby sleep mode.
 
 	* CONF_CLOCK_DFLL_ENABLE: Default value: false
 		- The clock driver uses this to determine whether it is necessary to configure the DFLL peripheral.
