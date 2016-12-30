@@ -21,105 +21,80 @@ void cli()
 	__DMB();
 }
 
-void system_clock_init(void)
-{	// Ensure BOD33 and DFLL flags are cleared in SYSCTRL
-	SYSCTRL->INTFLAG.reg = SYSCTRL_INTFLAG_BOD33RDY | SYSCTRL_INTFLAG_BOD33DET | SYSCTRL_INTFLAG_DFLLRDY;
-	// Disable interrupts
-	cli();
-	// Enable GCLK0
-	uint16_t channel = 0x0100;
-	// Set the current GCLK channel
-	GCLK->CLKCTRL.reg = channel;
+void clock_init(void)
+{	// Set the NVM controller to use two wait states when reading
+	NVMCTRL.CTRLB = 0x04;
+	// Load internal 32kHz oscillator calibration from NVM
+	uint32_t cal = ((*(uint32_t *)FUSES_OSC32KCAL_ADDR) & FUSES_OSC32KCAL_Msk) >> FUSES_OSC32KCAL_Pos;
+	// Enable internal 32kHz oscillator with 130 cycle startup time
+	SYSCTRL.OSC32K = cal | SYSCTRL_OSC32K_STARTUP_Msk | SYSCTRL_OSC32K_EN32K | SYSCTRL_OSC32K_ENABLE;
+	// Wait for the internal 32kHz clock to be enabled
+	while (!(SYSCTRL.PCLKSR & SYSCTRL_PCLKSR_OSC32KRDY));
+	// Set GCLK Generator 2 prescaler to 1
+	GCLK.GENDIV = GCLK_GENDIV_ID_GCLK2 | GCLK_GENDIV_DIV(1);
+	// Configure GCLK Generator 2 to use the internal 32kHz oscillator as a source, enable improved duty cyles (due to odd prescaler) and enable it
+	GCLK.GENCTRL = GCLK_GENCTRL_ID_GCLK2 | GCLK_GENCTRL_SRC_OSC32K | GCLK_GENCTRL_IDC | GCLK_GENCTRL_GENEN;
+	// Map GCLK Generator 2 as the DFLL reference, and enable it
+	GCLK.CLKCTRL = GCLK_CLKCTRL_GEN_GCLK2 | GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_ID_DFLL48M;
+	// Disable DFLL ONDEMAND per errata
+	SYSCTRL.DFLLCTRL &= ~SYSCTRL_DFLLCTRL_ONDEMAND;
+	// Wait for DFLL to synchronize
+	while (!(SYSCTRL.PCLKSR & SYSCTRL_PCLKSR_DFLLRDY));
+	// Set DFLL multiplier for 40MHz output with 32.768kHz source (48MHz / 32.768kHz = 0x05B8) and maximum step values to 0x07 and 0x3F (50%)
+	SYSCTRL.DFLLMUL = 0x073F05B8;
+	// Disable Quick-Lock mode, enable closed-loop mode, and finally enable the DFLL clock
+	SYSCTRL.DFLLCTRL = SYSCTRL_DFLLCTRL_QLDIS | SYSCTRL_DFLLCTRL_MODE | SYSCTRL_DFLLCTRL_ENABLE;
+	// Wait until the DFLL is ready, has a coarse lock, and has a fine lock
+	while ((SYSCTRL.PCLKSR & (SYSCTRL_PCLKSR_DFLLRDY | SYSCTRL_PCLKSR_DFLLLCKF | SYSCTRL_PCLKSR_DFLLLCKC)) != (SYSCTRL_PCLKSR_DFLLRDY | SYSCTRL_PCLKSR_DFLLLCKF | SYSCTRL_PCLKSR_DFLLLCKC));
+	// Set GCLK Generator 0 (Main clock) prescaler to 1, at POR it's set to 8.
+	GCLK.GENDIV = GCLK_GENDIV_ID_GCLK0 | GCLK_GENDIV_DIV(1);
+	// Configure GCLK Generator 0 (Main clock) to use the DFLL 48MHz output
+	GCLK.GENCTRL = GCLK_GENCTRL_ID_GCLK0 | GCLK_GENCTRL_SRC_DFLL48M | GCLK_GENCTRL_IDC | GCLK_GENCTRL_GENEN;
+}
 
-	/*
-		Enabling the DFLL (Digital Frequency-Locked Loop) 48MHz main clock source
+void gpio_init(void)
+{	// Set LED0 (PA14) to high
+	PORTA.OUTSET = PORT_PA14;
+	// Set LED0 to output
+	PORTA.DIRSET = PORT_PA14;
+}
 
-		- Disable the GCLK (Generic ClocK)
-		- Set the GCLK channel ID
-		- Enable the GCLK
+void tc_init(void)
+{	// Map GCLK Generator 2 as the TC0 input clock and enable it
+	GCLK.CLKCTRL = GCLK_CLKCTRL_GEN_GCLK2 | GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_ID_TC0_TC1;
+	// Enable APBC clock for TC0
+	PM.APBCMASK |= PM_APBCMASK_TC0;
+	// Set TC period to 16, 32768Hz / 1024 = 32Hz
+	TC0.COUNT8.PER = 0x10;
+	// Configure TC0 to synchronize with the GCLK, DIV1024 prescaler, normal frequency mode, 8bit mode, and enable it
+	TC0.COUNT8.CTRLA = TC_CTRLA_PRESCSYNC_GCLK | TC_CTRLA_PRESCALER_DIV1024 | TC_CTRLA_WAVEGEN_NFRQ | TC_CTRLA_MODE_COUNT8 | TC_CTRLA_ENABLE;
+	// Wait TC0 to finish synchronizing
+	while (TC0.COUNT8.STATUS & TC_STATUS_SYNCBUSY);
+	// Enable TC overflow interrupts
+	TC0.COUNT8.INTENSET = TC_INTENSET_OVF;
+}
 
-		Per Errata 9905:
-			- Set the ONDEMAND bit in SYSCTRL->CFLLCTRL
-			- Wait for DFLL sync
-			- Set SYSCTRL->DFLLMUL and SYSCTRL->DFLLVAL
-			- Set configurations bits in SYSCTRL->CFLLCTRL
-
-
-	 */
-
-	// Clear the CLKEN bit, disabling the GCLK channel
-	GCLK->CLKCTRL.reg &= ~GCLK_CLKCTRL_CLKEN;
-	// Wait until the GCLK is disabled
-	while (GCLK->CLKCTRL.reg & GCLK_CLKCTRL_CLKEN);
-	// Set GCLK ID to DFLL48
-	GCLK->CLKCTRL.reg = SYSCTRL_GCLK_ID_DFLL48;
-	// Wait until the GCLK is enabled
-	while (!GCLK->CLKCTRL.reg & GCLK_CLKCTRL_CLKEN);
-	// Disable unused GCLKs
-	for (; channel < 0x0800; channel += 0x0100)
-	{	// Set the current GCLK channel
-		GCLK->CLKCTRL.reg = channel;
-		// Clear the CLKEN bit, disabling the GCLK channel
-		GCLK->CLKCTRL.reg &= ~GCLK_CLKCTRL_CLKEN;
-		// Wait until the GCLK is disabled
-		while (GCLK->CLKCTRL.reg & GCLK_CLKCTRL_CLKEN);
-	}
-	// Set the GCLK bit in the PM APBA register
-	PM->APBAMASK.reg |= PM_APBAMASK_GCLK;
-	// Initialize the GCLK module with the configured values
-	GCLK->CTRL.reg = GCLK_CTRL_SWRST;
-	while (GCLK->CTRL.reg & GCLK_CTRL_SWRST);
-	// Set coarse value
-	uint32_t coarse, fine;
-	// Revision D and later silicon has DFLL calibration values
-	if ((DSU->DID.reg & 0xF00) > 0x300)
-	{
-		#define NVM_DFLL_COARSE_POS		58 /* DFLL48M Coarse calibration position */
-		#define NVM_DFLL_COARSE_SIZE	6  /* DFLL48M Coarse calibration size */
-		#define SYSCTRL_DFLL_COARSE_POS	10 /* DFLL48M Coarse SYSCTRL bit position */
-
-		#define NVM_DFLL_FINE_POS		64 /* DFLL48M Fine calibration position */
-		#define NVM_DFLL_FINE_SIZE		10 /* DFLL48M Fine calibration size */
-
-		coarse = ((uint32_t *)(NVMCTRL_OTP4)[1] >> 16) & (((1 << NVM_DFLL_COARSE_SIZE) - 1) << SYSCTRL_DFLL_COARSE_POS);
-		/* In some revision chip, the coarse calibration value is not correct. */
-		if (coarse == 0x3f) {
-			coarse = 0x1f;
-		}
-
-		fine = (uint32_t *)(NVMCTRL_OTP4)[2] & ((1 << NVM_DFLL_FINE_SIZE) - 1);
-	}
-	else
-	{
-		coarse = 0;
-		fine = 512;
-	}
-	// Clear ONDEMAND bit in SYSCTRL.DFLLCTRL
-	SYSCTRL.DFLLCTRL.reg &= ~SYSCTRL_DFLLCTRL_ONDEMAND;
-	// Wait for DFLL sync
-	while (!(SYSCTRL->PCLKSR.reg & SYSCTRL_PCLKSR_DFLLRDY));
-	// Set DFLL multiplier
-	SYSCTRL->DFLLMUL.reg = DFLL_MAX_COARSE_STEP | DFLL_MAX_FINE_STEP | DFLL_MULTIPLY_FACTOR;
-	// Set DFLL value
-	SYSCTRL->DFLLVAL.reg = coarse | fine;
-	// Set DFLLCTRL config bits
-	STSCRTL->DFLLCTRL.reg = SYSCTRL_DFLLCTRL_QLDIS | SYSCTRL_DFLLCTRL_CCDIS | SYSCTRL_DFLLCTRL_ONDEMAND | SYSCTRL_DFLLCTRL_LLAW | SYSCTRL_DFLLCTRL_STABLE | SYSCTRL_DFLLCTRL_MODE | SYSCTRL_DFLLCTRL_ENABLE;
-	// Wait for DFLL to be ready
-	while (!((SYSCTRL->PCLKSR.reg & (SYSCTRL_PCLKSR_DFLLRDY | SYSCTRL_PCLKSR_DFLLLCKF | SYSCTRL_PCLKSR_DFLLLCKC)) == (SYSCTRL_PCLKSR_DFLLRDY | SYSCTRL_PCLKSR_DFLLLCKF | SYSCTRL_PCLKSR_DFLLLCKC)));
-
-
-	
-
-
-	sei();
+void TC0_Handler(void)
+{	// Toggle LED0 (PA14)
+	PORTA.OUTTGL = PORT_PA14;
 }
 
 void system_init(void)
-{	// Configure clocks
-	system_clock_init();
+{	// Disable interrupts
+	cli();
+	// Configure 48MHz DFLL
+	clock_init();
+	// Configure GPIOs
+	gpio_init();
+	// Configure Timers
+	tc_init();
+	// Enable interrupts
+	sei();
 }
 
 int main(void)
 {
+	system_init();
+
 	while(1);
 }

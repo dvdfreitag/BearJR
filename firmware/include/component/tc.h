@@ -38,25 +38,6 @@
 #define TC_U2212
 #define REV_TC                      0x112
 
-/* -------- TC_CTRLA : (TC Offset: 0x00) (R/W 16) Control A -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t SWRST:1;          /*!< bit:      0  Software Reset                     */
-    uint16_t ENABLE:1;         /*!< bit:      1  Enable                             */
-    uint16_t MODE:2;           /*!< bit:  2.. 3  TC Mode                            */
-    uint16_t :1;               /*!< bit:      4  Reserved                           */
-    uint16_t WAVEGEN:2;        /*!< bit:  5.. 6  Waveform Generation Operation      */
-    uint16_t :1;               /*!< bit:      7  Reserved                           */
-    uint16_t PRESCALER:3;      /*!< bit:  8..10  Prescaler                          */
-    uint16_t RUNSTDBY:1;       /*!< bit:     11  Run in Standby                     */
-    uint16_t PRESCSYNC:2;      /*!< bit: 12..13  Prescaler and Counter Synchronization */
-    uint16_t :2;               /*!< bit: 14..15  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} TC_CTRLA_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_CTRLA_OFFSET             0x00         /**< \brief (TC_CTRLA offset) Control A */
 #define TC_CTRLA_RESETVALUE         _U(0x0000);  /**< \brief (TC_CTRLA reset_value) Control A */
 
@@ -116,19 +97,6 @@ typedef union {
 #define TC_CTRLA_PRESCSYNC_RESYNC   (TC_CTRLA_PRESCSYNC_RESYNC_Val << TC_CTRLA_PRESCSYNC_Pos)
 #define TC_CTRLA_MASK               _U(0x3F6F)   /**< \brief (TC_CTRLA) MASK Register */
 
-/* -------- TC_READREQ : (TC Offset: 0x02) (R/W 16) Read Request -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t ADDR:5;           /*!< bit:  0.. 4  Address                            */
-    uint16_t :9;               /*!< bit:  5..13  Reserved                           */
-    uint16_t RCONT:1;          /*!< bit:     14  Read Continuously                  */
-    uint16_t RREQ:1;           /*!< bit:     15  Read Request                       */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} TC_READREQ_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_READREQ_OFFSET           0x02         /**< \brief (TC_READREQ offset) Read Request */
 #define TC_READREQ_RESETVALUE       _U(0x0000);  /**< \brief (TC_READREQ reset_value) Read Request */
 
@@ -140,20 +108,6 @@ typedef union {
 #define TC_READREQ_RREQ_Pos         15           /**< \brief (TC_READREQ) Read Request */
 #define TC_READREQ_RREQ             (_U(0x1) << TC_READREQ_RREQ_Pos)
 #define TC_READREQ_MASK             _U(0xC01F)   /**< \brief (TC_READREQ) MASK Register */
-
-/* -------- TC_CTRLBCLR : (TC Offset: 0x04) (R/W  8) Control B Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DIR:1;            /*!< bit:      0  Counter Direction                  */
-    uint8_t  :1;               /*!< bit:      1  Reserved                           */
-    uint8_t  ONESHOT:1;        /*!< bit:      2  One-Shot                           */
-    uint8_t  :3;               /*!< bit:  3.. 5  Reserved                           */
-    uint8_t  CMD:2;            /*!< bit:  6.. 7  Command                            */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_CTRLBCLR_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define TC_CTRLBCLR_OFFSET          0x04         /**< \brief (TC_CTRLBCLR offset) Control B Clear */
 #define TC_CTRLBCLR_RESETVALUE      _U(0x02);    /**< \brief (TC_CTRLBCLR reset_value) Control B Clear */
@@ -173,20 +127,6 @@ typedef union {
 #define TC_CTRLBCLR_CMD_STOP        (TC_CTRLBCLR_CMD_STOP_Val      << TC_CTRLBCLR_CMD_Pos)
 #define TC_CTRLBCLR_MASK            _U(0xC5)     /**< \brief (TC_CTRLBCLR) MASK Register */
 
-/* -------- TC_CTRLBSET : (TC Offset: 0x05) (R/W  8) Control B Set -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DIR:1;            /*!< bit:      0  Counter Direction                  */
-    uint8_t  :1;               /*!< bit:      1  Reserved                           */
-    uint8_t  ONESHOT:1;        /*!< bit:      2  One-shot                           */
-    uint8_t  :3;               /*!< bit:  3.. 5  Reserved                           */
-    uint8_t  CMD:2;            /*!< bit:  6.. 7  Command                            */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_CTRLBSET_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_CTRLBSET_OFFSET          0x05         /**< \brief (TC_CTRLBSET offset) Control B Set */
 #define TC_CTRLBSET_RESETVALUE      _U(0x00);    /**< \brief (TC_CTRLBSET reset_value) Control B Set */
 
@@ -204,27 +144,6 @@ typedef union {
 #define TC_CTRLBSET_CMD_RETRIGGER   (TC_CTRLBSET_CMD_RETRIGGER_Val << TC_CTRLBSET_CMD_Pos)
 #define TC_CTRLBSET_CMD_STOP        (TC_CTRLBSET_CMD_STOP_Val      << TC_CTRLBSET_CMD_Pos)
 #define TC_CTRLBSET_MASK            _U(0xC5)     /**< \brief (TC_CTRLBSET) MASK Register */
-
-/* -------- TC_CTRLC : (TC Offset: 0x06) (R/W  8) Control C -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  INVEN0:1;         /*!< bit:      0  Output Waveform 0 Invert Enable    */
-    uint8_t  INVEN1:1;         /*!< bit:      1  Output Waveform 1 Invert Enable    */
-    uint8_t  :2;               /*!< bit:  2.. 3  Reserved                           */
-    uint8_t  CPTEN0:1;         /*!< bit:      4  Capture Channel 0 Enable           */
-    uint8_t  CPTEN1:1;         /*!< bit:      5  Capture Channel 1 Enable           */
-    uint8_t  :2;               /*!< bit:  6.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  struct {
-    uint8_t  INVEN:2;          /*!< bit:  0.. 1  Output Waveform x Invert Enable    */
-    uint8_t  :2;               /*!< bit:  2.. 3  Reserved                           */
-    uint8_t  CPTEN:2;          /*!< bit:  4.. 5  Capture Channel x Enable           */
-    uint8_t  :2;               /*!< bit:  6.. 7  Reserved                           */
-  } vec;                       /*!< Structure used for vec  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_CTRLC_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define TC_CTRLC_OFFSET             0x06         /**< \brief (TC_CTRLC offset) Control C */
 #define TC_CTRLC_RESETVALUE         _U(0x00);    /**< \brief (TC_CTRLC reset_value) Control C */
@@ -245,47 +164,12 @@ typedef union {
 #define TC_CTRLC_CPTEN(value)       (TC_CTRLC_CPTEN_Msk & ((value) << TC_CTRLC_CPTEN_Pos))
 #define TC_CTRLC_MASK               _U(0x33)     /**< \brief (TC_CTRLC) MASK Register */
 
-/* -------- TC_DBGCTRL : (TC Offset: 0x08) (R/W  8) Debug Control -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DBGRUN:1;         /*!< bit:      0  Debug Run Mode                     */
-    uint8_t  :7;               /*!< bit:  1.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_DBGCTRL_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_DBGCTRL_OFFSET           0x08         /**< \brief (TC_DBGCTRL offset) Debug Control */
 #define TC_DBGCTRL_RESETVALUE       _U(0x00);    /**< \brief (TC_DBGCTRL reset_value) Debug Control */
 
 #define TC_DBGCTRL_DBGRUN_Pos       0            /**< \brief (TC_DBGCTRL) Debug Run Mode */
 #define TC_DBGCTRL_DBGRUN           (_U(0x1) << TC_DBGCTRL_DBGRUN_Pos)
 #define TC_DBGCTRL_MASK             _U(0x01)     /**< \brief (TC_DBGCTRL) MASK Register */
-
-/* -------- TC_EVCTRL : (TC Offset: 0x0A) (R/W 16) Event Control -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t EVACT:3;          /*!< bit:  0.. 2  Event Action                       */
-    uint16_t :1;               /*!< bit:      3  Reserved                           */
-    uint16_t TCINV:1;          /*!< bit:      4  TC Inverted Event Input            */
-    uint16_t TCEI:1;           /*!< bit:      5  TC Event Input                     */
-    uint16_t :2;               /*!< bit:  6.. 7  Reserved                           */
-    uint16_t OVFEO:1;          /*!< bit:      8  Overflow/Underflow Event Output Enable */
-    uint16_t :3;               /*!< bit:  9..11  Reserved                           */
-    uint16_t MCEO0:1;          /*!< bit:     12  Match or Capture Channel 0 Event Output Enable */
-    uint16_t MCEO1:1;          /*!< bit:     13  Match or Capture Channel 1 Event Output Enable */
-    uint16_t :2;               /*!< bit: 14..15  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  struct {
-    uint16_t :12;              /*!< bit:  0..11  Reserved                           */
-    uint16_t MCEO:2;           /*!< bit: 12..13  Match or Capture Channel x Event Output Enable */
-    uint16_t :2;               /*!< bit: 14..15  Reserved                           */
-  } vec;                       /*!< Structure used for vec  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} TC_EVCTRL_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define TC_EVCTRL_OFFSET            0x0A         /**< \brief (TC_EVCTRL offset) Event Control */
 #define TC_EVCTRL_RESETVALUE        _U(0x0000);  /**< \brief (TC_EVCTRL reset_value) Event Control */
@@ -320,27 +204,6 @@ typedef union {
 #define TC_EVCTRL_MCEO(value)       (TC_EVCTRL_MCEO_Msk & ((value) << TC_EVCTRL_MCEO_Pos))
 #define TC_EVCTRL_MASK              _U(0x3137)   /**< \brief (TC_EVCTRL) MASK Register */
 
-/* -------- TC_INTENCLR : (TC Offset: 0x0C) (R/W  8) Interrupt Enable Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  OVF:1;            /*!< bit:      0  Overflow Interrupt Enable          */
-    uint8_t  ERR:1;            /*!< bit:      1  Error Interrupt Enable             */
-    uint8_t  :1;               /*!< bit:      2  Reserved                           */
-    uint8_t  SYNCRDY:1;        /*!< bit:      3  Synchronization Ready Interrupt Enable */
-    uint8_t  MC0:1;            /*!< bit:      4  Match or Capture Channel 0 Interrupt Enable */
-    uint8_t  MC1:1;            /*!< bit:      5  Match or Capture Channel 1 Interrupt Enable */
-    uint8_t  :2;               /*!< bit:  6.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  struct {
-    uint8_t  :4;               /*!< bit:  0.. 3  Reserved                           */
-    uint8_t  MC:2;             /*!< bit:  4.. 5  Match or Capture Channel x Interrupt Enable */
-    uint8_t  :2;               /*!< bit:  6.. 7  Reserved                           */
-  } vec;                       /*!< Structure used for vec  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_INTENCLR_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_INTENCLR_OFFSET          0x0C         /**< \brief (TC_INTENCLR offset) Interrupt Enable Clear */
 #define TC_INTENCLR_RESETVALUE      _U(0x00);    /**< \brief (TC_INTENCLR reset_value) Interrupt Enable Clear */
 
@@ -358,27 +221,6 @@ typedef union {
 #define TC_INTENCLR_MC_Msk          (_U(0x3) << TC_INTENCLR_MC_Pos)
 #define TC_INTENCLR_MC(value)       (TC_INTENCLR_MC_Msk & ((value) << TC_INTENCLR_MC_Pos))
 #define TC_INTENCLR_MASK            _U(0x3B)     /**< \brief (TC_INTENCLR) MASK Register */
-
-/* -------- TC_INTENSET : (TC Offset: 0x0D) (R/W  8) Interrupt Enable Set -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  OVF:1;            /*!< bit:      0  Overflow Interrupt Enable          */
-    uint8_t  ERR:1;            /*!< bit:      1  Error Interrupt Enable             */
-    uint8_t  :1;               /*!< bit:      2  Reserved                           */
-    uint8_t  SYNCRDY:1;        /*!< bit:      3  Synchronization Ready Interrupt Enable */
-    uint8_t  MC0:1;            /*!< bit:      4  Match or Capture Channel 0 Interrupt Enable */
-    uint8_t  MC1:1;            /*!< bit:      5  Match or Capture Channel 1 Interrupt Enable */
-    uint8_t  :2;               /*!< bit:  6.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  struct {
-    uint8_t  :4;               /*!< bit:  0.. 3  Reserved                           */
-    uint8_t  MC:2;             /*!< bit:  4.. 5  Match or Capture Channel x Interrupt Enable */
-    uint8_t  :2;               /*!< bit:  6.. 7  Reserved                           */
-  } vec;                       /*!< Structure used for vec  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_INTENSET_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define TC_INTENSET_OFFSET          0x0D         /**< \brief (TC_INTENSET offset) Interrupt Enable Set */
 #define TC_INTENSET_RESETVALUE      _U(0x00);    /**< \brief (TC_INTENSET reset_value) Interrupt Enable Set */
@@ -398,27 +240,6 @@ typedef union {
 #define TC_INTENSET_MC(value)       (TC_INTENSET_MC_Msk & ((value) << TC_INTENSET_MC_Pos))
 #define TC_INTENSET_MASK            _U(0x3B)     /**< \brief (TC_INTENSET) MASK Register */
 
-/* -------- TC_INTFLAG : (TC Offset: 0x0E) (R/W  8) Interrupt Flag Status and Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union { // __I to avoid read-modify-write on write-to-clear register
-  struct {
-    __I uint8_t  OVF:1;            /*!< bit:      0  Overflow                           */
-    __I uint8_t  ERR:1;            /*!< bit:      1  Error                              */
-    __I uint8_t  :1;               /*!< bit:      2  Reserved                           */
-    __I uint8_t  SYNCRDY:1;        /*!< bit:      3  Synchronization Ready              */
-    __I uint8_t  MC0:1;            /*!< bit:      4  Match or Capture Channel 0         */
-    __I uint8_t  MC1:1;            /*!< bit:      5  Match or Capture Channel 1         */
-    __I uint8_t  :2;               /*!< bit:  6.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  struct {
-    __I uint8_t  :4;               /*!< bit:  0.. 3  Reserved                           */
-    __I uint8_t  MC:2;             /*!< bit:  4.. 5  Match or Capture Channel x         */
-    __I uint8_t  :2;               /*!< bit:  6.. 7  Reserved                           */
-  } vec;                       /*!< Structure used for vec  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_INTFLAG_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_INTFLAG_OFFSET           0x0E         /**< \brief (TC_INTFLAG offset) Interrupt Flag Status and Clear */
 #define TC_INTFLAG_RESETVALUE       _U(0x00);    /**< \brief (TC_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
@@ -437,20 +258,6 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define TC_INTFLAG_MC(value)        (TC_INTFLAG_MC_Msk & ((value) << TC_INTFLAG_MC_Pos))
 #define TC_INTFLAG_MASK             _U(0x3B)     /**< \brief (TC_INTFLAG) MASK Register */
 
-/* -------- TC_STATUS : (TC Offset: 0x0F) (R/   8) Status -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  :3;               /*!< bit:  0.. 2  Reserved                           */
-    uint8_t  STOP:1;           /*!< bit:      3  Stop                               */
-    uint8_t  SLAVE:1;          /*!< bit:      4  Slave                              */
-    uint8_t  :2;               /*!< bit:  5.. 6  Reserved                           */
-    uint8_t  SYNCBUSY:1;       /*!< bit:      7  Synchronization Busy               */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_STATUS_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_STATUS_OFFSET            0x0F         /**< \brief (TC_STATUS offset) Status */
 #define TC_STATUS_RESETVALUE        _U(0x08);    /**< \brief (TC_STATUS reset_value) Status */
 
@@ -462,16 +269,6 @@ typedef union {
 #define TC_STATUS_SYNCBUSY          (_U(0x1) << TC_STATUS_SYNCBUSY_Pos)
 #define TC_STATUS_MASK              _U(0x98)     /**< \brief (TC_STATUS) MASK Register */
 
-/* -------- TC_COUNT16_COUNT : (TC Offset: 0x10) (R/W 16) COUNT16 COUNT16 Counter Value -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t COUNT:16;         /*!< bit:  0..15  Counter Value                      */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} TC_COUNT16_COUNT_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_COUNT16_COUNT_OFFSET     0x10         /**< \brief (TC_COUNT16_COUNT offset) COUNT16 Counter Value */
 #define TC_COUNT16_COUNT_RESETVALUE _U(0x0000);  /**< \brief (TC_COUNT16_COUNT reset_value) COUNT16 Counter Value */
 
@@ -479,16 +276,6 @@ typedef union {
 #define TC_COUNT16_COUNT_COUNT_Msk  (_U(0xFFFF) << TC_COUNT16_COUNT_COUNT_Pos)
 #define TC_COUNT16_COUNT_COUNT(value) (TC_COUNT16_COUNT_COUNT_Msk & ((value) << TC_COUNT16_COUNT_COUNT_Pos))
 #define TC_COUNT16_COUNT_MASK       _U(0xFFFF)   /**< \brief (TC_COUNT16_COUNT) MASK Register */
-
-/* -------- TC_COUNT32_COUNT : (TC Offset: 0x10) (R/W 32) COUNT32 COUNT32 Counter Value -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t COUNT:32;         /*!< bit:  0..31  Counter Value                      */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} TC_COUNT32_COUNT_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define TC_COUNT32_COUNT_OFFSET     0x10         /**< \brief (TC_COUNT32_COUNT offset) COUNT32 Counter Value */
 #define TC_COUNT32_COUNT_RESETVALUE _U(0x00000000); /**< \brief (TC_COUNT32_COUNT reset_value) COUNT32 Counter Value */
@@ -498,16 +285,6 @@ typedef union {
 #define TC_COUNT32_COUNT_COUNT(value) (TC_COUNT32_COUNT_COUNT_Msk & ((value) << TC_COUNT32_COUNT_COUNT_Pos))
 #define TC_COUNT32_COUNT_MASK       _U(0xFFFFFFFF) /**< \brief (TC_COUNT32_COUNT) MASK Register */
 
-/* -------- TC_COUNT8_COUNT : (TC Offset: 0x10) (R/W  8) COUNT8 COUNT8 Counter Value -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  COUNT:8;          /*!< bit:  0.. 7  Counter Value                      */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_COUNT8_COUNT_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_COUNT8_COUNT_OFFSET      0x10         /**< \brief (TC_COUNT8_COUNT offset) COUNT8 Counter Value */
 #define TC_COUNT8_COUNT_RESETVALUE  _U(0x00);    /**< \brief (TC_COUNT8_COUNT reset_value) COUNT8 Counter Value */
 
@@ -515,16 +292,6 @@ typedef union {
 #define TC_COUNT8_COUNT_COUNT_Msk   (_U(0xFF) << TC_COUNT8_COUNT_COUNT_Pos)
 #define TC_COUNT8_COUNT_COUNT(value) (TC_COUNT8_COUNT_COUNT_Msk & ((value) << TC_COUNT8_COUNT_COUNT_Pos))
 #define TC_COUNT8_COUNT_MASK        _U(0xFF)     /**< \brief (TC_COUNT8_COUNT) MASK Register */
-
-/* -------- TC_COUNT8_PER : (TC Offset: 0x14) (R/W  8) COUNT8 COUNT8 Period Value -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  PER:8;            /*!< bit:  0.. 7  Period Value                       */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_COUNT8_PER_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define TC_COUNT8_PER_OFFSET        0x14         /**< \brief (TC_COUNT8_PER offset) COUNT8 Period Value */
 #define TC_COUNT8_PER_RESETVALUE    _U(0xFF);    /**< \brief (TC_COUNT8_PER reset_value) COUNT8 Period Value */
@@ -534,16 +301,6 @@ typedef union {
 #define TC_COUNT8_PER_PER(value)    (TC_COUNT8_PER_PER_Msk & ((value) << TC_COUNT8_PER_PER_Pos))
 #define TC_COUNT8_PER_MASK          _U(0xFF)     /**< \brief (TC_COUNT8_PER) MASK Register */
 
-/* -------- TC_COUNT16_CC : (TC Offset: 0x18) (R/W 16) COUNT16 COUNT16 Compare/Capture -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t CC:16;            /*!< bit:  0..15  Compare/Capture Value              */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} TC_COUNT16_CC_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_COUNT16_CC_OFFSET        0x18         /**< \brief (TC_COUNT16_CC offset) COUNT16 Compare/Capture */
 #define TC_COUNT16_CC_RESETVALUE    _U(0x0000);  /**< \brief (TC_COUNT16_CC reset_value) COUNT16 Compare/Capture */
 
@@ -552,16 +309,6 @@ typedef union {
 #define TC_COUNT16_CC_CC(value)     (TC_COUNT16_CC_CC_Msk & ((value) << TC_COUNT16_CC_CC_Pos))
 #define TC_COUNT16_CC_MASK          _U(0xFFFF)   /**< \brief (TC_COUNT16_CC) MASK Register */
 
-/* -------- TC_COUNT32_CC : (TC Offset: 0x18) (R/W 32) COUNT32 COUNT32 Compare/Capture -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t CC:32;            /*!< bit:  0..31  Compare/Capture Value              */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} TC_COUNT32_CC_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define TC_COUNT32_CC_OFFSET        0x18         /**< \brief (TC_COUNT32_CC offset) COUNT32 Compare/Capture */
 #define TC_COUNT32_CC_RESETVALUE    _U(0x00000000); /**< \brief (TC_COUNT32_CC reset_value) COUNT32 Compare/Capture */
 
@@ -569,16 +316,6 @@ typedef union {
 #define TC_COUNT32_CC_CC_Msk        (_U(0xFFFFFFFF) << TC_COUNT32_CC_CC_Pos)
 #define TC_COUNT32_CC_CC(value)     (TC_COUNT32_CC_CC_Msk & ((value) << TC_COUNT32_CC_CC_Pos))
 #define TC_COUNT32_CC_MASK          _U(0xFFFFFFFF) /**< \brief (TC_COUNT32_CC) MASK Register */
-
-/* -------- TC_COUNT8_CC : (TC Offset: 0x18) (R/W  8) COUNT8 COUNT8 Compare/Capture -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  CC:8;             /*!< bit:  0.. 7  Compare/Capture Value              */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} TC_COUNT8_CC_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define TC_COUNT8_CC_OFFSET         0x18         /**< \brief (TC_COUNT8_CC offset) COUNT8 Compare/Capture */
 #define TC_COUNT8_CC_RESETVALUE     _U(0x00);    /**< \brief (TC_COUNT8_CC reset_value) COUNT8 Compare/Capture */
@@ -590,78 +327,90 @@ typedef union {
 
 /** \brief TC_COUNT8 hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef struct { /* 8-bit Counter Mode */
-  __IO TC_CTRLA_Type             CTRLA;       /**< \brief Offset: 0x00 (R/W 16) Control A */
-  __IO TC_READREQ_Type           READREQ;     /**< \brief Offset: 0x02 (R/W 16) Read Request */
-  __IO TC_CTRLBCLR_Type          CTRLBCLR;    /**< \brief Offset: 0x04 (R/W  8) Control B Clear */
-  __IO TC_CTRLBSET_Type          CTRLBSET;    /**< \brief Offset: 0x05 (R/W  8) Control B Set */
-  __IO TC_CTRLC_Type             CTRLC;       /**< \brief Offset: 0x06 (R/W  8) Control C */
-       RoReg8                    Reserved1[0x1];
-  __IO TC_DBGCTRL_Type           DBGCTRL;     /**< \brief Offset: 0x08 (R/W  8) Debug Control */
-       RoReg8                    Reserved2[0x1];
-  __IO TC_EVCTRL_Type            EVCTRL;      /**< \brief Offset: 0x0A (R/W 16) Event Control */
-  __IO TC_INTENCLR_Type          INTENCLR;    /**< \brief Offset: 0x0C (R/W  8) Interrupt Enable Clear */
-  __IO TC_INTENSET_Type          INTENSET;    /**< \brief Offset: 0x0D (R/W  8) Interrupt Enable Set */
-  __IO TC_INTFLAG_Type           INTFLAG;     /**< \brief Offset: 0x0E (R/W  8) Interrupt Flag Status and Clear */
-  __I  TC_STATUS_Type            STATUS;      /**< \brief Offset: 0x0F (R/   8) Status */
-  __IO TC_COUNT8_COUNT_Type      COUNT;       /**< \brief Offset: 0x10 (R/W  8) COUNT8 Counter Value */
-       RoReg8                    Reserved3[0x3];
-  __IO TC_COUNT8_PER_Type        PER;         /**< \brief Offset: 0x14 (R/W  8) COUNT8 Period Value */
-       RoReg8                    Reserved4[0x3];
-  __IO TC_COUNT8_CC_Type         CC[2];       /**< \brief Offset: 0x18 (R/W  8) COUNT8 Compare/Capture */
+
+typedef struct /* 8-bit Counter Mode */
+{
+	__IO uint16_t	CTRLA;			/**< \brief Offset: 0x00 (R/W 16) Control A */
+	__IO uint16_t	READREQ;		/**< \brief Offset: 0x02 (R/W 16) Read Request */
+	__IO uint8_t	CTRLBCLR;		/**< \brief Offset: 0x04 (R/W  8) Control B Clear */
+	__IO uint8_t	CTRLBSET;		/**< \brief Offset: 0x05 (R/W  8) Control B Set */
+	__IO uint8_t	CTRLC;			/**< \brief Offset: 0x06 (R/W  8) Control C */
+		 RoReg8		Reserved1[0x1];
+	__IO uint8_t	DBGCTRL;		/**< \brief Offset: 0x08 (R/W  8) Debug Control */
+		 RoReg8		Reserved2[0x1];
+	__IO uint16_t	EVCTRL;			/**< \brief Offset: 0x0A (R/W 16) Event Control */
+	__IO uint8_t	INTENCLR;		/**< \brief Offset: 0x0C (R/W  8) Interrupt Enable Clear */
+	__IO uint8_t	INTENSET;		/**< \brief Offset: 0x0D (R/W  8) Interrupt Enable Set */
+	__IO uint8_t	INTFLAG;		/**< \brief Offset: 0x0E (R/W  8) Interrupt Flag Status and Clear */
+	__I  uint8_t	STATUS;			/**< \brief Offset: 0x0F (R/   8) Status */
+	__IO uint8_t	COUNT;			/**< \brief Offset: 0x10 (R/W  8) COUNT8 Counter Value */
+		 RoReg8		Reserved3[0x3];
+	__IO uint8_t	PER;			/**< \brief Offset: 0x14 (R/W  8) COUNT8 Period Value */
+		 RoReg8		Reserved4[0x3];
+	__IO uint8_t	CC[2];			/**< \brief Offset: 0x18 (R/W  8) COUNT8 Compare/Capture */
 } TcCount8;
+
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /** \brief TC_COUNT16 hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef struct { /* 16-bit Counter Mode */
-  __IO TC_CTRLA_Type             CTRLA;       /**< \brief Offset: 0x00 (R/W 16) Control A */
-  __IO TC_READREQ_Type           READREQ;     /**< \brief Offset: 0x02 (R/W 16) Read Request */
-  __IO TC_CTRLBCLR_Type          CTRLBCLR;    /**< \brief Offset: 0x04 (R/W  8) Control B Clear */
-  __IO TC_CTRLBSET_Type          CTRLBSET;    /**< \brief Offset: 0x05 (R/W  8) Control B Set */
-  __IO TC_CTRLC_Type             CTRLC;       /**< \brief Offset: 0x06 (R/W  8) Control C */
-       RoReg8                    Reserved1[0x1];
-  __IO TC_DBGCTRL_Type           DBGCTRL;     /**< \brief Offset: 0x08 (R/W  8) Debug Control */
-       RoReg8                    Reserved2[0x1];
-  __IO TC_EVCTRL_Type            EVCTRL;      /**< \brief Offset: 0x0A (R/W 16) Event Control */
-  __IO TC_INTENCLR_Type          INTENCLR;    /**< \brief Offset: 0x0C (R/W  8) Interrupt Enable Clear */
-  __IO TC_INTENSET_Type          INTENSET;    /**< \brief Offset: 0x0D (R/W  8) Interrupt Enable Set */
-  __IO TC_INTFLAG_Type           INTFLAG;     /**< \brief Offset: 0x0E (R/W  8) Interrupt Flag Status and Clear */
-  __I  TC_STATUS_Type            STATUS;      /**< \brief Offset: 0x0F (R/   8) Status */
-  __IO TC_COUNT16_COUNT_Type     COUNT;       /**< \brief Offset: 0x10 (R/W 16) COUNT16 Counter Value */
-       RoReg8                    Reserved3[0x6];
-  __IO TC_COUNT16_CC_Type        CC[2];       /**< \brief Offset: 0x18 (R/W 16) COUNT16 Compare/Capture */
+
+typedef struct /* 16-bit Counter Mode */
+{
+	__IO uint16_t	CTRLA;			/**< \brief Offset: 0x00 (R/W 16) Control A */
+	__IO uint16_t	READREQ;		/**< \brief Offset: 0x02 (R/W 16) Read Request */
+	__IO uint8_t	CTRLBCLR;		/**< \brief Offset: 0x04 (R/W  8) Control B Clear */
+	__IO uint8_t	CTRLBSET;		/**< \brief Offset: 0x05 (R/W  8) Control B Set */
+	__IO uint8_t	CTRLC;			/**< \brief Offset: 0x06 (R/W  8) Control C */
+		 RoReg8		Reserved1[0x1];
+	__IO uint8_t	DBGCTRL;		/**< \brief Offset: 0x08 (R/W  8) Debug Control */
+		 RoReg8		Reserved2[0x1];
+	__IO uint16_t	EVCTRL;			/**< \brief Offset: 0x0A (R/W 16) Event Control */
+	__IO uint8_t	INTENCLR;		/**< \brief Offset: 0x0C (R/W  8) Interrupt Enable Clear */
+	__IO uint8_t	INTENSET;		/**< \brief Offset: 0x0D (R/W  8) Interrupt Enable Set */
+	__IO uint8_t	INTFLAG;		/**< \brief Offset: 0x0E (R/W  8) Interrupt Flag Status and Clear */
+	__I  uint8_t	STATUS;			/**< \brief Offset: 0x0F (R/   8) Status */
+	__IO uint16_t	COUNT;			/**< \brief Offset: 0x10 (R/W 16) COUNT16 Counter Value */
+		 RoReg8		Reserved3[0x6];
+	__IO uint16_t	CC[2];			/**< \brief Offset: 0x18 (R/W 16) COUNT16 Compare/Capture */
 } TcCount16;
+
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /** \brief TC_COUNT32 hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef struct { /* 32-bit Counter Mode */
-  __IO TC_CTRLA_Type             CTRLA;       /**< \brief Offset: 0x00 (R/W 16) Control A */
-  __IO TC_READREQ_Type           READREQ;     /**< \brief Offset: 0x02 (R/W 16) Read Request */
-  __IO TC_CTRLBCLR_Type          CTRLBCLR;    /**< \brief Offset: 0x04 (R/W  8) Control B Clear */
-  __IO TC_CTRLBSET_Type          CTRLBSET;    /**< \brief Offset: 0x05 (R/W  8) Control B Set */
-  __IO TC_CTRLC_Type             CTRLC;       /**< \brief Offset: 0x06 (R/W  8) Control C */
-       RoReg8                    Reserved1[0x1];
-  __IO TC_DBGCTRL_Type           DBGCTRL;     /**< \brief Offset: 0x08 (R/W  8) Debug Control */
-       RoReg8                    Reserved2[0x1];
-  __IO TC_EVCTRL_Type            EVCTRL;      /**< \brief Offset: 0x0A (R/W 16) Event Control */
-  __IO TC_INTENCLR_Type          INTENCLR;    /**< \brief Offset: 0x0C (R/W  8) Interrupt Enable Clear */
-  __IO TC_INTENSET_Type          INTENSET;    /**< \brief Offset: 0x0D (R/W  8) Interrupt Enable Set */
-  __IO TC_INTFLAG_Type           INTFLAG;     /**< \brief Offset: 0x0E (R/W  8) Interrupt Flag Status and Clear */
-  __I  TC_STATUS_Type            STATUS;      /**< \brief Offset: 0x0F (R/   8) Status */
-  __IO TC_COUNT32_COUNT_Type     COUNT;       /**< \brief Offset: 0x10 (R/W 32) COUNT32 Counter Value */
-       RoReg8                    Reserved3[0x4];
-  __IO TC_COUNT32_CC_Type        CC[2];       /**< \brief Offset: 0x18 (R/W 32) COUNT32 Compare/Capture */
+
+typedef struct /* 32-bit Counter Mode */
+{ 
+	__IO uint16_t	CTRLA;			/**< \brief Offset: 0x00 (R/W 16) Control A */
+	__IO uint16_t	READREQ;		/**< \brief Offset: 0x02 (R/W 16) Read Request */
+	__IO uint8_t	CTRLBCLR;		/**< \brief Offset: 0x04 (R/W  8) Control B Clear */
+	__IO uint8_t	CTRLBSET;		/**< \brief Offset: 0x05 (R/W  8) Control B Set */
+	__IO uint8_t	CTRLC;			/**< \brief Offset: 0x06 (R/W  8) Control C */
+		 RoReg8		Reserved1[0x1];
+	__IO uint8_t	DBGCTRL;		/**< \brief Offset: 0x08 (R/W  8) Debug Control */
+		 RoReg8		Reserved2[0x1];
+	__IO uint16_t	EVCTRL;			/**< \brief Offset: 0x0A (R/W 16) Event Control */
+	__IO uint8_t	INTENCLR;		/**< \brief Offset: 0x0C (R/W  8) Interrupt Enable Clear */
+	__IO uint8_t	INTENSET;		/**< \brief Offset: 0x0D (R/W  8) Interrupt Enable Set */
+	__IO uint8_t	INTFLAG;		/**< \brief Offset: 0x0E (R/W  8) Interrupt Flag Status and Clear */
+	__I  uint8_t	STATUS;			/**< \brief Offset: 0x0F (R/   8) Status */
+	__IO uint32_t	COUNT;			/**< \brief Offset: 0x10 (R/W 32) COUNT32 Counter Value */
+		 RoReg8		Reserved3[0x4];
+	__IO uint32_t CC[2];			/**< \brief Offset: 0x18 (R/W 32) COUNT32 Compare/Capture */
 } TcCount32;
+
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-       TcCount8                  COUNT8;      /**< \brief Offset: 0x00 8-bit Counter Mode */
-       TcCount16                 COUNT16;     /**< \brief Offset: 0x00 16-bit Counter Mode */
-       TcCount32                 COUNT32;     /**< \brief Offset: 0x00 32-bit Counter Mode */
+
+typedef union 
+{
+	TcCount8   COUNT8; /**< \brief Offset: 0x00 8-bit Counter Mode */
+	TcCount16 COUNT16; /**< \brief Offset: 0x00 16-bit Counter Mode */
+	TcCount32 COUNT32; /**< \brief Offset: 0x00 32-bit Counter Mode */
 } Tc;
+
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /*@}*/

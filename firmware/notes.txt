@@ -1,5 +1,32 @@
 It is important to remember that not all resets are the same. A POR (Power-On Reset) is different from a user reset and a watchdog reset. While an AVR or similar has a very well-defined state after a reset, in some cases the Cortex-M0+ (perhaps only just this specific CM0+) does not; a good example is the GCLK peripheral. Specifically, the GENCTRL register. After a POR, the register is initialized to a specific value for each GCLK, but after a user reset the values are initialized only under certain circumstances. For instance, GCLK 0 is always reset to 0x00010600, but GCLK 1-8 is only reset iff it's unlocked (via WRTLOCK) and not being used by the RTC peripheral.
 
+
+Clocks:
+	There are several available clock sources:
+		- External (xosc)
+		- External RTC (xosc32k)
+		- Internal 8MHz (osc8m)
+		- Internal RTC (osc32k)
+		- Ultra low-power internal RTC (osculp32k)
+		- Digital Frequency-Locked Loop (DFLL)
+
+	Beyond these clock sources, you can also utilize a GCLK_IO pin to propagate an external clock source into the device.
+
+	There are 8 available GCLK Generators. A GCLK Generator is a clock source generator. A generator can be configured to use any of the aforementioned clock sources with a divider. So if you needed 4MHz, 2MHz, and 1MHz clocks you can use three GCLK generators with the internal 8MHz clock source and prescalers of 1, 2, and 3, respectively. Some of the generators have a limited prescaler capability, for instance generator 2 only has a 4-bit prescaler.
+
+	GCLK Generator defaults:
+		- Generator 0 is the main CPU clock generator. At reset, it is configured to use the internal 8MHz oscillator. Changing the clock source of generator 0 will change the frequency that the CPU operates at. As such, disabling GCLK generator 0 would be baaaaaad.
+		- Generator 1 is not configured
+		- Generator 2 is configured to use the internal ultra low-power RTC oscillator (osculp32k)
+		- Generators 3-7 are not configured
+
+	Once a clock source is mapped to a generator with GCLK.GENCTRL, it needs to be mapped to a peripheral with GCLK.CLKCFG, a SERCOM peripheral for instance.
+
+	GCLK 0 is the reference input for the DFLL. When used in closed-loop mode, GCLK 0 must be enabled and configured with the correct multiplier value set in SYSCTRL.DFLLMUL.
+
+
+
+
 conf_clocks.h:
 	* CONF_CLOCK_FLASH_WAIT_STATES: Default value: 0
 		- Indicates to the clock driver which NVM RWS (Read Wait State) should be used. Depending on the APB (Advanced Peripheral Bus) clock, this value may need to be adjusted so that the CPU waits either a certain number of cycles or a certain number of predefined wait cycles (from what I can tell it is more likely to be the former, since the latter is never implied anywhere) so that the NVM peripheral has enough time to fetch the data. Otherwise the CPU may sample the data from the NVM before it has a chance to actually return any data. This particular CM0+ is configurable up to 15 wait states.
@@ -21,7 +48,7 @@ conf_clocks.h:
 
 	* CONF_CLOCK_OSC32K_ENABLE_1KHZ_OUTPUT: Default value: 1
 		- Used by the clock driver to set the EN1K bit in the SYSCTRL.OSC32K register.
-			+ As of revision M of the SAMD20 datasheet, the EN1K bit has been changead to reserved.
+			+ As of revision M of the SAMD20 datasheet, the EN1K bit has been changed to reserved.
 
 	* CONF_CLOCK_OSC32K_ENABLE_32KHZ_OUTPUT: Default value: 1
 		- Used by the clock driver to set the EN32K bit in the SYSCTRL.OSC32K register. This either enables or disables the internal RTC oscillator.
