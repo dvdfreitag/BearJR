@@ -62,6 +62,10 @@ size:
 	@$(SIZE) $(TARGET)
 	@$(SIZE) $(TARGET) | $(PARSER) -f $(FLASH) -s $(SRAM)
 
+.PHONY: program
+program:
+	openocd -f /usr/share/openocd/scripts/board/atmel_samd20_xplained_pro.cfg -c "program $(TARGET) verify reset exit"
+
 .PHONY: clean
 clean:
 	rm -rf $(OBJS) $(TARGET) $(DEPDIR) $(MAP) $(LSS)
