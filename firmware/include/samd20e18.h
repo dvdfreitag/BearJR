@@ -378,9 +378,9 @@ void PTC_Handler                 ( void );
 #define DSU_INST_NUM      1                          /**< \brief (DSU) Number of instances */
 #define DSU_INSTS         { DSU }                    /**< \brief (DSU) Instances List */
 
-#define EIC               ((Eic      *)0x40001800UL) /**< \brief (EIC) APB Base Address */
-#define EIC_INST_NUM      1                          /**< \brief (EIC) Number of instances */
-#define EIC_INSTS         { EIC }                    /**< \brief (EIC) Instances List */
+#define EIC               (*(Eic      *)0x40001800UL) /**< \brief (EIC) APB Base Address */
+#define EIC_INST_NUM      1                           /**< \brief (EIC) Number of instances */
+#define EIC_INSTS         { EIC }                     /**< \brief (EIC) Instances List */
 
 #define EVSYS             ((Evsys    *)0x42000400UL) /**< \brief (EVSYS) APB Base Address */
 #define EVSYS_INST_NUM    1                          /**< \brief (EVSYS) Number of instances */
