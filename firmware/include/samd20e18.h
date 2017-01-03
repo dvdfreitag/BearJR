@@ -428,10 +428,10 @@ void PTC_Handler                 ( void );
 #define RTC_INST_NUM      1                          /**< \brief (RTC) Number of instances */
 #define RTC_INSTS         { RTC }                    /**< \brief (RTC) Instances List */
 
-#define SERCOM0           ((Sercom   *)0x42000800UL) /**< \brief (SERCOM0) APB Base Address */
-#define SERCOM1           ((Sercom   *)0x42000C00UL) /**< \brief (SERCOM1) APB Base Address */
-#define SERCOM2           ((Sercom   *)0x42001000UL) /**< \brief (SERCOM2) APB Base Address */
-#define SERCOM3           ((Sercom   *)0x42001400UL) /**< \brief (SERCOM3) APB Base Address */
+#define SERCOM0           (*(Sercom   *)0x42000800UL) /**< \brief (SERCOM0) APB Base Address */
+#define SERCOM1           (*(Sercom   *)0x42000C00UL) /**< \brief (SERCOM1) APB Base Address */
+#define SERCOM2           (*(Sercom   *)0x42001000UL) /**< \brief (SERCOM2) APB Base Address */
+#define SERCOM3           (*(Sercom   *)0x42001400UL) /**< \brief (SERCOM3) APB Base Address */
 #define SERCOM_INST_NUM   4                          /**< \brief (SERCOM) Number of instances */
 #define SERCOM_INSTS      { SERCOM0, SERCOM1, SERCOM2, SERCOM3 } /**< \brief (SERCOM) Instances List */
 

@@ -38,28 +38,6 @@
 #define SERCOM_U2201
 #define REV_SERCOM                  0x102
 
-/* -------- SERCOM_I2CM_CTRLA : (SERCOM Offset: 0x00) (R/W 32) I2CM I2CM Control A -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t SWRST:1;          /*!< bit:      0  Software Reset                     */
-    uint32_t ENABLE:1;         /*!< bit:      1  Enable                             */
-    uint32_t MODE:3;           /*!< bit:  2.. 4  Operating Mode                     */
-    uint32_t :2;               /*!< bit:  5.. 6  Reserved                           */
-    uint32_t RUNSTDBY:1;       /*!< bit:      7  Run in Standby                     */
-    uint32_t :8;               /*!< bit:  8..15  Reserved                           */
-    uint32_t PINOUT:1;         /*!< bit:     16  Pin Usage                          */
-    uint32_t :3;               /*!< bit: 17..19  Reserved                           */
-    uint32_t SDAHOLD:2;        /*!< bit: 20..21  SDA Hold Time                      */
-    uint32_t :6;               /*!< bit: 22..27  Reserved                           */
-    uint32_t INACTOUT:2;       /*!< bit: 28..29  Inactive Time-out                  */
-    uint32_t LOWTOUT:1;        /*!< bit:     30  SCL Low Time-out                   */
-    uint32_t :1;               /*!< bit:     31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_I2CM_CTRLA_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_I2CM_CTRLA_OFFSET    0x00         /**< \brief (SERCOM_I2CM_CTRLA offset) I2CM Control A */
 #define SERCOM_I2CM_CTRLA_RESETVALUE _U(0x00000000); /**< \brief (SERCOM_I2CM_CTRLA reset_value) I2CM Control A */
 
@@ -95,27 +73,6 @@ typedef union {
 #define SERCOM_I2CM_CTRLA_LOWTOUT_Pos 30           /**< \brief (SERCOM_I2CM_CTRLA) SCL Low Time-out */
 #define SERCOM_I2CM_CTRLA_LOWTOUT   (_U(0x1) << SERCOM_I2CM_CTRLA_LOWTOUT_Pos)
 #define SERCOM_I2CM_CTRLA_MASK      _U(0x7031009F) /**< \brief (SERCOM_I2CM_CTRLA) MASK Register */
-
-/* -------- SERCOM_I2CS_CTRLA : (SERCOM Offset: 0x00) (R/W 32) I2CS I2CS Control A -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t SWRST:1;          /*!< bit:      0  Software Reset                     */
-    uint32_t ENABLE:1;         /*!< bit:      1  Enable                             */
-    uint32_t MODE:3;           /*!< bit:  2.. 4  Operating Mode                     */
-    uint32_t :2;               /*!< bit:  5.. 6  Reserved                           */
-    uint32_t RUNSTDBY:1;       /*!< bit:      7  Run in Standby                     */
-    uint32_t :8;               /*!< bit:  8..15  Reserved                           */
-    uint32_t PINOUT:1;         /*!< bit:     16  Pin Usage                          */
-    uint32_t :3;               /*!< bit: 17..19  Reserved                           */
-    uint32_t SDAHOLD:2;        /*!< bit: 20..21  SDA Hold Time                      */
-    uint32_t :8;               /*!< bit: 22..29  Reserved                           */
-    uint32_t LOWTOUT:1;        /*!< bit:     30  SCL Low Time-out                   */
-    uint32_t :1;               /*!< bit:     31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_I2CS_CTRLA_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CS_CTRLA_OFFSET    0x00         /**< \brief (SERCOM_I2CS_CTRLA offset) I2CS Control A */
 #define SERCOM_I2CS_CTRLA_RESETVALUE _U(0x00000000); /**< \brief (SERCOM_I2CS_CTRLA reset_value) I2CS Control A */
@@ -157,31 +114,6 @@ typedef union {
 #define SERCOM_I2CS_CTRLA_LOWTOUT_Pos 30           /**< \brief (SERCOM_I2CS_CTRLA) SCL Low Time-out */
 #define SERCOM_I2CS_CTRLA_LOWTOUT   (_U(0x1) << SERCOM_I2CS_CTRLA_LOWTOUT_Pos)
 #define SERCOM_I2CS_CTRLA_MASK      _U(0x4031009F) /**< \brief (SERCOM_I2CS_CTRLA) MASK Register */
-
-/* -------- SERCOM_SPI_CTRLA : (SERCOM Offset: 0x00) (R/W 32) SPI SPI Control A -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t SWRST:1;          /*!< bit:      0  Software Reset                     */
-    uint32_t ENABLE:1;         /*!< bit:      1  Enable                             */
-    uint32_t MODE:3;           /*!< bit:  2.. 4  Operating Mode                     */
-    uint32_t :2;               /*!< bit:  5.. 6  Reserved                           */
-    uint32_t RUNSTDBY:1;       /*!< bit:      7  Run In Standby                     */
-    uint32_t IBON:1;           /*!< bit:      8  Immediate Buffer Overflow Notification */
-    uint32_t :7;               /*!< bit:  9..15  Reserved                           */
-    uint32_t DOPO:2;           /*!< bit: 16..17  Data Out Pinout                    */
-    uint32_t :2;               /*!< bit: 18..19  Reserved                           */
-    uint32_t DIPO:2;           /*!< bit: 20..21  Data In Pinout                     */
-    uint32_t :2;               /*!< bit: 22..23  Reserved                           */
-    uint32_t FORM:4;           /*!< bit: 24..27  Frame Format                       */
-    uint32_t CPHA:1;           /*!< bit:     28  Clock Phase                        */
-    uint32_t CPOL:1;           /*!< bit:     29  Clock Polarity                     */
-    uint32_t DORD:1;           /*!< bit:     30  Data Order                         */
-    uint32_t :1;               /*!< bit:     31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_SPI_CTRLA_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_SPI_CTRLA_OFFSET     0x00         /**< \brief (SERCOM_SPI_CTRLA offset) SPI Control A */
 #define SERCOM_SPI_CTRLA_RESETVALUE _U(0x00000000); /**< \brief (SERCOM_SPI_CTRLA reset_value) SPI Control A */
@@ -229,31 +161,6 @@ typedef union {
 #define SERCOM_SPI_CTRLA_DORD_Pos   30           /**< \brief (SERCOM_SPI_CTRLA) Data Order */
 #define SERCOM_SPI_CTRLA_DORD       (_U(0x1) << SERCOM_SPI_CTRLA_DORD_Pos)
 #define SERCOM_SPI_CTRLA_MASK       _U(0x7F33019F) /**< \brief (SERCOM_SPI_CTRLA) MASK Register */
-
-/* -------- SERCOM_USART_CTRLA : (SERCOM Offset: 0x00) (R/W 32) USART USART Control A -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t SWRST:1;          /*!< bit:      0  Software Reset                     */
-    uint32_t ENABLE:1;         /*!< bit:      1  Enable                             */
-    uint32_t MODE:3;           /*!< bit:  2.. 4  Operating Mode                     */
-    uint32_t :2;               /*!< bit:  5.. 6  Reserved                           */
-    uint32_t RUNSTDBY:1;       /*!< bit:      7  Run In Standby                     */
-    uint32_t IBON:1;           /*!< bit:      8  Immediate Buffer Overflow Notification */
-    uint32_t :7;               /*!< bit:  9..15  Reserved                           */
-    uint32_t TXPO:1;           /*!< bit:     16  Transmit Data Pinout               */
-    uint32_t :3;               /*!< bit: 17..19  Reserved                           */
-    uint32_t RXPO:2;           /*!< bit: 20..21  Receive Data Pinout                */
-    uint32_t :2;               /*!< bit: 22..23  Reserved                           */
-    uint32_t FORM:4;           /*!< bit: 24..27  Frame Format                       */
-    uint32_t CMODE:1;          /*!< bit:     28  Communication Mode                 */
-    uint32_t CPOL:1;           /*!< bit:     29  Clock Polarity                     */
-    uint32_t DORD:1;           /*!< bit:     30  Data Order                         */
-    uint32_t :1;               /*!< bit:     31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_USART_CTRLA_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_USART_CTRLA_OFFSET   0x00         /**< \brief (SERCOM_USART_CTRLA offset) USART Control A */
 #define SERCOM_USART_CTRLA_RESETVALUE _U(0x00000000); /**< \brief (SERCOM_USART_CTRLA reset_value) USART Control A */
@@ -313,22 +220,6 @@ typedef union {
 #define SERCOM_USART_CTRLA_DORD     (_U(0x1) << SERCOM_USART_CTRLA_DORD_Pos)
 #define SERCOM_USART_CTRLA_MASK     _U(0x7F31019F) /**< \brief (SERCOM_USART_CTRLA) MASK Register */
 
-/* -------- SERCOM_I2CM_CTRLB : (SERCOM Offset: 0x04) (R/W 32) I2CM I2CM Control B -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t :8;               /*!< bit:  0.. 7  Reserved                           */
-    uint32_t SMEN:1;           /*!< bit:      8  Smart Mode Enable                  */
-    uint32_t QCEN:1;           /*!< bit:      9  Quick Command Enable               */
-    uint32_t :6;               /*!< bit: 10..15  Reserved                           */
-    uint32_t CMD:2;            /*!< bit: 16..17  Command                            */
-    uint32_t ACKACT:1;         /*!< bit:     18  Acknowledge Action                 */
-    uint32_t :13;              /*!< bit: 19..31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_I2CM_CTRLB_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_I2CM_CTRLB_OFFSET    0x04         /**< \brief (SERCOM_I2CM_CTRLB offset) I2CM Control B */
 #define SERCOM_I2CM_CTRLB_RESETVALUE _U(0x00000000); /**< \brief (SERCOM_I2CM_CTRLB reset_value) I2CM Control B */
 
@@ -342,22 +233,6 @@ typedef union {
 #define SERCOM_I2CM_CTRLB_ACKACT_Pos 18           /**< \brief (SERCOM_I2CM_CTRLB) Acknowledge Action */
 #define SERCOM_I2CM_CTRLB_ACKACT    (_U(0x1) << SERCOM_I2CM_CTRLB_ACKACT_Pos)
 #define SERCOM_I2CM_CTRLB_MASK      _U(0x00070300) /**< \brief (SERCOM_I2CM_CTRLB) MASK Register */
-
-/* -------- SERCOM_I2CS_CTRLB : (SERCOM Offset: 0x04) (R/W 32) I2CS I2CS Control B -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t :8;               /*!< bit:  0.. 7  Reserved                           */
-    uint32_t SMEN:1;           /*!< bit:      8  Smart Mode Enable                  */
-    uint32_t :5;               /*!< bit:  9..13  Reserved                           */
-    uint32_t AMODE:2;          /*!< bit: 14..15  Address Mode                       */
-    uint32_t CMD:2;            /*!< bit: 16..17  Command                            */
-    uint32_t ACKACT:1;         /*!< bit:     18  Acknowledge Action                 */
-    uint32_t :13;              /*!< bit: 19..31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_I2CS_CTRLB_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CS_CTRLB_OFFSET    0x04         /**< \brief (SERCOM_I2CS_CTRLB offset) I2CS Control B */
 #define SERCOM_I2CS_CTRLB_RESETVALUE _U(0x00000000); /**< \brief (SERCOM_I2CS_CTRLB reset_value) I2CS Control B */
@@ -373,23 +248,6 @@ typedef union {
 #define SERCOM_I2CS_CTRLB_ACKACT_Pos 18           /**< \brief (SERCOM_I2CS_CTRLB) Acknowledge Action */
 #define SERCOM_I2CS_CTRLB_ACKACT    (_U(0x1) << SERCOM_I2CS_CTRLB_ACKACT_Pos)
 #define SERCOM_I2CS_CTRLB_MASK      _U(0x0007C100) /**< \brief (SERCOM_I2CS_CTRLB) MASK Register */
-
-/* -------- SERCOM_SPI_CTRLB : (SERCOM Offset: 0x04) (R/W 32) SPI SPI Control B -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t CHSIZE:3;         /*!< bit:  0.. 2  Character Size                     */
-    uint32_t :3;               /*!< bit:  3.. 5  Reserved                           */
-    uint32_t PLOADEN:1;        /*!< bit:      6  Slave Data Preload Enable          */
-    uint32_t :7;               /*!< bit:  7..13  Reserved                           */
-    uint32_t AMODE:2;          /*!< bit: 14..15  Address Mode                       */
-    uint32_t :1;               /*!< bit:     16  Reserved                           */
-    uint32_t RXEN:1;           /*!< bit:     17  Receiver Enable                    */
-    uint32_t :14;              /*!< bit: 18..31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_SPI_CTRLB_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_SPI_CTRLB_OFFSET     0x04         /**< \brief (SERCOM_SPI_CTRLB offset) SPI Control B */
 #define SERCOM_SPI_CTRLB_RESETVALUE _U(0x00000000); /**< \brief (SERCOM_SPI_CTRLB reset_value) SPI Control B */
@@ -412,26 +270,6 @@ typedef union {
 #define SERCOM_SPI_CTRLB_RXEN       (_U(0x1) << SERCOM_SPI_CTRLB_RXEN_Pos)
 #define SERCOM_SPI_CTRLB_MASK       _U(0x0002C047) /**< \brief (SERCOM_SPI_CTRLB) MASK Register */
 
-/* -------- SERCOM_USART_CTRLB : (SERCOM Offset: 0x04) (R/W 32) USART USART Control B -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t CHSIZE:3;         /*!< bit:  0.. 2  Character Size                     */
-    uint32_t :3;               /*!< bit:  3.. 5  Reserved                           */
-    uint32_t SBMODE:1;         /*!< bit:      6  Stop Bit Mode                      */
-    uint32_t :2;               /*!< bit:  7.. 8  Reserved                           */
-    uint32_t SFDE:1;           /*!< bit:      9  Start of Frame Detection Enable    */
-    uint32_t :3;               /*!< bit: 10..12  Reserved                           */
-    uint32_t PMODE:1;          /*!< bit:     13  Parity Mode                        */
-    uint32_t :2;               /*!< bit: 14..15  Reserved                           */
-    uint32_t TXEN:1;           /*!< bit:     16  Transmitter Enable                 */
-    uint32_t RXEN:1;           /*!< bit:     17  Receiver Enable                    */
-    uint32_t :14;              /*!< bit: 18..31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_USART_CTRLB_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_USART_CTRLB_OFFSET   0x04         /**< \brief (SERCOM_USART_CTRLB offset) USART Control B */
 #define SERCOM_USART_CTRLB_RESETVALUE _U(0x00000000); /**< \brief (SERCOM_USART_CTRLB reset_value) USART Control B */
 
@@ -450,34 +288,12 @@ typedef union {
 #define SERCOM_USART_CTRLB_RXEN     (_U(0x1) << SERCOM_USART_CTRLB_RXEN_Pos)
 #define SERCOM_USART_CTRLB_MASK     _U(0x00032247) /**< \brief (SERCOM_USART_CTRLB) MASK Register */
 
-/* -------- SERCOM_I2CM_DBGCTRL : (SERCOM Offset: 0x08) (R/W  8) I2CM I2CM Debug Control -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DBGSTOP:1;        /*!< bit:      0  Debug Stop Mode                    */
-    uint8_t  :7;               /*!< bit:  1.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CM_DBGCTRL_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_I2CM_DBGCTRL_OFFSET  0x08         /**< \brief (SERCOM_I2CM_DBGCTRL offset) I2CM Debug Control */
 #define SERCOM_I2CM_DBGCTRL_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CM_DBGCTRL reset_value) I2CM Debug Control */
 
 #define SERCOM_I2CM_DBGCTRL_DBGSTOP_Pos 0            /**< \brief (SERCOM_I2CM_DBGCTRL) Debug Stop Mode */
 #define SERCOM_I2CM_DBGCTRL_DBGSTOP (_U(0x1) << SERCOM_I2CM_DBGCTRL_DBGSTOP_Pos)
 #define SERCOM_I2CM_DBGCTRL_MASK    _U(0x01)     /**< \brief (SERCOM_I2CM_DBGCTRL) MASK Register */
-
-/* -------- SERCOM_SPI_DBGCTRL : (SERCOM Offset: 0x08) (R/W  8) SPI SPI Debug Control -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DBGSTOP:1;        /*!< bit:      0  Debug Stop Mode                    */
-    uint8_t  :7;               /*!< bit:  1.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_SPI_DBGCTRL_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_SPI_DBGCTRL_OFFSET   0x08         /**< \brief (SERCOM_SPI_DBGCTRL offset) SPI Debug Control */
 #define SERCOM_SPI_DBGCTRL_RESETVALUE _U(0x00);    /**< \brief (SERCOM_SPI_DBGCTRL reset_value) SPI Debug Control */
@@ -486,34 +302,12 @@ typedef union {
 #define SERCOM_SPI_DBGCTRL_DBGSTOP  (_U(0x1) << SERCOM_SPI_DBGCTRL_DBGSTOP_Pos)
 #define SERCOM_SPI_DBGCTRL_MASK     _U(0x01)     /**< \brief (SERCOM_SPI_DBGCTRL) MASK Register */
 
-/* -------- SERCOM_USART_DBGCTRL : (SERCOM Offset: 0x08) (R/W  8) USART USART Debug Control -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DBGSTOP:1;        /*!< bit:      0  Debug Stop Mode                    */
-    uint8_t  :7;               /*!< bit:  1.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_USART_DBGCTRL_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_USART_DBGCTRL_OFFSET 0x08         /**< \brief (SERCOM_USART_DBGCTRL offset) USART Debug Control */
 #define SERCOM_USART_DBGCTRL_RESETVALUE _U(0x00);    /**< \brief (SERCOM_USART_DBGCTRL reset_value) USART Debug Control */
 
 #define SERCOM_USART_DBGCTRL_DBGSTOP_Pos 0            /**< \brief (SERCOM_USART_DBGCTRL) Debug Stop Mode */
 #define SERCOM_USART_DBGCTRL_DBGSTOP (_U(0x1) << SERCOM_USART_DBGCTRL_DBGSTOP_Pos)
 #define SERCOM_USART_DBGCTRL_MASK   _U(0x01)     /**< \brief (SERCOM_USART_DBGCTRL) MASK Register */
-
-/* -------- SERCOM_I2CM_BAUD : (SERCOM Offset: 0x0A) (R/W 16) I2CM I2CM Baud Rate -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t BAUD:8;           /*!< bit:  0.. 7  Master Baud Rate                   */
-    uint16_t BAUDLOW:8;        /*!< bit:  8..15  Master Baud Rate Low               */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} SERCOM_I2CM_BAUD_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CM_BAUD_OFFSET     0x0A         /**< \brief (SERCOM_I2CM_BAUD offset) I2CM Baud Rate */
 #define SERCOM_I2CM_BAUD_RESETVALUE _U(0x0000);  /**< \brief (SERCOM_I2CM_BAUD reset_value) I2CM Baud Rate */
@@ -526,16 +320,6 @@ typedef union {
 #define SERCOM_I2CM_BAUD_BAUDLOW(value) (SERCOM_I2CM_BAUD_BAUDLOW_Msk & ((value) << SERCOM_I2CM_BAUD_BAUDLOW_Pos))
 #define SERCOM_I2CM_BAUD_MASK       _U(0xFFFF)   /**< \brief (SERCOM_I2CM_BAUD) MASK Register */
 
-/* -------- SERCOM_SPI_BAUD : (SERCOM Offset: 0x0A) (R/W  8) SPI SPI Baud Rate -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  BAUD:8;           /*!< bit:  0.. 7  Baud Register                      */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_SPI_BAUD_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_SPI_BAUD_OFFSET      0x0A         /**< \brief (SERCOM_SPI_BAUD offset) SPI Baud Rate */
 #define SERCOM_SPI_BAUD_RESETVALUE  _U(0x00);    /**< \brief (SERCOM_SPI_BAUD reset_value) SPI Baud Rate */
 
@@ -543,16 +327,6 @@ typedef union {
 #define SERCOM_SPI_BAUD_BAUD_Msk    (_U(0xFF) << SERCOM_SPI_BAUD_BAUD_Pos)
 #define SERCOM_SPI_BAUD_BAUD(value) (SERCOM_SPI_BAUD_BAUD_Msk & ((value) << SERCOM_SPI_BAUD_BAUD_Pos))
 #define SERCOM_SPI_BAUD_MASK        _U(0xFF)     /**< \brief (SERCOM_SPI_BAUD) MASK Register */
-
-/* -------- SERCOM_USART_BAUD : (SERCOM Offset: 0x0A) (R/W 16) USART USART Baud -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t BAUD:16;          /*!< bit:  0..15  Baud Value                         */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} SERCOM_USART_BAUD_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_USART_BAUD_OFFSET    0x0A         /**< \brief (SERCOM_USART_BAUD offset) USART Baud */
 #define SERCOM_USART_BAUD_RESETVALUE _U(0x0000);  /**< \brief (SERCOM_USART_BAUD reset_value) USART Baud */
@@ -562,18 +336,6 @@ typedef union {
 #define SERCOM_USART_BAUD_BAUD(value) (SERCOM_USART_BAUD_BAUD_Msk & ((value) << SERCOM_USART_BAUD_BAUD_Pos))
 #define SERCOM_USART_BAUD_MASK      _U(0xFFFF)   /**< \brief (SERCOM_USART_BAUD) MASK Register */
 
-/* -------- SERCOM_I2CM_INTENCLR : (SERCOM Offset: 0x0C) (R/W  8) I2CM I2CM Interrupt Enable Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  MB:1;             /*!< bit:      0  Master on Bus Interrupt Enable     */
-    uint8_t  SB:1;             /*!< bit:      1  Slave on Bus Interrupt Enable      */
-    uint8_t  :6;               /*!< bit:  2.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CM_INTENCLR_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_I2CM_INTENCLR_OFFSET 0x0C         /**< \brief (SERCOM_I2CM_INTENCLR offset) I2CM Interrupt Enable Clear */
 #define SERCOM_I2CM_INTENCLR_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CM_INTENCLR reset_value) I2CM Interrupt Enable Clear */
 
@@ -582,19 +344,6 @@ typedef union {
 #define SERCOM_I2CM_INTENCLR_SB_Pos 1            /**< \brief (SERCOM_I2CM_INTENCLR) Slave on Bus Interrupt Enable */
 #define SERCOM_I2CM_INTENCLR_SB     (_U(0x1) << SERCOM_I2CM_INTENCLR_SB_Pos)
 #define SERCOM_I2CM_INTENCLR_MASK   _U(0x03)     /**< \brief (SERCOM_I2CM_INTENCLR) MASK Register */
-
-/* -------- SERCOM_I2CS_INTENCLR : (SERCOM Offset: 0x0C) (R/W  8) I2CS I2CS Interrupt Enable Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  PREC:1;           /*!< bit:      0  Stop Received Interrupt Enable     */
-    uint8_t  AMATCH:1;         /*!< bit:      1  Address Match Interrupt Enable     */
-    uint8_t  DRDY:1;           /*!< bit:      2  Data Ready Interrupt Enable        */
-    uint8_t  :5;               /*!< bit:  3.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CS_INTENCLR_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CS_INTENCLR_OFFSET 0x0C         /**< \brief (SERCOM_I2CS_INTENCLR offset) I2CS Interrupt Enable Clear */
 #define SERCOM_I2CS_INTENCLR_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CS_INTENCLR reset_value) I2CS Interrupt Enable Clear */
@@ -607,19 +356,6 @@ typedef union {
 #define SERCOM_I2CS_INTENCLR_DRDY   (_U(0x1) << SERCOM_I2CS_INTENCLR_DRDY_Pos)
 #define SERCOM_I2CS_INTENCLR_MASK   _U(0x07)     /**< \brief (SERCOM_I2CS_INTENCLR) MASK Register */
 
-/* -------- SERCOM_SPI_INTENCLR : (SERCOM Offset: 0x0C) (R/W  8) SPI SPI Interrupt Enable Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DRE:1;            /*!< bit:      0  Data Register Empty Interrupt Enable */
-    uint8_t  TXC:1;            /*!< bit:      1  Transmit Complete Interrupt Enable */
-    uint8_t  RXC:1;            /*!< bit:      2  Receive Complete Interrupt Enable  */
-    uint8_t  :5;               /*!< bit:  3.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_SPI_INTENCLR_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_SPI_INTENCLR_OFFSET  0x0C         /**< \brief (SERCOM_SPI_INTENCLR offset) SPI Interrupt Enable Clear */
 #define SERCOM_SPI_INTENCLR_RESETVALUE _U(0x00);    /**< \brief (SERCOM_SPI_INTENCLR reset_value) SPI Interrupt Enable Clear */
 
@@ -630,20 +366,6 @@ typedef union {
 #define SERCOM_SPI_INTENCLR_RXC_Pos 2            /**< \brief (SERCOM_SPI_INTENCLR) Receive Complete Interrupt Enable */
 #define SERCOM_SPI_INTENCLR_RXC     (_U(0x1) << SERCOM_SPI_INTENCLR_RXC_Pos)
 #define SERCOM_SPI_INTENCLR_MASK    _U(0x07)     /**< \brief (SERCOM_SPI_INTENCLR) MASK Register */
-
-/* -------- SERCOM_USART_INTENCLR : (SERCOM Offset: 0x0C) (R/W  8) USART USART Interrupt Enable Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DRE:1;            /*!< bit:      0  Data Register Empty Interrupt Enable */
-    uint8_t  TXC:1;            /*!< bit:      1  Transmit Complete Interrupt Enable */
-    uint8_t  RXC:1;            /*!< bit:      2  Receive Complete Interrupt Enable  */
-    uint8_t  RXS:1;            /*!< bit:      3  Receive Start Interrupt Disable    */
-    uint8_t  :4;               /*!< bit:  4.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_USART_INTENCLR_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_USART_INTENCLR_OFFSET 0x0C         /**< \brief (SERCOM_USART_INTENCLR offset) USART Interrupt Enable Clear */
 #define SERCOM_USART_INTENCLR_RESETVALUE _U(0x00);    /**< \brief (SERCOM_USART_INTENCLR reset_value) USART Interrupt Enable Clear */
@@ -658,18 +380,6 @@ typedef union {
 #define SERCOM_USART_INTENCLR_RXS   (_U(0x1) << SERCOM_USART_INTENCLR_RXS_Pos)
 #define SERCOM_USART_INTENCLR_MASK  _U(0x0F)     /**< \brief (SERCOM_USART_INTENCLR) MASK Register */
 
-/* -------- SERCOM_I2CM_INTENSET : (SERCOM Offset: 0x0D) (R/W  8) I2CM I2CM Interrupt Enable Set -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  MB:1;             /*!< bit:      0  Master on Bus Interrupt Enable     */
-    uint8_t  SB:1;             /*!< bit:      1  Slave on Bus Interrupt Enable      */
-    uint8_t  :6;               /*!< bit:  2.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CM_INTENSET_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_I2CM_INTENSET_OFFSET 0x0D         /**< \brief (SERCOM_I2CM_INTENSET offset) I2CM Interrupt Enable Set */
 #define SERCOM_I2CM_INTENSET_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CM_INTENSET reset_value) I2CM Interrupt Enable Set */
 
@@ -678,19 +388,6 @@ typedef union {
 #define SERCOM_I2CM_INTENSET_SB_Pos 1            /**< \brief (SERCOM_I2CM_INTENSET) Slave on Bus Interrupt Enable */
 #define SERCOM_I2CM_INTENSET_SB     (_U(0x1) << SERCOM_I2CM_INTENSET_SB_Pos)
 #define SERCOM_I2CM_INTENSET_MASK   _U(0x03)     /**< \brief (SERCOM_I2CM_INTENSET) MASK Register */
-
-/* -------- SERCOM_I2CS_INTENSET : (SERCOM Offset: 0x0D) (R/W  8) I2CS I2CS Interrupt Enable Set -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  PREC:1;           /*!< bit:      0  Stop Received Interrupt Enable     */
-    uint8_t  AMATCH:1;         /*!< bit:      1  Address Match Interrupt Enable     */
-    uint8_t  DRDY:1;           /*!< bit:      2  Data Ready Interrupt Enable        */
-    uint8_t  :5;               /*!< bit:  3.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CS_INTENSET_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CS_INTENSET_OFFSET 0x0D         /**< \brief (SERCOM_I2CS_INTENSET offset) I2CS Interrupt Enable Set */
 #define SERCOM_I2CS_INTENSET_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CS_INTENSET reset_value) I2CS Interrupt Enable Set */
@@ -703,19 +400,6 @@ typedef union {
 #define SERCOM_I2CS_INTENSET_DRDY   (_U(0x1) << SERCOM_I2CS_INTENSET_DRDY_Pos)
 #define SERCOM_I2CS_INTENSET_MASK   _U(0x07)     /**< \brief (SERCOM_I2CS_INTENSET) MASK Register */
 
-/* -------- SERCOM_SPI_INTENSET : (SERCOM Offset: 0x0D) (R/W  8) SPI SPI Interrupt Enable Set -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DRE:1;            /*!< bit:      0  Data Register Empty Interrupt Enable */
-    uint8_t  TXC:1;            /*!< bit:      1  Transmit Complete Interrupt Enable */
-    uint8_t  RXC:1;            /*!< bit:      2  Receive Complete Interrupt Enable  */
-    uint8_t  :5;               /*!< bit:  3.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_SPI_INTENSET_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_SPI_INTENSET_OFFSET  0x0D         /**< \brief (SERCOM_SPI_INTENSET offset) SPI Interrupt Enable Set */
 #define SERCOM_SPI_INTENSET_RESETVALUE _U(0x00);    /**< \brief (SERCOM_SPI_INTENSET reset_value) SPI Interrupt Enable Set */
 
@@ -726,20 +410,6 @@ typedef union {
 #define SERCOM_SPI_INTENSET_RXC_Pos 2            /**< \brief (SERCOM_SPI_INTENSET) Receive Complete Interrupt Enable */
 #define SERCOM_SPI_INTENSET_RXC     (_U(0x1) << SERCOM_SPI_INTENSET_RXC_Pos)
 #define SERCOM_SPI_INTENSET_MASK    _U(0x07)     /**< \brief (SERCOM_SPI_INTENSET) MASK Register */
-
-/* -------- SERCOM_USART_INTENSET : (SERCOM Offset: 0x0D) (R/W  8) USART USART Interrupt Enable Set -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DRE:1;            /*!< bit:      0  Data Register Empty Interrupt Enable */
-    uint8_t  TXC:1;            /*!< bit:      1  Transmit Complete Interrupt Enable */
-    uint8_t  RXC:1;            /*!< bit:      2  Receive Complete Interrupt Enable  */
-    uint8_t  RXS:1;            /*!< bit:      3  Receive Start Interrupt Enable     */
-    uint8_t  :4;               /*!< bit:  4.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_USART_INTENSET_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_USART_INTENSET_OFFSET 0x0D         /**< \brief (SERCOM_USART_INTENSET offset) USART Interrupt Enable Set */
 #define SERCOM_USART_INTENSET_RESETVALUE _U(0x00);    /**< \brief (SERCOM_USART_INTENSET reset_value) USART Interrupt Enable Set */
@@ -754,18 +424,6 @@ typedef union {
 #define SERCOM_USART_INTENSET_RXS   (_U(0x1) << SERCOM_USART_INTENSET_RXS_Pos)
 #define SERCOM_USART_INTENSET_MASK  _U(0x0F)     /**< \brief (SERCOM_USART_INTENSET) MASK Register */
 
-/* -------- SERCOM_I2CM_INTFLAG : (SERCOM Offset: 0x0E) (R/W  8) I2CM I2CM Interrupt Flag Status and Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union { // __I to avoid read-modify-write on write-to-clear register
-  struct {
-    __I uint8_t  MB:1;             /*!< bit:      0  Master on Bus                      */
-    __I uint8_t  SB:1;             /*!< bit:      1  Slave on Bus                       */
-    __I uint8_t  :6;               /*!< bit:  2.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CM_INTFLAG_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_I2CM_INTFLAG_OFFSET  0x0E         /**< \brief (SERCOM_I2CM_INTFLAG offset) I2CM Interrupt Flag Status and Clear */
 #define SERCOM_I2CM_INTFLAG_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CM_INTFLAG reset_value) I2CM Interrupt Flag Status and Clear */
 
@@ -774,19 +432,6 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define SERCOM_I2CM_INTFLAG_SB_Pos  1            /**< \brief (SERCOM_I2CM_INTFLAG) Slave on Bus */
 #define SERCOM_I2CM_INTFLAG_SB      (_U(0x1) << SERCOM_I2CM_INTFLAG_SB_Pos)
 #define SERCOM_I2CM_INTFLAG_MASK    _U(0x03)     /**< \brief (SERCOM_I2CM_INTFLAG) MASK Register */
-
-/* -------- SERCOM_I2CS_INTFLAG : (SERCOM Offset: 0x0E) (R/W  8) I2CS I2CS Interrupt Flag Status and Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union { // __I to avoid read-modify-write on write-to-clear register
-  struct {
-    __I uint8_t  PREC:1;           /*!< bit:      0  Stop Received                      */
-    __I uint8_t  AMATCH:1;         /*!< bit:      1  Address Match                      */
-    __I uint8_t  DRDY:1;           /*!< bit:      2  Data Ready                         */
-    __I uint8_t  :5;               /*!< bit:  3.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CS_INTFLAG_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CS_INTFLAG_OFFSET  0x0E         /**< \brief (SERCOM_I2CS_INTFLAG offset) I2CS Interrupt Flag Status and Clear */
 #define SERCOM_I2CS_INTFLAG_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CS_INTFLAG reset_value) I2CS Interrupt Flag Status and Clear */
@@ -799,19 +444,6 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define SERCOM_I2CS_INTFLAG_DRDY    (_U(0x1) << SERCOM_I2CS_INTFLAG_DRDY_Pos)
 #define SERCOM_I2CS_INTFLAG_MASK    _U(0x07)     /**< \brief (SERCOM_I2CS_INTFLAG) MASK Register */
 
-/* -------- SERCOM_SPI_INTFLAG : (SERCOM Offset: 0x0E) (R/W  8) SPI SPI Interrupt Flag Status and Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union { // __I to avoid read-modify-write on write-to-clear register
-  struct {
-    __I uint8_t  DRE:1;            /*!< bit:      0  Data Register Empty                */
-    __I uint8_t  TXC:1;            /*!< bit:      1  Transmit Complete                  */
-    __I uint8_t  RXC:1;            /*!< bit:      2  Receive Complete                   */
-    __I uint8_t  :5;               /*!< bit:  3.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_SPI_INTFLAG_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_SPI_INTFLAG_OFFSET   0x0E         /**< \brief (SERCOM_SPI_INTFLAG offset) SPI Interrupt Flag Status and Clear */
 #define SERCOM_SPI_INTFLAG_RESETVALUE _U(0x00);    /**< \brief (SERCOM_SPI_INTFLAG reset_value) SPI Interrupt Flag Status and Clear */
 
@@ -822,20 +454,6 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define SERCOM_SPI_INTFLAG_RXC_Pos  2            /**< \brief (SERCOM_SPI_INTFLAG) Receive Complete */
 #define SERCOM_SPI_INTFLAG_RXC      (_U(0x1) << SERCOM_SPI_INTFLAG_RXC_Pos)
 #define SERCOM_SPI_INTFLAG_MASK     _U(0x07)     /**< \brief (SERCOM_SPI_INTFLAG) MASK Register */
-
-/* -------- SERCOM_USART_INTFLAG : (SERCOM Offset: 0x0E) (R/W  8) USART USART Interrupt Flag Status and Clear -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union { // __I to avoid read-modify-write on write-to-clear register
-  struct {
-    __I uint8_t  DRE:1;            /*!< bit:      0  Data Register Empty                */
-    __I uint8_t  TXC:1;            /*!< bit:      1  Transmit Complete                  */
-    __I uint8_t  RXC:1;            /*!< bit:      2  Receive Complete                   */
-    __I uint8_t  RXS:1;            /*!< bit:      3  Receive Start Interrupt            */
-    __I uint8_t  :4;               /*!< bit:  4.. 7  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_USART_INTFLAG_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_USART_INTFLAG_OFFSET 0x0E         /**< \brief (SERCOM_USART_INTFLAG offset) USART Interrupt Flag Status and Clear */
 #define SERCOM_USART_INTFLAG_RESETVALUE _U(0x00);    /**< \brief (SERCOM_USART_INTFLAG reset_value) USART Interrupt Flag Status and Clear */
@@ -849,24 +467,6 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define SERCOM_USART_INTFLAG_RXS_Pos 3            /**< \brief (SERCOM_USART_INTFLAG) Receive Start Interrupt */
 #define SERCOM_USART_INTFLAG_RXS    (_U(0x1) << SERCOM_USART_INTFLAG_RXS_Pos)
 #define SERCOM_USART_INTFLAG_MASK   _U(0x0F)     /**< \brief (SERCOM_USART_INTFLAG) MASK Register */
-
-/* -------- SERCOM_I2CM_STATUS : (SERCOM Offset: 0x10) (R/W 16) I2CM I2CM Status -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t BUSERR:1;         /*!< bit:      0  Bus Error                          */
-    uint16_t ARBLOST:1;        /*!< bit:      1  Arbitration Lost                   */
-    uint16_t RXNACK:1;         /*!< bit:      2  Received Not Acknowledge           */
-    uint16_t :1;               /*!< bit:      3  Reserved                           */
-    uint16_t BUSSTATE:2;       /*!< bit:  4.. 5  Bus State                          */
-    uint16_t LOWTOUT:1;        /*!< bit:      6  SCL Low Time-out                   */
-    uint16_t CLKHOLD:1;        /*!< bit:      7  Clock Hold                         */
-    uint16_t :7;               /*!< bit:  8..14  Reserved                           */
-    uint16_t SYNCBUSY:1;       /*!< bit:     15  Synchronization Busy               */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} SERCOM_I2CM_STATUS_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CM_STATUS_OFFSET   0x10         /**< \brief (SERCOM_I2CM_STATUS offset) I2CM Status */
 #define SERCOM_I2CM_STATUS_RESETVALUE _U(0x0000);  /**< \brief (SERCOM_I2CM_STATUS reset_value) I2CM Status */
@@ -887,25 +487,6 @@ typedef union {
 #define SERCOM_I2CM_STATUS_SYNCBUSY_Pos 15           /**< \brief (SERCOM_I2CM_STATUS) Synchronization Busy */
 #define SERCOM_I2CM_STATUS_SYNCBUSY (_U(0x1) << SERCOM_I2CM_STATUS_SYNCBUSY_Pos)
 #define SERCOM_I2CM_STATUS_MASK     _U(0x80F7)   /**< \brief (SERCOM_I2CM_STATUS) MASK Register */
-
-/* -------- SERCOM_I2CS_STATUS : (SERCOM Offset: 0x10) (R/W 16) I2CS I2CS Status -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t BUSERR:1;         /*!< bit:      0  Bus Error                          */
-    uint16_t COLL:1;           /*!< bit:      1  Transmit Collision                 */
-    uint16_t RXNACK:1;         /*!< bit:      2  Received Not Acknowledge           */
-    uint16_t DIR:1;            /*!< bit:      3  Read / Write Direction             */
-    uint16_t SR:1;             /*!< bit:      4  Repeated Start                     */
-    uint16_t :1;               /*!< bit:      5  Reserved                           */
-    uint16_t LOWTOUT:1;        /*!< bit:      6  SCL Low Time-out                   */
-    uint16_t CLKHOLD:1;        /*!< bit:      7  Clock Hold                         */
-    uint16_t :7;               /*!< bit:  8..14  Reserved                           */
-    uint16_t SYNCBUSY:1;       /*!< bit:     15  Synchronization Busy               */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} SERCOM_I2CS_STATUS_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CS_STATUS_OFFSET   0x10         /**< \brief (SERCOM_I2CS_STATUS offset) I2CS Status */
 #define SERCOM_I2CS_STATUS_RESETVALUE _U(0x0000);  /**< \brief (SERCOM_I2CS_STATUS reset_value) I2CS Status */
@@ -928,19 +509,6 @@ typedef union {
 #define SERCOM_I2CS_STATUS_SYNCBUSY (_U(0x1) << SERCOM_I2CS_STATUS_SYNCBUSY_Pos)
 #define SERCOM_I2CS_STATUS_MASK     _U(0x80DF)   /**< \brief (SERCOM_I2CS_STATUS) MASK Register */
 
-/* -------- SERCOM_SPI_STATUS : (SERCOM Offset: 0x10) (R/W 16) SPI SPI Status -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t :2;               /*!< bit:  0.. 1  Reserved                           */
-    uint16_t BUFOVF:1;         /*!< bit:      2  Buffer Overflow                    */
-    uint16_t :12;              /*!< bit:  3..14  Reserved                           */
-    uint16_t SYNCBUSY:1;       /*!< bit:     15  Synchronization Busy               */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} SERCOM_SPI_STATUS_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_SPI_STATUS_OFFSET    0x10         /**< \brief (SERCOM_SPI_STATUS offset) SPI Status */
 #define SERCOM_SPI_STATUS_RESETVALUE _U(0x0000);  /**< \brief (SERCOM_SPI_STATUS reset_value) SPI Status */
 
@@ -949,20 +517,6 @@ typedef union {
 #define SERCOM_SPI_STATUS_SYNCBUSY_Pos 15           /**< \brief (SERCOM_SPI_STATUS) Synchronization Busy */
 #define SERCOM_SPI_STATUS_SYNCBUSY  (_U(0x1) << SERCOM_SPI_STATUS_SYNCBUSY_Pos)
 #define SERCOM_SPI_STATUS_MASK      _U(0x8004)   /**< \brief (SERCOM_SPI_STATUS) MASK Register */
-
-/* -------- SERCOM_USART_STATUS : (SERCOM Offset: 0x10) (R/W 16) USART USART Status -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t PERR:1;           /*!< bit:      0  Parity Error                       */
-    uint16_t FERR:1;           /*!< bit:      1  Frame Error                        */
-    uint16_t BUFOVF:1;         /*!< bit:      2  Buffer Overflow                    */
-    uint16_t :12;              /*!< bit:  3..14  Reserved                           */
-    uint16_t SYNCBUSY:1;       /*!< bit:     15  Synchronization Busy               */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} SERCOM_USART_STATUS_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_USART_STATUS_OFFSET  0x10         /**< \brief (SERCOM_USART_STATUS offset) USART Status */
 #define SERCOM_USART_STATUS_RESETVALUE _U(0x0000);  /**< \brief (SERCOM_USART_STATUS reset_value) USART Status */
@@ -977,16 +531,6 @@ typedef union {
 #define SERCOM_USART_STATUS_SYNCBUSY (_U(0x1) << SERCOM_USART_STATUS_SYNCBUSY_Pos)
 #define SERCOM_USART_STATUS_MASK    _U(0x8007)   /**< \brief (SERCOM_USART_STATUS) MASK Register */
 
-/* -------- SERCOM_I2CM_ADDR : (SERCOM Offset: 0x14) (R/W  8) I2CM I2CM Address -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  ADDR:8;           /*!< bit:  0.. 7  Address                            */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CM_ADDR_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_I2CM_ADDR_OFFSET     0x14         /**< \brief (SERCOM_I2CM_ADDR offset) I2CM Address */
 #define SERCOM_I2CM_ADDR_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CM_ADDR reset_value) I2CM Address */
 
@@ -994,20 +538,6 @@ typedef union {
 #define SERCOM_I2CM_ADDR_ADDR_Msk   (_U(0xFF) << SERCOM_I2CM_ADDR_ADDR_Pos)
 #define SERCOM_I2CM_ADDR_ADDR(value) (SERCOM_I2CM_ADDR_ADDR_Msk & ((value) << SERCOM_I2CM_ADDR_ADDR_Pos))
 #define SERCOM_I2CM_ADDR_MASK       _U(0xFF)     /**< \brief (SERCOM_I2CM_ADDR) MASK Register */
-
-/* -------- SERCOM_I2CS_ADDR : (SERCOM Offset: 0x14) (R/W 32) I2CS I2CS Address -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t GENCEN:1;         /*!< bit:      0  General Call Address Enable        */
-    uint32_t ADDR:7;           /*!< bit:  1.. 7  Address                            */
-    uint32_t :9;               /*!< bit:  8..16  Reserved                           */
-    uint32_t ADDRMASK:7;       /*!< bit: 17..23  Address Mask                       */
-    uint32_t :8;               /*!< bit: 24..31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_I2CS_ADDR_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CS_ADDR_OFFSET     0x14         /**< \brief (SERCOM_I2CS_ADDR offset) I2CS Address */
 #define SERCOM_I2CS_ADDR_RESETVALUE _U(0x00000000); /**< \brief (SERCOM_I2CS_ADDR reset_value) I2CS Address */
@@ -1022,19 +552,6 @@ typedef union {
 #define SERCOM_I2CS_ADDR_ADDRMASK(value) (SERCOM_I2CS_ADDR_ADDRMASK_Msk & ((value) << SERCOM_I2CS_ADDR_ADDRMASK_Pos))
 #define SERCOM_I2CS_ADDR_MASK       _U(0x00FE00FF) /**< \brief (SERCOM_I2CS_ADDR) MASK Register */
 
-/* -------- SERCOM_SPI_ADDR : (SERCOM Offset: 0x14) (R/W 32) SPI SPI Address -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint32_t ADDR:8;           /*!< bit:  0.. 7  Address                            */
-    uint32_t :8;               /*!< bit:  8..15  Reserved                           */
-    uint32_t ADDRMASK:8;       /*!< bit: 16..23  Address Mask                       */
-    uint32_t :8;               /*!< bit: 24..31  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint32_t reg;                /*!< Type      used for register access              */
-} SERCOM_SPI_ADDR_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_SPI_ADDR_OFFSET      0x14         /**< \brief (SERCOM_SPI_ADDR offset) SPI Address */
 #define SERCOM_SPI_ADDR_RESETVALUE  _U(0x00000000); /**< \brief (SERCOM_SPI_ADDR reset_value) SPI Address */
 
@@ -1046,16 +563,6 @@ typedef union {
 #define SERCOM_SPI_ADDR_ADDRMASK(value) (SERCOM_SPI_ADDR_ADDRMASK_Msk & ((value) << SERCOM_SPI_ADDR_ADDRMASK_Pos))
 #define SERCOM_SPI_ADDR_MASK        _U(0x00FF00FF) /**< \brief (SERCOM_SPI_ADDR) MASK Register */
 
-/* -------- SERCOM_I2CM_DATA : (SERCOM Offset: 0x18) (R/W  8) I2CM I2CM Data -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DATA:8;           /*!< bit:  0.. 7  Data                               */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CM_DATA_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_I2CM_DATA_OFFSET     0x18         /**< \brief (SERCOM_I2CM_DATA offset) I2CM Data */
 #define SERCOM_I2CM_DATA_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CM_DATA reset_value) I2CM Data */
 
@@ -1063,16 +570,6 @@ typedef union {
 #define SERCOM_I2CM_DATA_DATA_Msk   (_U(0xFF) << SERCOM_I2CM_DATA_DATA_Pos)
 #define SERCOM_I2CM_DATA_DATA(value) (SERCOM_I2CM_DATA_DATA_Msk & ((value) << SERCOM_I2CM_DATA_DATA_Pos))
 #define SERCOM_I2CM_DATA_MASK       _U(0xFF)     /**< \brief (SERCOM_I2CM_DATA) MASK Register */
-
-/* -------- SERCOM_I2CS_DATA : (SERCOM Offset: 0x18) (R/W  8) I2CS I2CS Data -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint8_t  DATA:8;           /*!< bit:  0.. 7  Data                               */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint8_t reg;                 /*!< Type      used for register access              */
-} SERCOM_I2CS_DATA_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_I2CS_DATA_OFFSET     0x18         /**< \brief (SERCOM_I2CS_DATA offset) I2CS Data */
 #define SERCOM_I2CS_DATA_RESETVALUE _U(0x00);    /**< \brief (SERCOM_I2CS_DATA reset_value) I2CS Data */
@@ -1082,17 +579,6 @@ typedef union {
 #define SERCOM_I2CS_DATA_DATA(value) (SERCOM_I2CS_DATA_DATA_Msk & ((value) << SERCOM_I2CS_DATA_DATA_Pos))
 #define SERCOM_I2CS_DATA_MASK       _U(0xFF)     /**< \brief (SERCOM_I2CS_DATA) MASK Register */
 
-/* -------- SERCOM_SPI_DATA : (SERCOM Offset: 0x18) (R/W 16) SPI SPI Data -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t DATA:9;           /*!< bit:  0.. 8  Data                               */
-    uint16_t :7;               /*!< bit:  9..15  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} SERCOM_SPI_DATA_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-
 #define SERCOM_SPI_DATA_OFFSET      0x18         /**< \brief (SERCOM_SPI_DATA offset) SPI Data */
 #define SERCOM_SPI_DATA_RESETVALUE  _U(0x0000);  /**< \brief (SERCOM_SPI_DATA reset_value) SPI Data */
 
@@ -1100,17 +586,6 @@ typedef union {
 #define SERCOM_SPI_DATA_DATA_Msk    (_U(0x1FF) << SERCOM_SPI_DATA_DATA_Pos)
 #define SERCOM_SPI_DATA_DATA(value) (SERCOM_SPI_DATA_DATA_Msk & ((value) << SERCOM_SPI_DATA_DATA_Pos))
 #define SERCOM_SPI_DATA_MASK        _U(0x01FF)   /**< \brief (SERCOM_SPI_DATA) MASK Register */
-
-/* -------- SERCOM_USART_DATA : (SERCOM Offset: 0x18) (R/W 16) USART USART Data -------- */
-#if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-  struct {
-    uint16_t DATA:9;           /*!< bit:  0.. 8  Data                               */
-    uint16_t :7;               /*!< bit:  9..15  Reserved                           */
-  } bit;                       /*!< Structure used for bit  access                  */
-  uint16_t reg;                /*!< Type      used for register access              */
-} SERCOM_USART_DATA_Type;
-#endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SERCOM_USART_DATA_OFFSET    0x18         /**< \brief (SERCOM_USART_DATA offset) USART Data */
 #define SERCOM_USART_DATA_RESETVALUE _U(0x0000);  /**< \brief (SERCOM_USART_DATA reset_value) USART Data */
@@ -1122,86 +597,101 @@ typedef union {
 
 /** \brief SERCOM_I2CM hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef struct { /* I2C Master Mode */
-  __IO SERCOM_I2CM_CTRLA_Type    CTRLA;       /**< \brief Offset: 0x00 (R/W 32) I2CM Control A */
-  __IO SERCOM_I2CM_CTRLB_Type    CTRLB;       /**< \brief Offset: 0x04 (R/W 32) I2CM Control B */
-  __IO SERCOM_I2CM_DBGCTRL_Type  DBGCTRL;     /**< \brief Offset: 0x08 (R/W  8) I2CM Debug Control */
-       RoReg8                    Reserved1[0x1];
-  __IO SERCOM_I2CM_BAUD_Type     BAUD;        /**< \brief Offset: 0x0A (R/W 16) I2CM Baud Rate */
-  __IO SERCOM_I2CM_INTENCLR_Type INTENCLR;    /**< \brief Offset: 0x0C (R/W  8) I2CM Interrupt Enable Clear */
-  __IO SERCOM_I2CM_INTENSET_Type INTENSET;    /**< \brief Offset: 0x0D (R/W  8) I2CM Interrupt Enable Set */
-  __IO SERCOM_I2CM_INTFLAG_Type  INTFLAG;     /**< \brief Offset: 0x0E (R/W  8) I2CM Interrupt Flag Status and Clear */
-       RoReg8                    Reserved2[0x1];
-  __IO SERCOM_I2CM_STATUS_Type   STATUS;      /**< \brief Offset: 0x10 (R/W 16) I2CM Status */
-       RoReg8                    Reserved3[0x2];
-  __IO SERCOM_I2CM_ADDR_Type     ADDR;        /**< \brief Offset: 0x14 (R/W  8) I2CM Address */
-       RoReg8                    Reserved4[0x3];
-  __IO SERCOM_I2CM_DATA_Type     DATA;        /**< \brief Offset: 0x18 (R/W  8) I2CM Data */
+
+typedef struct /* I2C Master Mode */
+{
+	__IO uint32_t	CTRLA;       	/**< \brief Offset: 0x00 (R/W 32) I2CM Control A */
+	__IO uint32_t	CTRLB;       	/**< \brief Offset: 0x04 (R/W 32) I2CM Control B */
+	__IO uint8_t	DBGCTRL;     	/**< \brief Offset: 0x08 (R/W  8) I2CM Debug Control */
+		 RoReg8		Reserved1[0x1];
+	__IO uint16_t	BAUD;        	/**< \brief Offset: 0x0A (R/W 16) I2CM Baud Rate */
+	__IO uint8_t	INTENCLR;    	/**< \brief Offset: 0x0C (R/W  8) I2CM Interrupt Enable Clear */
+	__IO uint8_t	INTENSET;    	/**< \brief Offset: 0x0D (R/W  8) I2CM Interrupt Enable Set */
+	__IO uint8_t	INTFLAG;     	/**< \brief Offset: 0x0E (R/W  8) I2CM Interrupt Flag Status and Clear */
+		 RoReg8		Reserved2[0x1];
+	__IO uint16_t	STATUS;      	/**< \brief Offset: 0x10 (R/W 16) I2CM Status */
+		 RoReg8		Reserved3[0x2];
+	__IO uint8_t	ADDR;        	/**< \brief Offset: 0x14 (R/W  8) I2CM Address */
+		 RoReg8		Reserved4[0x3];
+	__IO uint8_t	DATA;        	/**< \brief Offset: 0x18 (R/W  8) I2CM Data */
 } SercomI2cm;
+
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /** \brief SERCOM_I2CS hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef struct { /* I2C Slave Mode */
-  __IO SERCOM_I2CS_CTRLA_Type    CTRLA;       /**< \brief Offset: 0x00 (R/W 32) I2CS Control A */
-  __IO SERCOM_I2CS_CTRLB_Type    CTRLB;       /**< \brief Offset: 0x04 (R/W 32) I2CS Control B */
-       RoReg8                    Reserved1[0x4];
-  __IO SERCOM_I2CS_INTENCLR_Type INTENCLR;    /**< \brief Offset: 0x0C (R/W  8) I2CS Interrupt Enable Clear */
-  __IO SERCOM_I2CS_INTENSET_Type INTENSET;    /**< \brief Offset: 0x0D (R/W  8) I2CS Interrupt Enable Set */
-  __IO SERCOM_I2CS_INTFLAG_Type  INTFLAG;     /**< \brief Offset: 0x0E (R/W  8) I2CS Interrupt Flag Status and Clear */
-       RoReg8                    Reserved2[0x1];
-  __IO SERCOM_I2CS_STATUS_Type   STATUS;      /**< \brief Offset: 0x10 (R/W 16) I2CS Status */
-       RoReg8                    Reserved3[0x2];
-  __IO SERCOM_I2CS_ADDR_Type     ADDR;        /**< \brief Offset: 0x14 (R/W 32) I2CS Address */
-  __IO SERCOM_I2CS_DATA_Type     DATA;        /**< \brief Offset: 0x18 (R/W  8) I2CS Data */
+
+typedef struct /* I2C Slave Mode */
+{
+	__IO uint32_t	CTRLA;       	/**< \brief Offset: 0x00 (R/W 32) I2CS Control A */
+	__IO uint32_t	CTRLB;       	/**< \brief Offset: 0x04 (R/W 32) I2CS Control B */
+		 RoReg8		Reserved1[0x4];
+	__IO uint8_t	INTENCLR;    	/**< \brief Offset: 0x0C (R/W  8) I2CS Interrupt Enable Clear */
+	__IO uint8_t	INTENSET;    	/**< \brief Offset: 0x0D (R/W  8) I2CS Interrupt Enable Set */
+	__IO uint8_t	INTFLAG;     	/**< \brief Offset: 0x0E (R/W  8) I2CS Interrupt Flag Status and Clear */
+		 RoReg8		Reserved2[0x1];
+	__IO uint16_t	STATUS;      	/**< \brief Offset: 0x10 (R/W 16) I2CS Status */
+		 RoReg8		Reserved3[0x2];
+	__IO uint32_t	ADDR;        	/**< \brief Offset: 0x14 (R/W 32) I2CS Address */
+	__IO uint8_t	DATA;        	/**< \brief Offset: 0x18 (R/W  8) I2CS Data */
 } SercomI2cs;
+
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /** \brief SERCOM_SPI hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef struct { /* SPI Mode */
-  __IO SERCOM_SPI_CTRLA_Type     CTRLA;       /**< \brief Offset: 0x00 (R/W 32) SPI Control A */
-  __IO SERCOM_SPI_CTRLB_Type     CTRLB;       /**< \brief Offset: 0x04 (R/W 32) SPI Control B */
-  __IO SERCOM_SPI_DBGCTRL_Type   DBGCTRL;     /**< \brief Offset: 0x08 (R/W  8) SPI Debug Control */
-       RoReg8                    Reserved1[0x1];
-  __IO SERCOM_SPI_BAUD_Type      BAUD;        /**< \brief Offset: 0x0A (R/W  8) SPI Baud Rate */
-       RoReg8                    Reserved2[0x1];
-  __IO SERCOM_SPI_INTENCLR_Type  INTENCLR;    /**< \brief Offset: 0x0C (R/W  8) SPI Interrupt Enable Clear */
-  __IO SERCOM_SPI_INTENSET_Type  INTENSET;    /**< \brief Offset: 0x0D (R/W  8) SPI Interrupt Enable Set */
-  __IO SERCOM_SPI_INTFLAG_Type   INTFLAG;     /**< \brief Offset: 0x0E (R/W  8) SPI Interrupt Flag Status and Clear */
-       RoReg8                    Reserved3[0x1];
-  __IO SERCOM_SPI_STATUS_Type    STATUS;      /**< \brief Offset: 0x10 (R/W 16) SPI Status */
-       RoReg8                    Reserved4[0x2];
-  __IO SERCOM_SPI_ADDR_Type      ADDR;        /**< \brief Offset: 0x14 (R/W 32) SPI Address */
-  __IO SERCOM_SPI_DATA_Type      DATA;        /**< \brief Offset: 0x18 (R/W 16) SPI Data */
+
+typedef struct /* SPI Mode */
+{
+	__IO uint32_t	CTRLA;       	/**< \brief Offset: 0x00 (R/W 32) SPI Control A */
+	__IO uint32_t	CTRLB;       	/**< \brief Offset: 0x04 (R/W 32) SPI Control B */
+	__IO uint8_t	DBGCTRL;     	/**< \brief Offset: 0x08 (R/W  8) SPI Debug Control */
+		 RoReg8		Reserved1[0x1];
+	__IO uint8_t	BAUD;        	/**< \brief Offset: 0x0A (R/W  8) SPI Baud Rate */
+		 RoReg8		Reserved2[0x1];
+	__IO uint8_t	INTENCLR;    	/**< \brief Offset: 0x0C (R/W  8) SPI Interrupt Enable Clear */
+	__IO uint8_t	INTENSET;    	/**< \brief Offset: 0x0D (R/W  8) SPI Interrupt Enable Set */
+	__IO uint8_t	INTFLAG;     	/**< \brief Offset: 0x0E (R/W  8) SPI Interrupt Flag Status and Clear */
+		 RoReg8		Reserved3[0x1];
+	__IO uint16_t	STATUS;      	/**< \brief Offset: 0x10 (R/W 16) SPI Status */
+		 RoReg8		Reserved4[0x2];
+	__IO uint32_t	ADDR;        	/**< \brief Offset: 0x14 (R/W 32) SPI Address */
+	__IO uint16_t	DATA;        	/**< \brief Offset: 0x18 (R/W 16) SPI Data */
 } SercomSpi;
+
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /** \brief SERCOM_USART hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef struct { /* USART Mode */
-  __IO SERCOM_USART_CTRLA_Type   CTRLA;       /**< \brief Offset: 0x00 (R/W 32) USART Control A */
-  __IO SERCOM_USART_CTRLB_Type   CTRLB;       /**< \brief Offset: 0x04 (R/W 32) USART Control B */
-  __IO SERCOM_USART_DBGCTRL_Type DBGCTRL;     /**< \brief Offset: 0x08 (R/W  8) USART Debug Control */
-       RoReg8                    Reserved1[0x1];
-  __IO SERCOM_USART_BAUD_Type    BAUD;        /**< \brief Offset: 0x0A (R/W 16) USART Baud */
-  __IO SERCOM_USART_INTENCLR_Type INTENCLR;    /**< \brief Offset: 0x0C (R/W  8) USART Interrupt Enable Clear */
-  __IO SERCOM_USART_INTENSET_Type INTENSET;    /**< \brief Offset: 0x0D (R/W  8) USART Interrupt Enable Set */
-  __IO SERCOM_USART_INTFLAG_Type INTFLAG;     /**< \brief Offset: 0x0E (R/W  8) USART Interrupt Flag Status and Clear */
-       RoReg8                    Reserved2[0x1];
-  __IO SERCOM_USART_STATUS_Type  STATUS;      /**< \brief Offset: 0x10 (R/W 16) USART Status */
-       RoReg8                    Reserved3[0x6];
-  __IO SERCOM_USART_DATA_Type    DATA;        /**< \brief Offset: 0x18 (R/W 16) USART Data */
+
+typedef struct /* USART Mode */
+{
+	__IO uint32_t	CTRLA;       	/**< \brief Offset: 0x00 (R/W 32) USART Control A */
+	__IO uint32_t	CTRLB;       	/**< \brief Offset: 0x04 (R/W 32) USART Control B */
+	__IO uint8_t	DBGCTRL;     	/**< \brief Offset: 0x08 (R/W  8) USART Debug Control */
+		 RoReg8		Reserved1[0x1];
+	__IO uint16_t	BAUD;        	/**< \brief Offset: 0x0A (R/W 16) USART Baud */
+	__IO uint8_t	INTENCLR;    	/**< \brief Offset: 0x0C (R/W  8) USART Interrupt Enable Clear */
+	__IO uint8_t	INTENSET;    	/**< \brief Offset: 0x0D (R/W  8) USART Interrupt Enable Set */
+	__IO uint8_t	INTFLAG;     	/**< \brief Offset: 0x0E (R/W  8) USART Interrupt Flag Status and Clear */
+		 RoReg8		Reserved2[0x1];
+	__IO uint16_t	STATUS;      	/**< \brief Offset: 0x10 (R/W 16) USART Status */
+		 RoReg8		Reserved3[0x6];
+	__IO uint16_t	DATA;        	/**< \brief Offset: 0x18 (R/W 16) USART Data */
 } SercomUsart;
+
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
-       SercomI2cm                I2CM;        /**< \brief Offset: 0x00 I2C Master Mode */
-       SercomI2cs                I2CS;        /**< \brief Offset: 0x00 I2C Slave Mode */
-       SercomSpi                 SPI;         /**< \brief Offset: 0x00 SPI Mode */
-       SercomUsart               USART;       /**< \brief Offset: 0x00 USART Mode */
+
+typedef union 
+{
+			 SercomI2cm                I2CM;        /**< \brief Offset: 0x00 I2C Master Mode */
+			 SercomI2cs                I2CS;        /**< \brief Offset: 0x00 I2C Slave Mode */
+			 SercomSpi                 SPI;         /**< \brief Offset: 0x00 SPI Mode */
+			 SercomUsart               USART;       /**< \brief Offset: 0x00 USART Mode */
 } Sercom;
+
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /*@}*/
