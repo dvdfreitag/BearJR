@@ -43,8 +43,6 @@ extern uint32_t _estack;
 int main(void);
 /** \endcond */
 
-void __libc_init_array(void);
-
 /* Default empty handler */
 void Dummy_Handler(void);
 /* Cortex-M0+ core handlers */
@@ -144,7 +142,7 @@ void Reset_Handler(void)
 	for (dest = &_sbss; dest < &_ebss;) *dest++ = 0;
 	/* Set the vector table base address */
 	src = (uint32_t *)(&_sfixed);
-	SCB->VTOR = ((uint32_t)src & SCB_VTOR_TBLOFF_Msk);
+	SCB.VTOR = ((uint32_t)src & SCB_VTOR_TBLOFF_Msk);
 	/* Overwriting the default value of the NVMCTRL.CTRLB.MANW bit (errata reference 13134) */
 	NVMCTRL.CTRLB = NVMCTRL_CTRLB_MANW;
 		

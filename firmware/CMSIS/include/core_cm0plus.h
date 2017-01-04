@@ -185,9 +185,9 @@
     #warning "__NVIC_PRIO_BITS not defined in device header file; using default!"
   #endif
 
-  #ifndef __Vendor_SysTickConfig
-    #define __Vendor_SysTickConfig    0
-    #warning "__Vendor_SysTickConfig not defined in device header file; using default!"
+  #ifndef __Vendor_SYSTICKConfig
+    #define __Vendor_SYSTICKConfig    0
+    #warning "__Vendor_SYSTICKConfig not defined in device header file; using default!"
   #endif
 #endif
 
@@ -217,7 +217,7 @@
   - Core Register
   - Core NVIC Register
   - Core SCB Register
-  - Core SysTick Register
+  - Core SYSTICK Register
   - Core MPU Register
  ******************************************************************************/
 /** \defgroup CMSIS_core_register Defines and Type Definitions
@@ -450,53 +450,53 @@ typedef struct
 
 
 /** \ingroup  CMSIS_core_register
-    \defgroup CMSIS_SysTick     System Tick Timer (SysTick)
+    \defgroup CMSIS_SYSTICK     System Tick Timer (SYSTICK)
     \brief      Type definitions for the System Timer Registers.
   @{
  */
 
-/** \brief  Structure type to access the System Timer (SysTick).
+/** \brief  Structure type to access the System Timer (SYSTICK).
  */
 typedef struct
 {
-  __IO uint32_t CTRL;                    /*!< Offset: 0x000 (R/W)  SysTick Control and Status Register */
-  __IO uint32_t LOAD;                    /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register       */
-  __IO uint32_t VAL;                     /*!< Offset: 0x008 (R/W)  SysTick Current Value Register      */
-  __I  uint32_t CALIB;                   /*!< Offset: 0x00C (R/ )  SysTick Calibration Register        */
-} SysTick_Type;
+  __IO uint32_t CTRL;                    /*!< Offset: 0x000 (R/W)  SYSTICK Control and Status Register */
+  __IO uint32_t LOAD;                    /*!< Offset: 0x004 (R/W)  SYSTICK Reload Value Register       */
+  __IO uint32_t VAL;                     /*!< Offset: 0x008 (R/W)  SYSTICK Current Value Register      */
+  __I  uint32_t CALIB;                   /*!< Offset: 0x00C (R/ )  SYSTICK Calibration Register        */
+} SYSTICK_Type;
 
-/* SysTick Control / Status Register Definitions */
-#define SysTick_CTRL_COUNTFLAG_Pos         16                                             /*!< SysTick CTRL: COUNTFLAG Position */
-#define SysTick_CTRL_COUNTFLAG_Msk         (1UL << SysTick_CTRL_COUNTFLAG_Pos)            /*!< SysTick CTRL: COUNTFLAG Mask */
+/* SYSTICK Control / Status Register Definitions */
+#define SYSTICK_CTRL_COUNTFLAG_Pos         16                                             /*!< SYSTICK CTRL: COUNTFLAG Position */
+#define SYSTICK_CTRL_COUNTFLAG_Msk         (1UL << SYSTICK_CTRL_COUNTFLAG_Pos)            /*!< SYSTICK CTRL: COUNTFLAG Mask */
 
-#define SysTick_CTRL_CLKSOURCE_Pos          2                                             /*!< SysTick CTRL: CLKSOURCE Position */
-#define SysTick_CTRL_CLKSOURCE_Msk         (1UL << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysTick CTRL: CLKSOURCE Mask */
+#define SYSTICK_CTRL_CLKSOURCE_Pos          2                                             /*!< SYSTICK CTRL: CLKSOURCE Position */
+#define SYSTICK_CTRL_CLKSOURCE_Msk         (1UL << SYSTICK_CTRL_CLKSOURCE_Pos)            /*!< SYSTICK CTRL: CLKSOURCE Mask */
 
-#define SysTick_CTRL_TICKINT_Pos            1                                             /*!< SysTick CTRL: TICKINT Position */
-#define SysTick_CTRL_TICKINT_Msk           (1UL << SysTick_CTRL_TICKINT_Pos)              /*!< SysTick CTRL: TICKINT Mask */
+#define SYSTICK_CTRL_TICKINT_Pos            1                                             /*!< SYSTICK CTRL: TICKINT Position */
+#define SYSTICK_CTRL_TICKINT_Msk           (1UL << SYSTICK_CTRL_TICKINT_Pos)              /*!< SYSTICK CTRL: TICKINT Mask */
 
-#define SysTick_CTRL_ENABLE_Pos             0                                             /*!< SysTick CTRL: ENABLE Position */
-#define SysTick_CTRL_ENABLE_Msk            (1UL << SysTick_CTRL_ENABLE_Pos)               /*!< SysTick CTRL: ENABLE Mask */
+#define SYSTICK_CTRL_ENABLE_Pos             0                                             /*!< SYSTICK CTRL: ENABLE Position */
+#define SYSTICK_CTRL_ENABLE_Msk            (1UL << SYSTICK_CTRL_ENABLE_Pos)               /*!< SYSTICK CTRL: ENABLE Mask */
 
-/* SysTick Reload Register Definitions */
-#define SysTick_LOAD_RELOAD_Pos             0                                             /*!< SysTick LOAD: RELOAD Position */
-#define SysTick_LOAD_RELOAD_Msk            (0xFFFFFFUL << SysTick_LOAD_RELOAD_Pos)        /*!< SysTick LOAD: RELOAD Mask */
+/* SYSTICK Reload Register Definitions */
+#define SYSTICK_LOAD_RELOAD_Pos             0                                             /*!< SYSTICK LOAD: RELOAD Position */
+#define SYSTICK_LOAD_RELOAD_Msk            (0xFFFFFFUL << SYSTICK_LOAD_RELOAD_Pos)        /*!< SYSTICK LOAD: RELOAD Mask */
 
-/* SysTick Current Register Definitions */
-#define SysTick_VAL_CURRENT_Pos             0                                             /*!< SysTick VAL: CURRENT Position */
-#define SysTick_VAL_CURRENT_Msk            (0xFFFFFFUL << SysTick_VAL_CURRENT_Pos)        /*!< SysTick VAL: CURRENT Mask */
+/* SYSTICK Current Register Definitions */
+#define SYSTICK_VAL_CURRENT_Pos             0                                             /*!< SYSTICK VAL: CURRENT Position */
+#define SYSTICK_VAL_CURRENT_Msk            (0xFFFFFFUL << SYSTICK_VAL_CURRENT_Pos)        /*!< SYSTICK VAL: CURRENT Mask */
 
-/* SysTick Calibration Register Definitions */
-#define SysTick_CALIB_NOREF_Pos            31                                             /*!< SysTick CALIB: NOREF Position */
-#define SysTick_CALIB_NOREF_Msk            (1UL << SysTick_CALIB_NOREF_Pos)               /*!< SysTick CALIB: NOREF Mask */
+/* SYSTICK Calibration Register Definitions */
+#define SYSTICK_CALIB_NOREF_Pos            31                                             /*!< SYSTICK CALIB: NOREF Position */
+#define SYSTICK_CALIB_NOREF_Msk            (1UL << SYSTICK_CALIB_NOREF_Pos)               /*!< SYSTICK CALIB: NOREF Mask */
 
-#define SysTick_CALIB_SKEW_Pos             30                                             /*!< SysTick CALIB: SKEW Position */
-#define SysTick_CALIB_SKEW_Msk             (1UL << SysTick_CALIB_SKEW_Pos)                /*!< SysTick CALIB: SKEW Mask */
+#define SYSTICK_CALIB_SKEW_Pos             30                                             /*!< SYSTICK CALIB: SKEW Position */
+#define SYSTICK_CALIB_SKEW_Msk             (1UL << SYSTICK_CALIB_SKEW_Pos)                /*!< SYSTICK CALIB: SKEW Mask */
 
-#define SysTick_CALIB_TENMS_Pos             0                                             /*!< SysTick CALIB: TENMS Position */
-#define SysTick_CALIB_TENMS_Msk            (0xFFFFFFUL << SysTick_CALIB_TENMS_Pos)        /*!< SysTick CALIB: TENMS Mask */
+#define SYSTICK_CALIB_TENMS_Pos             0                                             /*!< SYSTICK CALIB: TENMS Position */
+#define SYSTICK_CALIB_TENMS_Msk            (0xFFFFFFUL << SYSTICK_CALIB_TENMS_Pos)        /*!< SYSTICK CALIB: TENMS Mask */
 
-/*@} end of group CMSIS_SysTick */
+/*@} end of group CMSIS_SYSTICK */
 
 #if (__MPU_PRESENT == 1)
 /** \ingroup  CMSIS_core_register
@@ -603,17 +603,17 @@ typedef struct
 
 /* Memory mapping of Cortex-M0+ Hardware */
 #define SCS_BASE            (0xE000E000UL)                            /*!< System Control Space Base Address */
-#define SysTick_BASE        (SCS_BASE +  0x0010UL)                    /*!< SysTick Base Address              */
+#define SYSTICK_BASE        (SCS_BASE +  0x0010UL)                    /*!< SYSTICK Base Address              */
 #define NVIC_BASE           (SCS_BASE +  0x0100UL)                    /*!< NVIC Base Address                 */
 #define SCB_BASE            (SCS_BASE +  0x0D00UL)                    /*!< System Control Block Base Address */
 
-#define SCB                 ((SCB_Type       *)     SCB_BASE      )   /*!< SCB configuration struct           */
-#define SysTick             ((SysTick_Type   *)     SysTick_BASE  )   /*!< SysTick configuration struct       */
-#define NVIC                ((NVIC_Type      *)     NVIC_BASE     )   /*!< NVIC configuration struct          */
+#define SCB                 (*(SCB_Type       *)     SCB_BASE      )   /*!< SCB configuration struct           */
+#define SYSTICK             (*(SYSTICK_Type   *)     SYSTICK_BASE  )   /*!< SYSTICK configuration struct       */
+#define NVIC                (*(NVIC_Type      *)     NVIC_BASE     )   /*!< NVIC configuration struct          */
 
 #if (__MPU_PRESENT == 1)
   #define MPU_BASE          (SCS_BASE +  0x0D90UL)                    /*!< Memory Protection Unit             */
-  #define MPU               ((MPU_Type       *)     MPU_BASE      )   /*!< Memory Protection Unit             */
+  #define MPU               (*(MPU_Type       *)     MPU_BASE      )   /*!< Memory Protection Unit             */
 #endif
 
 /*@} */
@@ -624,7 +624,7 @@ typedef struct
  *                Hardware Abstraction Layer
   Core Function Interface contains:
   - Core NVIC Functions
-  - Core SysTick Functions
+  - Core SYSTICK Functions
   - Core Register Access Functions
  ******************************************************************************/
 /** \defgroup CMSIS_Core_FunctionInterface Functions and Instructions Reference
@@ -654,7 +654,7 @@ typedef struct
  */
 __STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
 {
-  NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+  NVIC.ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
 }
 
 
@@ -666,7 +666,7 @@ __STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
  */
 __STATIC_INLINE void NVIC_DisableIRQ(IRQn_Type IRQn)
 {
-  NVIC->ICER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+  NVIC.ICER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
 }
 
 
@@ -682,7 +682,7 @@ __STATIC_INLINE void NVIC_DisableIRQ(IRQn_Type IRQn)
  */
 __STATIC_INLINE uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)
 {
-  return((uint32_t) ((NVIC->ISPR[0] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0));
+  return((uint32_t) ((NVIC.ISPR[0] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0));
 }
 
 
@@ -694,7 +694,7 @@ __STATIC_INLINE uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)
  */
 __STATIC_INLINE void NVIC_SetPendingIRQ(IRQn_Type IRQn)
 {
-  NVIC->ISPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+  NVIC.ISPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
 }
 
 
@@ -706,7 +706,7 @@ __STATIC_INLINE void NVIC_SetPendingIRQ(IRQn_Type IRQn)
  */
 __STATIC_INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
 {
-  NVIC->ICPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* Clear pending interrupt */
+  NVIC.ICPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* Clear pending interrupt */
 }
 
 
@@ -722,10 +722,10 @@ __STATIC_INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
 __STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
 {
   if(IRQn < 0) {
-    SCB->SHP[_SHP_IDX(IRQn)] = (SCB->SHP[_SHP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) |
+    SCB.SHP[_SHP_IDX(IRQn)] = (SCB.SHP[_SHP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) |
         (((priority << (8 - __NVIC_PRIO_BITS)) & 0xFF) << _BIT_SHIFT(IRQn)); }
   else {
-    NVIC->IP[_IP_IDX(IRQn)] = (NVIC->IP[_IP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) |
+    NVIC.IP[_IP_IDX(IRQn)] = (NVIC.IP[_IP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) |
         (((priority << (8 - __NVIC_PRIO_BITS)) & 0xFF) << _BIT_SHIFT(IRQn)); }
 }
 
@@ -745,9 +745,9 @@ __STATIC_INLINE uint32_t NVIC_GetPriority(IRQn_Type IRQn)
 {
 
   if(IRQn < 0) {
-    return((uint32_t)(((SCB->SHP[_SHP_IDX(IRQn)] >> _BIT_SHIFT(IRQn) ) & 0xFF) >> (8 - __NVIC_PRIO_BITS)));  } /* get priority for Cortex-M0 system interrupts */
+    return((uint32_t)(((SCB.SHP[_SHP_IDX(IRQn)] >> _BIT_SHIFT(IRQn) ) & 0xFF) >> (8 - __NVIC_PRIO_BITS)));  } /* get priority for Cortex-M0 system interrupts */
   else {
-    return((uint32_t)(((NVIC->IP[ _IP_IDX(IRQn)] >> _BIT_SHIFT(IRQn) ) & 0xFF) >> (8 - __NVIC_PRIO_BITS)));  } /* get priority for device specific interrupts  */
+    return((uint32_t)(((NVIC.IP[ _IP_IDX(IRQn)] >> _BIT_SHIFT(IRQn) ) & 0xFF) >> (8 - __NVIC_PRIO_BITS)));  } /* get priority for device specific interrupts  */
 }
 
 
@@ -759,7 +759,7 @@ __STATIC_INLINE void NVIC_SystemReset(void)
 {
   __DSB();                                                     /* Ensure all outstanding memory accesses included
                                                                   buffered write are completed before reset */
-  SCB->AIRCR  = ((0x5FA << SCB_AIRCR_VECTKEY_Pos)      |
+  SCB.AIRCR  = ((0x5FA << SCB_AIRCR_VECTKEY_Pos)      |
                  SCB_AIRCR_SYSRESETREQ_Msk);
   __DSB();                                                     /* Ensure completion of memory access */
   while(1);                                                    /* wait until reset */
@@ -769,14 +769,14 @@ __STATIC_INLINE void NVIC_SystemReset(void)
 
 
 
-/* ##################################    SysTick function  ############################################ */
+/* ##################################    SYSTICK function  ############################################ */
 /** \ingroup  CMSIS_Core_FunctionInterface
-    \defgroup CMSIS_Core_SysTickFunctions SysTick Functions
+    \defgroup CMSIS_Core_SYSTICKFunctions SYSTICK Functions
     \brief      Functions that configure the System.
   @{
  */
 
-#if (__Vendor_SysTickConfig == 0)
+#if (__Vendor_SYSTICKConfig == 0)
 
 /** \brief  System Tick Configuration
 
@@ -788,27 +788,27 @@ __STATIC_INLINE void NVIC_SystemReset(void)
     \return          0  Function succeeded.
     \return          1  Function failed.
 
-    \note     When the variable <b>__Vendor_SysTickConfig</b> is set to 1, then the
-    function <b>SysTick_Config</b> is not included. In this case, the file <b><i>device</i>.h</b>
+    \note     When the variable <b>__Vendor_SYSTICKConfig</b> is set to 1, then the
+    function <b>SYSTICK_Config</b> is not included. In this case, the file <b><i>device</i>.h</b>
     must contain a vendor-specific implementation of this function.
 
  */
-__STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
+__STATIC_INLINE uint32_t SYSTICK_Config(uint32_t ticks)
 {
-  if ((ticks - 1) > SysTick_LOAD_RELOAD_Msk)  return (1);      /* Reload value impossible */
+  if ((ticks - 1) > SYSTICK_LOAD_RELOAD_Msk)  return (1);      /* Reload value impossible */
 
-  SysTick->LOAD  = ticks - 1;                                  /* set reload register */
-  NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);  /* set Priority for Systick Interrupt */
-  SysTick->VAL   = 0;                                          /* Load the SysTick Counter Value */
-  SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
-                   SysTick_CTRL_TICKINT_Msk   |
-                   SysTick_CTRL_ENABLE_Msk;                    /* Enable SysTick IRQ and SysTick Timer */
+  SYSTICK.LOAD  = ticks - 1;                                  /* set reload register */
+  NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);  /* set Priority for SYSTICK Interrupt */
+  SYSTICK.VAL   = 0;                                          /* Load the SYSTICK Counter Value */
+  SYSTICK.CTRL  = SYSTICK_CTRL_CLKSOURCE_Msk |
+                   SYSTICK_CTRL_TICKINT_Msk   |
+                   SYSTICK_CTRL_ENABLE_Msk;                    /* Enable SYSTICK IRQ and SYSTICK Timer */
   return (0);                                                  /* Function successful */
 }
 
 #endif
 
-/*@} end of CMSIS_Core_SysTickFunctions */
+/*@} end of CMSIS_Core_SYSTICKFunctions */
 
 
 
