@@ -1,4 +1,5 @@
 #include <stdarg.h>
+#include <stddef.h>
 #include "samd20e18.h"
 
 int printf(const char *fmt, ...);
@@ -118,7 +119,7 @@ void tc_init(void)
 	// Wait for TC0 to synchronize
 	while (TC0.COUNT16.STATUS & TC_STATUS_SYNCBUSY);
 	// Set TC period to 2000, 2MHz / 1000Hz = 2000Hz
-	TC0.COUNT16.CC[0] = 0x07D0;
+	TC0.COUNT16.CC[0] = 0x0002;
 	// Wait TC0 to finish synchronizing
 	while (TC0.COUNT16.STATUS & TC_STATUS_SYNCBUSY);
 	// Enable TC overflow interrupts
@@ -142,7 +143,7 @@ void system_init(void)
 	sei();
 }
 
-uint32_t benchmark(void (*func)(void))
+uint32_t benchmark(void (*func)(void*), void *data)
 {
 	// Sanity check
 	if (!func)
@@ -156,7 +157,7 @@ uint32_t benchmark(void (*func)(void))
 	// Enable TC0 - start counting
 	TC0.COUNT16.CTRLA |= TC_CTRLA_ENABLE;
 	// Call function under test
-	(*func)();
+	(*func)(data);
 	// Capture millis
 	uint32_t time = millis;
 	// Wait for TC0 to synchronize
@@ -173,13 +174,19 @@ uint32_t benchmark(void (*func)(void))
 	return time;
 }
 
-void empty_benchmark(void) { }
+void empty_benchmark(void *data) { asm volatile("nop"); }
 
 
 #define COUNT 0x00FFFFFF
-void count_benchmark(void)
+void count_benchmark(void *data)
 {
-	for (volatile uint32_t i = 0; i < COUNT; i++);
+	uint32_t *ptr = data;
+	uint32_t count;
+
+	if (ptr) count = *ptr;
+	else count = COUNT;
+
+	for (volatile uint32_t i = 0; i < count; i++);
 }
 
 void TC0_Handler(void)
@@ -192,7 +199,10 @@ int main(void)
 {
 	system_init();
 
-	printf("Counting to %d took %dms\r\n", COUNT, benchmark(&count_benchmark));
+	printf("Empty benchmark took %dus\r\n", benchmark(&empty_benchmark, NULL));
+
+	uint32_t count = 0x000FFFFF;
+	printf("Counting to %d took %dus\r\n", COUNT, benchmark(&count_benchmark, &count));
 
 	while(1);
 }
