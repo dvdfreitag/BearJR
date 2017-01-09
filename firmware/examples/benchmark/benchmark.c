@@ -199,10 +199,26 @@ int main(void)
 {
 	system_init();
 
-	printf("Empty benchmark took %dus\r\n", benchmark(&empty_benchmark, NULL));
+	uint32_t count = 0x0000FFFF;
 
-	uint32_t count = 0x000FFFFF;
-	printf("Counting to %d took %dus\r\n", COUNT, benchmark(&count_benchmark, &count));
+	for (uint32_t i = 0; i < 10; i++)
+	{
+		// Wait for TC0 to synchronize
+		while (TC0.COUNT16.STATUS & TC_STATUS_SYNCBUSY);
+		// Set TC period to 2000, 2MHz / 1000Hz = 2000Hz
+		TC0.COUNT16.CC[0] = 2;
+
+		printf("Counting to %d took %dus\r\n", count, benchmark(&count_benchmark, &count));
+
+		// Wait for TC0 to synchronize
+		while (TC0.COUNT16.STATUS & TC_STATUS_SYNCBUSY);
+		// Set TC period to 2000, 2MHz / 1000Hz = 2000Hz
+		TC0.COUNT16.CC[0] = 2000;
+
+		printf("Counting to %d took %dms\r\n", count, benchmark(&count_benchmark, &count));
+
+		count *= 2;
+	}
 
 	while(1);
 }
