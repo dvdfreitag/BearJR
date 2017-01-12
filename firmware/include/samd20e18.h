@@ -366,9 +366,9 @@ void PTC_Handler                 ( void );
 #define AC_INST_NUM       1                          /**< \brief (AC) Number of instances */
 #define AC_INSTS          { AC }                     /**< \brief (AC) Instances List */
 
-#define ADC               ((Adc      *)0x42004000UL) /**< \brief (ADC) APB Base Address */
-#define ADC_INST_NUM      1                          /**< \brief (ADC) Number of instances */
-#define ADC_INSTS         { ADC }                    /**< \brief (ADC) Instances List */
+#define ADC               (*(Adc      *)0x42004000UL) /**< \brief (ADC) APB Base Address */
+#define ADC_INST_NUM      1                           /**< \brief (ADC) Number of instances */
+#define ADC_INSTS         { ADC }                     /**< \brief (ADC) Instances List */
 
 #define DAC               ((Dac      *)0x42004800UL) /**< \brief (DAC) APB Base Address */
 #define DAC_INST_NUM      1                          /**< \brief (DAC) Number of instances */
