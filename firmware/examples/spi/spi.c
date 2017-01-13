@@ -101,7 +101,7 @@ void system_init(void)
 	sei();
 }
 
-int spi_write(const uint8_t *ptr, int len)
+int spi_writez(const uint8_t *ptr, int len)
 {
 	int nChars = 0;
 	
