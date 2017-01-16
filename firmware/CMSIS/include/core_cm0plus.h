@@ -185,9 +185,9 @@
     #warning "__NVIC_PRIO_BITS not defined in device header file; using default!"
   #endif
 
-  #ifndef __Vendor_SYSTICKConfig
-    #define __Vendor_SYSTICKConfig    0
-    #warning "__Vendor_SYSTICKConfig not defined in device header file; using default!"
+  #ifndef __Vendor_SysTickConfig
+    #define __Vendor_SysTickConfig    0
+    #warning "__Vendor_SysTickConfig not defined in device header file; using default!"
   #endif
 #endif
 
@@ -607,13 +607,13 @@ typedef struct
 #define NVIC_BASE           (SCS_BASE +  0x0100UL)                    /*!< NVIC Base Address                 */
 #define SCB_BASE            (SCS_BASE +  0x0D00UL)                    /*!< System Control Block Base Address */
 
-#define SCB                 (*(SCB_Type       *)     SCB_BASE      )   /*!< SCB configuration struct           */
-#define SYSTICK             (*(SYSTICK_Type   *)     SYSTICK_BASE  )   /*!< SYSTICK configuration struct       */
-#define NVIC                (*(NVIC_Type      *)     NVIC_BASE     )   /*!< NVIC configuration struct          */
+#define SCB                 (*(SCB_Type       *)     SCB_BASE      )  /*!< SCB configuration struct           */
+#define SYSTICK             (*(SYSTICK_Type   *)     SYSTICK_BASE  )  /*!< SYSTICK configuration struct       */
+#define NVIC                (*(NVIC_Type      *)     NVIC_BASE     )  /*!< NVIC configuration struct          */
 
 #if (__MPU_PRESENT == 1)
   #define MPU_BASE          (SCS_BASE +  0x0D90UL)                    /*!< Memory Protection Unit             */
-  #define MPU               (*(MPU_Type       *)     MPU_BASE      )   /*!< Memory Protection Unit             */
+  #define MPU               (*(MPU_Type       *)     MPU_BASE      )  /*!< Memory Protection Unit             */
 #endif
 
 /*@} */

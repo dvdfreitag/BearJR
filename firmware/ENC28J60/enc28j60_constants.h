@@ -1,5 +1,5 @@
-#include "enc28j60.h"
-#include "spi.h"
+#ifndef _ENC28J60_H_
+#define _ENC28J60_H_
 
 // Bank 0				Bank 1				Bank 2				Bank 3
 // 0x00 ERDPTL			0x00 EHT0			0x00 MACON1			0x00 MAADR5
@@ -42,95 +42,96 @@
 #define BANK3					0x60
 
 // Bank 0 addresses
-#define ERDPTL_ADDR				(BANK0) | (0x00)
-#define ERDPTH_ADDR				(BANK0) | (0x01)
-#define EWRPTL_ADDR				(BANK0) | (0x02)
-#define EWRPTH_ADDR				(BANK0) | (0x03)
-#define ETXSTL_ADDR				(BANK0) | (0x04)
-#define ETXSTH_ADDR				(BANK0) | (0x05)
-#define ETXNDL_ADDR				(BANK0) | (0x06)
-#define ETXNDH_ADDR				(BANK0) | (0x07)
-#define ERXSTL_ADDR				(BANK0) | (0x08)
-#define ERXSTH_ADDR				(BANK0) | (0x09)
-#define ERXNDL_ADDR				(BANK0) | (0x0A)
-#define ERXNDH_ADDR				(BANK0) | (0x0B)
-#define ERXRDPTL_ADDR			(BANK0) | (0x0C)
-#define ERXRDPTH_ADDR			(BANK0) | (0x0D)
-#define ERXWRPTL_ADDR			(BANK0) | (0x0E)
-#define ERXWRPTH_ADDR			(BANK0) | (0x0F)
-#define EDMASTL_ADDR			(BANK0) | (0x10)
-#define EDMASTH_ADDR			(BANK0) | (0x11)
-#define EDMANDL_ADDR			(BANK0) | (0x12)
-#define EDMANDH_ADDR			(BANK0) | (0x13)
-#define EDMADSTL_ADDR			(BANK0) | (0x14)
-#define EDMADSTH_ADDR			(BANK0) | (0x15)
-#define EDMACSL_ADDR			(BANK0) | (0x16)
-#define EDMACSH_ADDR			(BANK0) | (0x17)
-#define EIE_ADDR				(BANK0) | (0x1B)
-#define EIR_ADDR				(BANK0) | (0x1C)
-#define ESTAT_ADDR				(BANK0) | (0x1D)
-#define ECON2_ADDR				(BANK0) | (0x1E)
-#define ECON1_ADDR				(BANK0) | (0x1F)
+#define ERDPTL_ADDR				((BANK0) | (0x00))
+#define ERDPTH_ADDR				((BANK0) | (0x01))
+#define EWRPTL_ADDR				((BANK0) | (0x02))
+#define EWRPTH_ADDR				((BANK0) | (0x03))
+#define ETXSTL_ADDR				((BANK0) | (0x04))
+#define ETXSTH_ADDR				((BANK0) | (0x05))
+#define ETXNDL_ADDR				((BANK0) | (0x06))
+#define ETXNDH_ADDR				((BANK0) | (0x07))
+#define ERXSTL_ADDR				((BANK0) | (0x08))
+#define ERXSTH_ADDR				((BANK0) | (0x09))
+#define ERXNDL_ADDR				((BANK0) | (0x0A))
+#define ERXNDH_ADDR				((BANK0) | (0x0B))
+#define ERXRDPTL_ADDR			((BANK0) | (0x0C))
+#define ERXRDPTH_ADDR			((BANK0) | (0x0D))
+#define ERXWRPTL_ADDR			((BANK0) | (0x0E))
+#define ERXWRPTH_ADDR			((BANK0) | (0x0F))
+#define EDMASTL_ADDR			((BANK0) | (0x10))
+#define EDMASTH_ADDR			((BANK0) | (0x11))
+#define EDMANDL_ADDR			((BANK0) | (0x12))
+#define EDMANDH_ADDR			((BANK0) | (0x13))
+#define EDMADSTL_ADDR			((BANK0) | (0x14))
+#define EDMADSTH_ADDR			((BANK0) | (0x15))
+#define EDMACSL_ADDR			((BANK0) | (0x16))
+#define EDMACSH_ADDR			((BANK0) | (0x17))
+#define EIE_ADDR				((BANK0) | (0x1B))
+#define EIR_ADDR				((BANK0) | (0x1C))
+#define ESTAT_ADDR				((BANK0) | (0x1D))
+#define ECON2_ADDR				((BANK0) | (0x1E))
+#define ECON1_ADDR				((BANK0) | (0x1F))
 
 // Bank 1 addresses
-#define EHT0_ADDR				(BANK1) | (0x00)
-#define EHT1_ADDR				(BANK1) | (0x01)
-#define EHT2_ADDR				(BANK1) | (0x02)
-#define EHT3_ADDR				(BANK1) | (0x03)
-#define EHT4_ADDR				(BANK1) | (0x04)
-#define EHT5_ADDR				(BANK1) | (0x05)
-#define EHT6_ADDR				(BANK1) | (0x06)
-#define EHT7_ADDR				(BANK1) | (0x07)
-#define EPMM0_ADDR				(BANK1) | (0x08)
-#define EPMM1_ADDR				(BANK1) | (0x09)
-#define EPMM2_ADDR				(BANK1) | (0x0A)
-#define EPMM3_ADDR				(BANK1) | (0x0B)
-#define EPMM4_ADDR				(BANK1) | (0x0C)
-#define EPMM5_ADDR				(BANK1) | (0x0D)
-#define EPMM6_ADDR				(BANK1) | (0x0E)
-#define EPMM7_ADDR				(BANK1) | (0x0F)
-#define EPMCSL_ADDR				(BANK1) | (0x10)
-#define EPMCSH_ADDR				(BANK1) | (0x11)
-#define EPMOL_ADDR				(BANK1) | (0x14)
-#define EPMOH_ADDR				(BANK1) | (0x15)
-#define ERXFCON_ADDR			(BANK1) | (0x18)
-#define EPKTCNT_ADDR			(BANK1) | (0x19)
+#define EHT0_ADDR				((BANK1) | (0x00))
+#define EHT1_ADDR				((BANK1) | (0x01))
+#define EHT2_ADDR				((BANK1) | (0x02))
+#define EHT3_ADDR				((BANK1) | (0x03))
+#define EHT4_ADDR				((BANK1) | (0x04))
+#define EHT5_ADDR				((BANK1) | (0x05))
+#define EHT6_ADDR				((BANK1) | (0x06))
+#define EHT7_ADDR				((BANK1) | (0x07))
+#define EPMM0_ADDR				((BANK1) | (0x08))
+#define EPMM1_ADDR				((BANK1) | (0x09))
+#define EPMM2_ADDR				((BANK1) | (0x0A))
+#define EPMM3_ADDR				((BANK1) | (0x0B))
+#define EPMM4_ADDR				((BANK1) | (0x0C))
+#define EPMM5_ADDR				((BANK1) | (0x0D))
+#define EPMM6_ADDR				((BANK1) | (0x0E))
+#define EPMM7_ADDR				((BANK1) | (0x0F))
+#define EPMCSL_ADDR				((BANK1) | (0x10))
+#define EPMCSH_ADDR				((BANK1) | (0x11))
+#define EPMOL_ADDR				((BANK1) | (0x14))
+#define EPMOH_ADDR				((BANK1) | (0x15))
+#define ERXFCON_ADDR			((BANK1) | (0x18))
+#define EPKTCNT_ADDR			((BANK1) | (0x19))
 
 // Bank 2 addresses
-#define MACON1_ADDR				(BANK2) | (0x00)
-#define MACON3_ADDR				(BANK2) | (0x02)
-#define MACON4_ADDR				(BANK2) | (0x03)
-#define MABBIPG_ADDR			(BANK2) | (0x04)
-#define MAIPGL_ADDR				(BANK2) | (0x06)
-#define MAIPGH_ADDR				(BANK2) | (0x07)
-#define MACLCON1_ADDR			(BANK2) | (0x08)
-#define MACLCON2_ADDR			(BANK2) | (0x09)
-#define MAMXFLL_ADDR			(BANK2) | (0x0A)
-#define MAMXFLH_ADDR			(BANK2) | (0x0B)
-#define MICMD_ADDR				(BANK2) | (0x12)
-#define MIREGADR_ADDR			(BANK2) | (0x14)
-#define MIWRL_ADDR				(BANK2) | (0x16)
-#define MIWRH_ADDR				(BANK2) | (0x17)
-#define MIRDL_ADDR				(BANK2) | (0x18)
-#define MIRDH_ADDR				(BANK2) | (0x19)
+#define MACON1_ADDR				((BANK2) | (0x00))
+#define MACON2_ADDR				((BANK2) | (0x01))
+#define MACON3_ADDR				((BANK2) | (0x02))
+#define MACON4_ADDR				((BANK2) | (0x03))
+#define MABBIPG_ADDR			((BANK2) | (0x04))
+#define MAIPGL_ADDR				((BANK2) | (0x06))
+#define MAIPGH_ADDR				((BANK2) | (0x07))
+#define MACLCON1_ADDR			((BANK2) | (0x08))
+#define MACLCON2_ADDR			((BANK2) | (0x09))
+#define MAMXFLL_ADDR			((BANK2) | (0x0A))
+#define MAMXFLH_ADDR			((BANK2) | (0x0B))
+#define MICMD_ADDR				((BANK2) | (0x12))
+#define MIREGADR_ADDR			((BANK2) | (0x14))
+#define MIWRL_ADDR				((BANK2) | (0x16))
+#define MIWRH_ADDR				((BANK2) | (0x17))
+#define MIRDL_ADDR				((BANK2) | (0x18))
+#define MIRDH_ADDR				((BANK2) | (0x19))
 
 // Bank 3 addresses
-#define MAADR5_ADDR				(BANK3) | (0x00)
-#define MAADR6_ADDR				(BANK3) | (0x01)
-#define MAADR3_ADDR				(BANK3) | (0x02)
-#define MAADR4_ADDR				(BANK3) | (0x03)
-#define MAADR1_ADDR				(BANK3) | (0x04)
-#define MAADR2_ADDR				(BANK3) | (0x05)
-#define EBSTSD_ADDR				(BANK3) | (0x06)
-#define EBSTCON_ADDR			(BANK3) | (0x07)
-#define EBSTCSL_ADDR			(BANK3) | (0x08)
-#define EBSTCSH_ADDR			(BANK3) | (0x09)
-#define MISTAT_ADDR				(BANK3) | (0x0A)
-#define EREVID_ADDR				(BANK3) | (0x12)
-#define ECOCON_ADDR				(BANK3) | (0x15)
-#define EFLOCON_ADDR			(BANK3) | (0x17)
-#define EPAUSL_ADDR				(BANK3) | (0x18)
-#define EPAUSH_ADDR				(BANK3) | (0x19)
+#define MAADR4_ADDR				((BANK3) | (0x00))
+#define MAADR5_ADDR				((BANK3) | (0x01))
+#define MAADR2_ADDR				((BANK3) | (0x02))
+#define MAADR3_ADDR				((BANK3) | (0x03))
+#define MAADR0_ADDR				((BANK3) | (0x04))
+#define MAADR1_ADDR				((BANK3) | (0x05))
+#define EBSTSD_ADDR				((BANK3) | (0x06))
+#define EBSTCON_ADDR			((BANK3) | (0x07))
+#define EBSTCSL_ADDR			((BANK3) | (0x08))
+#define EBSTCSH_ADDR			((BANK3) | (0x09))
+#define MISTAT_ADDR				((BANK3) | (0x0A))
+#define EREVID_ADDR				((BANK3) | (0x12))
+#define ECOCON_ADDR				((BANK3) | (0x15))
+#define EFLOCON_ADDR			((BANK3) | (0x17))
+#define EPAUSL_ADDR				((BANK3) | (0x18))
+#define EPAUSH_ADDR				((BANK3) | (0x19))
 
 // Control register reset values
 #define EIE_RESET_VAL			0x00	// INTIE PKTIE DMAIE LINKIE TXIE r TXERIE RXERIE
@@ -223,61 +224,137 @@
 #define OPCODE_WBM				0x7A	// Write Buffer Memory
 #define OPCODE_BFS				0x80	// Bit-Field Set
 #define OPCODE_BFC				0xA0	// Bit-Field Clear
-#define OPCODE_SRC				0xEF	// System Reset Command
+#define OPCODE_SRC				0xFF	// System Reset Command
 
 #define OPCODE_ADDR_MSK 		0x1F	// Opcode address mask
 
-uint8_t CurrentBank = 0;
+// ENC28J60 ERXFCON Register Bit Definitions
+#define ERXFCON_UCEN			0x80
+#define ERXFCON_ANDOR			0x40
+#define ERXFCON_CRCEN			0x20
+#define ERXFCON_PMEN			0x10
+#define ERXFCON_MPEN			0x08
+#define ERXFCON_HTEN			0x04
+#define ERXFCON_MCEN			0x02
+#define ERXFCON_BCEN			0x01
+// ENC28J60 EIE Register Bit Definitions
+#define EIE_INTIE				0x80
+#define EIE_PKTIE				0x40
+#define EIE_DMAIE				0x20
+#define EIE_LINKIE				0x10
+#define EIE_TXIE				0x08
+#define EIE_WOLIE				0x04
+#define EIE_TXERIE				0x02
+#define EIE_RXERIE				0x01
+// ENC28J60 EIR Register Bit Definitions
+#define EIR_PKTIF				0x40
+#define EIR_DMAIF				0x20
+#define EIR_LINKIF				0x10
+#define EIR_TXIF				0x08
+#define EIR_WOLIF				0x04
+#define EIR_TXERIF				0x02
+#define EIR_RXERIF				0x01
+// ENC28J60 ESTAT Register Bit Definitions
+#define ESTAT_INT				0x80
+#define ESTAT_LATECOL			0x10
+#define ESTAT_RXBUSY			0x04
+#define ESTAT_TXABRT			0x02
+#define ESTAT_CLKRDY			0x01
+// ENC28J60 ECON2 Register Bit Definitions
+#define ECON2_AUTOINC			0x80
+#define ECON2_PKTDEC			0x40
+#define ECON2_PWRSV				0x20
+#define ECON2_VRPS				0x08
+// ENC28J60 ECON1 Register Bit Definitions
+#define ECON1_TXRST				0x80
+#define ECON1_RXRST				0x40
+#define ECON1_DMAST				0x20
+#define ECON1_CSUMEN			0x10
+#define ECON1_TXRTS				0x08
+#define ECON1_RXEN				0x04
+#define ECON1_BSEL1				0x02
+#define ECON1_BSEL0				0x01
+// ENC28J60 MACON1 Register Bit Definitions
+#define MACON1_LOOPBK			0x10
+#define MACON1_TXPAUS			0x08
+#define MACON1_RXPAUS			0x04
+#define MACON1_PASSALL			0x02
+#define MACON1_MARXEN			0x01
+// ENC28J60 MACON2 Register Bit Definitions
+#define MACON2_MARST			0x80
+#define MACON2_RNDRST			0x40
+#define MACON2_MARXRST			0x08
+#define MACON2_RFUNRST			0x04
+#define MACON2_MATXRST			0x02
+#define MACON2_TFUNRST			0x01
+// ENC28J60 MACON3 Register Bit Definitions
+#define MACON3_PADCFG2			0x80
+#define MACON3_PADCFG1			0x40
+#define MACON3_PADCFG0			0x20
+#define MACON3_TXCRCEN			0x10
+#define MACON3_PHDRLEN			0x08
+#define MACON3_HFRMLEN			0x04
+#define MACON3_FRMLNEN			0x02
+#define MACON3_FULDPX			0x01
+// ENC28J60 MICMD Register Bit Definitions
+#define MICMD_MIISCAN			0x02
+#define MICMD_MIIRD				0x01
+// ENC28J60 MISTAT Register Bit Definitions
+#define MISTAT_NVALID			0x04
+#define MISTAT_SCAN				0x02
+#define MISTAT_BUSY				0x01
 
-static void cs_clear(void)
-{
-	PORTA.OUTCLR = PORT_PA18;
-}
+// ENC28J60 EBSTCON Register Bit Definitions
+#define EBSTCON_PSV2			0x80
+#define EBSTCON_PSV1			0x40
+#define EBSTCON_PSV0			0x20
+#define EBSTCON_PSEL			0x10
+#define EBSTCON_TMSEL1			0x08
+#define EBSTCON_TMSEL0			0x04
+#define EBSTCON_TMSEL_PATTERN	EBSTCON_TMSEL1
+#define EBSTCON_TMSEL_ADDRESS	EBSTCON_TMSEL0
+#define EBSTCON_TMSEL_RANDOM	0x00
+#define EBSTCON_TME				0x02
+#define EBSTCON_BISTST			0x01
 
-static void cs_set(void)
-{
-	PORTA.OUTSET = PORT_PA18;	
-}
+// PHY registers
+#define PHCON1_ADDR				0x00
+#define PHSTAT1_ADDR			0x01
+#define PHHID1_ADDR				0x02
+#define PHHID2_ADDR				0x03
+#define PHCON2_ADDR				0x10
+#define PHSTAT2_ADDR			0x11
+#define PHIE_ADDR				0x12
+#define PHIR_ADDR				0x13
+#define PHLCON_ADDR				0x14
 
-static uint8_t read(uint8_t opcode, uint8_t address)
-{
-	uint8_t retval = 0;
+// ENC28J60 PHY PHCON1 Register Bit Definitions
+#define PHCON1_PRST				0x8000
+#define PHCON1_PLOOPBK			0x4000
+#define PHCON1_PPWRSV			0x0800
+#define PHCON1_PDPXMD			0x0100
+// ENC28J60 PHY PHSTAT1 Register Bit Definitions
+#define PHSTAT1_PFDPX			0x1000
+#define PHSTAT1_PHDPX			0x0800
+#define PHSTAT1_LLSTAT			0x0004
+#define PHSTAT1_JBSTAT			0x0002
+// ENC28J60 PHY PHSTAT2 Register Bit Definitions
+#define PHSTAT2_TXSTAT			0x2000
+#define PHSTAT2_RXSTAT			0x1000
+#define PHSTAT2_COLSTAT			0x0800
+#define PHSTAT2_LSTAT			0x0400
+#define PHSTAT2_DPXSTAT			0x0200
+#define PHSTAT2_PLRITY			0x0020
+// ENC28J60 PHY PHCON2 Register Bit Definitions
+#define PHCON2_FRCLINK			0x4000
+#define PHCON2_TXDIS			0x2000
+#define PHCON2_JABBER			0x0400
+#define PHCON2_HDLDIS			0x0100
 
-	cs_clear();
-	spi_write(&SERCOM1, opcode | address & OPCODE_ADDR_MSK);
-	spi_read(&SERCOM1, &retval);
-	cs_set();
+// ENC28J60 Packet Control Byte Bit Definitions
+#define PKTCTRL_PHUGEEN			0x08
+#define PKTCTRL_PPADEN			0x04
+#define PKTCTRL_PCRCEN			0x02
+#define PKTCTRL_POVERRIDE		0x01
 
-	return retval;
-}
-
-static uint8_t read_mac(uint8_t address)
-{
-	uint8_t retval = 0;
-
-	cs_clear();
-	spi_write(&SERCOM1, address & OPCODE_ADDR_MSK);
-	spi_write(&SERCOM1, 0x00);
-	spi_read(&SERCOM1, &retval);
-	cs_set();
-
-	return retval;
-}
-
-static void write(uint8_t opcode, uint8_t address, uint8_t data)
-{
-	cs_clear();
-	spi_write(&SERCOM1, opcode | (address & OPCODE_ADDR_MSK));
-	spi_write(&SERCOM1, data);
-	cs_set();
-}
-
-static void set_bank(uint8_t address)
-{
-	uint8_t bank = address & BANK_MASK;
-
-	if (bank != CurrentBank)
-	{
-		write(OPCODE_BFC, ECON1_ADDR, )
-	}
-}
+#endif

@@ -207,6 +207,8 @@ void PTC_Handler                 ( void );
 #define __VTOR_PRESENT         1         /*!< VTOR present or not */
 #define __Vendor_SysTickConfig 0         /*!< Set to 1 if different SysTick Config is used */
 
+#define __NVIC_PRIO_Msk (1<<__NVIC_PRIO_BITS) - 1
+
 /**
  * \brief CMSIS includes
  */

@@ -15,7 +15,7 @@ void adc_init(void)
 	// Wait for ADC synchronization
 	while (!(ADC.STATUS & ADC_STATUS_SYNCBUSY));
 	// Setup 16x gain
-	ADC.INPUTCTRL = ADC_INPUTCTRL_GAIN16X;
+	ADC.INPUTCTRL = ADC_INPUTCTRL_GAIN_16X_Val;
 	// Load ADCcalibration from NVM
 	ADC.CALIB = (uint16_t)(((uint8_t *)NVMCTRL_OTP4)[3] >> 3) | (((uint8_t *)NVMCTRL_OTP4)[4] << 5);
 }

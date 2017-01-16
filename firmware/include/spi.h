@@ -92,6 +92,15 @@ void spi_write(Sercom *sercom, uint8_t data)
 	while (!(sercom->SPI.INTFLAG & SERCOM_USART_INTFLAG_DRE));
 	// Write data
 	sercom->SPI.DATA = data;
+	// Wait for the byte to be shifted in
+	while (!(sercom->SPI.INTFLAG & SERCOM_SPI_INTFLAG_RXC));
+	// Clear receive buffer
+	sercom->USART.DATA;
+}
+
+int spi_transfer_complete(Sercom *sercom)
+{
+	return (sercom->SPI.INTFLAG & SERCOM_SPI_INTFLAG_TXC) != 0;
 }
 
 int spi_write_buffer(Sercom *sercom, uint8_t *buffer, uint32_t length)
@@ -103,12 +112,9 @@ int spi_write_buffer(Sercom *sercom, uint8_t *buffer, uint32_t length)
 		spi_write(sercom, buffer[index]);
 	}
 
-	return index;
-}
+	while (spi_transfer_complete(sercom));
 
-int spi_transfer_complete(Sercom *sercom)
-{
-	return (sercom->SPI.INTFLAG & SERCOM_SPI_INTFLAG_TXC) != 0;
+	return index;
 }
 
 #endif

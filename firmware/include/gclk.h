@@ -1,5 +1,5 @@
-#ifndef _SAMD20E18_TC_H_
-#define _SAMD20E18_TC_H_
+#ifndef _SAMD20E18_GCLK_H_
+#define _SAMD20E18_GCLK_H_
 
 #include "samd20e18.h"
 
