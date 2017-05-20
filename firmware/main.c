@@ -2,6 +2,7 @@
 
 #include "adc.h"
 #include "clock.h"
+#include "extint.h"
 #include "gclk.h"
 #include "spi.h"
 
@@ -23,9 +24,14 @@ void cli()
 	__DMB();
 }
 
+void EIC_Handler(void)
+{
+	// Handle ethernet interrupts
+}
+
 void init(void)
 {
-	sei();
+	cli();
 	gclk_apb_enable();
 
 	configure_osc32k();
@@ -58,9 +64,24 @@ void init(void)
 	spi_set_baud(&SERCOM1, 0x00);
 	spi_enable(&SERCOM1);
 
+	extint_init();
+	extint_enable();
+	// Configure INT pin to input
+	PORTA.DIRCLR = PORT_PA15;
+	// Enable pin pull resistor, input buffer, and peripheral multiplexing
+	PORTA.PINCFG[15] = PORT_PINCFG_PULLEN | PORT_PINCFG_INEN | PORT_PINCFG_PMUXEN;
+	// Set internal pull
+	PORTA.OUTSET = PORT_PA15;
+	// Set EXTINT[15] input sense configuration to falling edge, and enable input filter
+	EIC.CONFIG[1] |= EIC_CONFIG_SENSE7_FALL | EIC_CONFIG_FILTEN7;
+	// Enable interrupts for EXTINT[15]
+	EIC.INTENSET = EIC_INTENSET_EXTINT15;
+	// Globally enable EIC interrupts
+	extint_nvic_enable();
+
 	enc28j60_init();
 	enc28j60_enable();
-	cli();
+	sei();
 }
 
 int main(void)
