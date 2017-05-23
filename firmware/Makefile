@@ -37,12 +37,12 @@ FLASH := 262144
 SRAM := 32768
 
 %.o: %.c
-	@$(CC) -x c -mthumb $(DEFINES) $(INCLUDE_DIRS) $(OPTIMIZE) $(OPTIMIZE_SECTIONS) -mlong-calls -g3 -Wall -Wextra -mcpu=$(CPU) -c -std=gnu99 $(DEPFLAGS) -o "$@" "$<"
+	@$(CC) -mthumb $(DEFINES) $(INCLUDE_DIRS) $(OPTIMIZE) $(OPTIMIZE_SECTIONS) -mlong-calls -g3 -Wall -Wextra -fno-builtin -mcpu=$(CPU) -c -std=gnu99 $(DEPFLAGS) -o "$@" "$<"
 	@echo [CC] $@
 	@$(POSTCOMPILE)
 
 $(TARGET): $(OBJS)
-	@$(CC) -o $(TARGET) $(OBJS) -mthumb -nostartfiles -nodefaultlibs -nostdlib -Wl,-Map="$(MAP)" -Wl,--start-group -Wl,--end-group -Wl,--gc-sections -mcpu=$(CPU) -T$(LINKER_SCRIPT)
+	@$(CC) -o $(TARGET) $(OBJS) -lgcc -mthumb -nostartfiles -nodefaultlibs -nostdlib -fno-builtin -Wl,-Map="$(MAP)" -Wl,--gc-sections -mcpu=$(CPU) -T$(LINKER_SCRIPT)
 	@echo [LD] $@
 	@$(OBJDUMP) -h -S $(TARGET) > $(LSS)
 	@$(SIZE) $(TARGET)

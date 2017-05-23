@@ -48,7 +48,7 @@ void uart_set_baud(Sercom *sercom, uint16_t baud)
 
 void uart_apb_enable(uint32_t sercom)
 {
-	PM.APBCMASK |= PM_APBCMASK_SERCOM0 + sercom;
+	PM.APBCMASK |= (PM_APBCMASK_SERCOM0 << sercom);
 }
 
 uint8_t uart_read_block(Sercom *sercom)
@@ -69,7 +69,7 @@ uint8_t uart_read(Sercom *sercom, uint8_t *data)
 	return 1;
 }
 
-int uart_read_buffer_block(Sercom *sercom, uin8_t *buffer, uint32_t length)
+int uart_read_buffer_block(Sercom *sercom, uint8_t *buffer, uint32_t length)
 {
 	uint32_t index = 0;
 

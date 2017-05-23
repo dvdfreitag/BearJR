@@ -46,7 +46,7 @@ void spi_set_baud(Sercom *sercom, uint8_t baud)
 
 void spi_apb_enable(uint32_t sercom)
 {
-	PM.APBCMASK |= PM_APBCMASK_SERCOM0 + sercom;
+	PM.APBCMASK |= (PM_APBCMASK_SERCOM0 << sercom);
 }
 
 void spi_flush(Sercom *sercom)

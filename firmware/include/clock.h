@@ -14,10 +14,14 @@ extern volatile uint32_t millis;
  */
 void configure_osc32k(void)
 {
+	// Set the NVM controller to use two wait states when reading
+	NVMCTRL.CTRLB = (NVMCTRL.CTRLB & ~NVMCTRL_CTRLB_RWS_Msk) | NVMCTRL_CTRLB_RWS(2);
 	// Load internal 32kHz oscillator calibration from NVM
 	uint32_t cal = ((*(uint32_t *)FUSES_OSC32KCAL_ADDR) & FUSES_OSC32KCAL_Msk) >> FUSES_OSC32KCAL_Pos;
 	// Enable internal 32kHz oscillator with 130 cycle startup time
 	SYSCTRL.OSC32K = SYSCTRL_OSC32K_CALIB(cal) | SYSCTRL_OSC32K_STARTUP_Msk | SYSCTRL_OSC32K_EN32K | SYSCTRL_OSC32K_ENABLE;
+	// Set the GCLK bit in the power manager for APBA
+	gclk_apb_enable();
 	// Set GCLK divider
 	gclk_gendiv(GCLK_GENDIV_ID_GCLK2, 0);
 	// Setup GCLK generator 2 for OSC32K
@@ -30,8 +34,6 @@ void configure_osc32k(void)
  */
 void configure_dfll(void)
 {
-	// Set the NVM controller to use two wait states when reading
-	NVMCTRL.CTRLB = (NVMCTRL.CTRLB & ~NVMCTRL_CTRLB_RWS_Msk) | NVMCTRL_CTRLB_RWS(2);
 	// Clear ONDEMAND from DFLLCTRL as per errata
 	SYSCTRL.DFLLCTRL &= ~SYSCTRL_DFLLCTRL_ONDEMAND;
 	// Wait for GCLK sync
@@ -58,10 +60,12 @@ void configure_osc8m(void)
 	SYSCTRL.OSC8M &= 0xFFFF0000;
 	// Set OSC8M prescaler to div4 (producing 2MHz output) and re-enable
 	SYSCTRL.OSC8M |= SYSCTRL_OSC8M_PRESC(2) | SYSCTRL_OSC8M_ENABLE;
+	// Wait for GCLK sync
+	while (GCLK.STATUS & GCLK_STATUS_SYNCBUSY);
 	// Set GCLK divider
 	gclk_gendiv(GCLK_GENDIV_ID_GCLK3, 0);
 	// Setup GCLK generator 3 for OSC8M
-	gclk_genctrl(GCLK_GENCTRL_ID_GCLK3, GCLK_GENCTRL_SRC_OSC8M, 0, GCLK_GENCTRL_IDC);
+	gclk_genctrl(GCLK_GENCTRL_ID_GCLK3, GCLK_GENCTRL_SRC_OSC8M, 0, 0);
 }
 
 void configure_systick(void)

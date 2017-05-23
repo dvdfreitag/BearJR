@@ -67,7 +67,7 @@ static void set_bank(uint8_t address)
 	}
 }
 
-static uint8_t read(uint8_t address)
+uint8_t read(uint8_t address)
 {
 	uint8_t temp = address & OPCODE_ADDR_MSK;
 	if (temp < EIE_ADDR) set_bank(address);

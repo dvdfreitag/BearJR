@@ -11,6 +11,8 @@ void gclk_clkctrl(uint32_t generator, uint32_t id)
 void gclk_gendiv(uint32_t id, uint32_t div)
 {
 	GCLK.GENDIV = id | div;
+	// Wait for GCLK sync
+	while (GCLK.STATUS & GCLK_STATUS_SYNCBUSY);
 }
 
 void gclk_genctrl(uint32_t id, uint32_t source, uint32_t divsel, uint32_t idc)

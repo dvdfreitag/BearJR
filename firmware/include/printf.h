@@ -446,7 +446,7 @@ int sprintf(char *buf, const char *fmt, ...)
 /* In order to make printf work, puts must be implemented to write to the desired
  *  peripheral. By default, it is crippled and does nothing.
  */
-void puts(char *ptr) __attribute__((weak)) { }
+__attribute__((weak)) void puts(__attribute__((unused)) char *ptr);
 
 int printf(const char *fmt, ...)
 {
